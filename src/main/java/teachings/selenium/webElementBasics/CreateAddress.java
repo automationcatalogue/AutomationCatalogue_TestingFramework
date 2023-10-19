@@ -5,10 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
-import testdata.CreateAddressData;
+
 
 public class CreateAddress {
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         WebDriver driver = new ChromeDriver();
         System.out.println("Chrome browser is launched");
 
@@ -79,5 +79,5 @@ public class CreateAddress {
         driver.findElement(By.className("button-1 save-address-button")).click();
         System.out.println("Save button is clicked");
 
-    }
+    }*/
 }
