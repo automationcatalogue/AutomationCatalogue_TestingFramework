@@ -56,6 +56,38 @@ public class PageLocators {
 
     public static final By textCash = By.xpath("//td[text()='Cash in Advance']");
 
+    public static final By txtbx_userName = By.xpath("//input[@id='txtUsername']");
+    public static final By txtbx_pass = By.cssSelector("#txtPassword");
+    public static final By butt_Login = By.cssSelector("button[type='submit']");
+    public static final By perfor_Tab = By.xpath("//a[@class=' main-menu-item-1' and @data-tooltip='Performance']/span");
+    public static final By add_Appraisal = By.xpath("//i[@class='material-icons' and text()='add']");
+    public static final By txtbx_Employee = By.cssSelector("input[name='employeeAppraisal[emp_name][empName]']");
+    public static final By empName = By.xpath("//div[text()='1116']");
+    public static final By description = By.cssSelector("#employeeAppraisal_description");
+    public static final By durationDropdown = By.xpath("//div[@class='select-wrapper']");
+    public static final By timePeriod = By.xpath("//div[@class='select-wrapper']/ul/li/span");
+    public static final By dateFrom = By.cssSelector("#date_from");
+    public static final By fromMonth = By.xpath("//div[@class='select-wrapper picker__select--month']");
+    public static final By fromMonth1 = By.xpath("//div[@class='select-wrapper picker__select--month']/ul/li/span");
+    public static final By fromYear = By.xpath("//div[@class='select-wrapper picker__select--year']");
+    public static final By fromYear1 = By.xpath("//div[@class='select-wrapper picker__select--year']/ul/li/span");
+    public static final By fromDate = By.xpath("(//table[@class='picker__table'])[1]/tbody/tr/td/div[contains(@class,'infocus')]");
+    public static final By toDatedrop = By.cssSelector("#date_to");
+    public static final By toMonth = By.xpath("(//div[@class='select-wrapper picker__select--month'])[2]");
+    public static final By toMonth1 = By.xpath("(//div[@class='select-wrapper picker__select--month'])[2]/ul/li/span");
+    public static final By toYear = By.xpath("(//div[@class='select-wrapper picker__select--year'])[2]");
+    public static final By toYear1 = By.xpath("(//div[@class='select-wrapper picker__select--year'])[2]/ul/li/span");
+    public static final By toDate = By.xpath("(//table[@class='picker__table'])[2]/tbody/tr/td/div[contains(@class,'infocus')]");
+    public static final By dueDateDrop = By.cssSelector("#date_due");
+    public static final By dueMonth = By.xpath("(//div[@class='select-wrapper picker__select--month'])[3]");
+    public static final By dueMonth1 = By.xpath("(//div[@class='select-wrapper picker__select--month'])[3]/ul/li/span");
+    public static final By dueYear = By.xpath("(//div[@class='select-wrapper picker__select--year'])[3]");
+    public static final By dueYear1 = By.xpath("(//div[@class='select-wrapper picker__select--year'])[3]/ul/li/span");
+    public static final By dueDate = By.xpath("(//table[@class='picker__table'])[3]/tbody/tr/td/div[contains(@class,'infocus')]");
+    public static final By nextButton = By.cssSelector("#saveBtn");
+    public static final By appraisal = By.xpath("//label[@for='appraisalEval_eval_name_grp_self']");
+    public static final By nextButton1 = By.cssSelector("#saveBtn");
+
 
 
 }

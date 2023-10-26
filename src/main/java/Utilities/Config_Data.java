@@ -14,5 +14,9 @@ public class Config_Data {
     public static String textEstdt = "Estimated Date";
     public static String textCashadv = "Cash in Advance";
 
-
+    public static final String userName = "Admin";
+    public static final String pass = "Admin@123";
+    public static final String pageName = "employee management";
+    public static final String employeeName = "ade";
+    public static final String description = "Performance test case";
 }
