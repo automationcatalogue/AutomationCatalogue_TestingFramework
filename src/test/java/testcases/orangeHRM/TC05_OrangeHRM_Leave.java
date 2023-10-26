@@ -12,6 +12,7 @@ import java.util.List;
 public class TC05_OrangeHRM_Leave {
     public static void main(String[] args) {
         WebDriver driver = new ChromeDriver();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         System.out.println("Chrome browser is launched");
 
@@ -38,27 +39,37 @@ public class TC05_OrangeHRM_Leave {
         }
         driver.findElement(By.xpath("/html/body/div[1]/div[1]/div/div[1]/div[4]/div/div/div/ul/li[6]/a[1]/span")).click();
         System.out.println("leave option is clicked");
-        WebElement element_More = driver.findElement(By.xpath("//a[@class='top-level-menu-item '][@data-automation-id='more_menu_child_menu_top_more']"));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click();", element_More);
-        System.out.println("more option is clicked");
+        try{
+            WebElement element_More = driver.findElement(By.xpath("//a[@class='top-level-menu-item '][@data-automation-id='more_menu_child_menu_top_more']"));
+            js.executeScript("arguments[0].click();", element_More);
+            System.out.println("more option is clicked");
+        }catch(Exception e){
+            System.out.println("Exception Occurred and More button is not available!!!");
+        }
+
         driver.findElement(By.xpath("//a[@data-automation-id='more_menu_child_menu_leave_Configure']")).click();
         System.out.println("configure option");
+
         WebElement element_configure = driver.findElement(By.xpath("//a[@data-automation-id='more_menu_child_menu_leave_viewWorkingWeekendList']"));
         js.executeScript("arguments[0].click();", element_configure);
+
         driver.switchTo().frame("noncoreIframe");
         System.out.println("Switched into iframe");
+
         WebElement element_add = driver.findElement(By.xpath("//*[@id='addItemBtn']/i"));
         js.executeScript("arguments[0].click();", element_add);
         System.out.println("add option is clicked");
+
         //driver.switchTo().defaultContent();
         // System.out.println("Exited from the frame");
-        driver.findElement(By.xpath("//input[@id='addWorkingWeekend_description']")).sendKeys("Automation");
+        String name="AutomationCatalogue";
+        driver.findElement(By.xpath("//input[@id='addWorkingWeekend_description']")).sendKeys(name);
         System.out.println("Name is entered");
 
         WebElement element_date = driver.findElement(By.xpath("/html/body/div[1]/div[2]/section/div/div[3]/div[2]/form/div/div[1]/div[2]/label"));
         js.executeScript("arguments[0].click();", element_date);
         System.out.println("date is clicked");
+
         String date = "12-October-2023";
         String day = date.split("-")[0];
         String month = date.split("-")[1];
@@ -111,5 +122,10 @@ public class TC05_OrangeHRM_Leave {
         System.out.println("Selection of the Location drop-down is completed");
         driver.findElement(By.xpath("//a[@id='saveItemBtn']")).click();
         System.out.println("details are saved");
+
+        String actualName = driver.findElement(By.xpath("")).getText();
+        if(actualName.equalsIgnoreCase(name)){
+            System.out.println("Name is correctly added");
+        }
     }
 }
