@@ -1,4 +1,4 @@
-package testcases;
+package testcases.orangeHRM;
 
 import Utilities.Config_Data;
 import org.openqa.selenium.JavascriptExecutor;
