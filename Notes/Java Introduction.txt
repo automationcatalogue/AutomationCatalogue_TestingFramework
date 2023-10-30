@@ -1,0 +1,83 @@
+JAVA
+-----
+==> 1995 Java was Invented in Sun Microsystems
+
+==> It is a Proramming language
+==> Operating System
+
+
+Java is a Programming language, because we write programs by using Java Language
+==> By using Java Programming
+1. Applications
+2. Services
+
+
+==> Java is Platform Independent Programming language
+
+Examples of Programming language:
+---------------------------------
+C, C++, C#, Python, Java, JavaScript, Grovvy Script etc.,
+
+==> Both Compilers and Interpreters are called language translation softwares
+==> By using Compilers and Interpreters, we can convert from one format to another format
+
+	Compilers										Interpreters
+------------------------------------------------------------------
+1. Compilers converts whole program at a time		1. Interpreter converts the program line by line
+2. Compiler produces a file							2. Interpreters will not produces any file
+3. Compiler is fast									3. Interpreter is slow
+
+
+
+
+
+				C											Java
+				|											 |
+		--------------------------------------------------------------
+		|															|
+		demo.c (unicode)											demo.java (unicode)
+		|															|
+		C Compiler													Java Compiler
+		|															|
+		demo.exe (bit code)											demo.class (byte code)
+		|																|
+		O/P														--------------------------
+																|			|			|
+															Windows JVM		Linux JVM	Mac JVM
+																| (JIT)		|			|
+															Windows			Linux		Mac
+																|			|			|
+																O/P			O/P			O/P
+		
+		
+		
+		
+		
+==> JVM: (Java Virtual Machine)
+1. It is called as an Interpreter and it converts byte code into the bit code
+	
+	
+==> 'C' is a Platform dependent programming language, 
+whereas Java is Platform Independent programming language
+
+
+==> JVM is a platform dependent where as Java is platform Independent
+
+JRE (Java Runtime Environment):
+-------------------------------
+==> JRE is called as a Java Platform and it contains Java API (Application Programming Interface) and JVM
+
+Java API:
+--------
+==> It is called as a Java Library and It is included in Java Prgram at run time
+
+JDK (Java Development Kit):
+---------------------------
+==> It is a combination of JRE, Java Program and Operting System
+
+JIT Compiler (Just In-time Compiler):
+-------------------------------------
+==> JIT Compiler is introduced in Java to increase the performance of JVM
+==> JIT Compiler produces a file and keeps in cache memory as soon as the execution is completed by the JVM and then this generated file will be deleted automatically
+
+==> JIT Compiler is a part of JVM, JVM is a part of JRE, JRE is a part of JDK

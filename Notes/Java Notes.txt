@@ -1,0 +1,435 @@
+==> Java is a case sensitive programming language
+==> X value is 210
+
+
+IDENTIFIERS:
+------------
+==> Identifier is a word and it is used to identify variables, methods, classes, Interfaces etc.,
+1. Identifiers can be formed by using alphabets (a to z),(A to Z),(0 to 9), Underscore _ and Dollar Symbol $
+2. It must begin with Alphabet, Underscore, Dollar Symbol
+3. length of the Identifier is unlimited.
+4. It should not contains any special characters other than Underscore and Dollar symbols
+5. It should not contains any wide space characters (like spacebar,tab and enter keys)
+
+
+Examples:
+---------
+1. demo (valid) 							6. net-income (Invalid) 			11. _#_ ( Invalid)
+2. 5args (Invalid)  						7. net_income (valid)				12. net*income (Invalid)
+3. args5 (valid)							8. #args (Invalid) 					13. _args (valid)
+4. DEMO	(valid)								9. $args (valid)				
+5. net income (Invalid) 					10. _$_ (valid)
+
+KEYWORDS:
+---------
+==> A set of words reserved by Java language itself and these words are called as Keywords
+
+Examples:
+---------
+public, static, if, else, for,int, float etc.,
+
+==> Keywords can not be used as an Identifier
+==> There are 50 keywords available in Java
+==> All keywords must be written in lowercase alphabets
+	int x=5; (Valid)
+	int public=5; (Invalid)
+	
+LITERALS:
+---------
+==> A Literal is a source of code representation of a fixed value.
+==> In Java, Literals are divided into 6 categories
+	1. Integer Literals (100, 5, 22, -2, 0, -680...etc.,)
+	2. Character Literals ('a','X','z'... etc.,)
+	3. Floating Literals (5.2, 3.14, -0.08.... etc.,)
+	4. String Literals ("Sagar","QA","Test",..... etc.,)
+	5. Boolean Literals (true, false)
+	6. Object Literals (null)
+	
+DATA TYPES:
+-----------
+==> A Data type that determines what value a variable can hold and what are the operations can be performed on a variable
+
+	int x=10;
+	==> int --> Dataype
+	==> x --> variable
+	==> 10 --> Integer Literal (data)
+	
+==> In Java, Data types are divided into two categories
+	1. Primitive Data types (pre-defined)
+	2. Reference Data types (user-defined)
+	
+Primitive Data types:
+---------------------
+==> Primitive data types are predefined keywords and these are all named by keywords.
+
+==>There are 8 Primitive data types in Java and these are divided into 4 sub categories
+1. Integers
+2. Floating point numbers
+3. characters
+4. Boolean
+
+
+Data type						Memory size							Range
+==========================================================================
+Integers:
+1. byte							8 bits (1 byte)						-2^7 to +2^7-1  ==> -128 to +127
+2. short						16 bits(2 bytes)					-2^15 to +2^15-1 == -32,268 to +32,267
+3. int							32 bits (4 bytes)					-2^31 to +2^31-1 ==> -2147483648 to +2147483647
+4. long							64 bits (8 bytes)					-2^63 to +2^63-1
+
+==> Integer DataTypes (byte, short, int, long) will accept Integer literals data, Character Literal data and output is always Integers
+
+Floating point numbers:
+5. float 						32 bits(4 bytes)					-3.4*10^-38 to +3.4*10^38
+6. double						64 bits (8 bytes)					-1.7*10^-308 to 1.7*10^308
+
+	Note: For a float data type, value should be appended with 'f' (or) 'F'
+
+==> Floating Pint Number DataTypes (float, double) will accept decimal Data and Integer Literal data
+	Integer literals data
+	
+Characters:
+7. char							16 bits (2 bytes)					0 to 65,535
+==> char data type will allows character Literals and also Integer Lieral data and it should be written within single quotation
+
+Boolean:
+--------
+8. boolean						1 bit								true/false
+==> boolean data type will allows only boolean Literals
+
+
+ASCII Conversion:
+97 -->a 
+98 --> b
+:
+:
+:
+122 --> z
+
+
+65 --> A
+66 --> B
+:
+:
+90 --> Z
+
+48 --> 0
+49 --> 1
+:
+:
+57 --> 9
+
+0to 47, 58 to 64, 91 to 96 and 123 to 255 -->special symbols
+256 to 65,535 --> It contains Unicode, decimals, hexadecimals, octal values etc.,
+
+
+OPERATORS:
+----------
+==> Operator is some symbole to perform some actions
+1. Arithmetic Operators ==> +, -, *, /, %
+2. Assignment Operators ==> =, +=, -=, *=, /=, %=
+3. Increment/Decrement Operators ==> ++, --
+4. Relational Operators ==> <, >, <=, >=, ==, !=
+5. Logical Operators ==> &&, ||
+6. Ternary Operators ==> ?:
+
+Arithmetic Operators:
+---------------------
++ ==> Addition
+- ==> subtraction
+* ==> Multiplication
+/ ==> Division is always gives quotient value
+% ==> Percentage is always gives the reminder value
+
+Assignment Operators:
+---------------------
+a+=10; ==> a=a+10;
+b-=x; ==> b=b-x;
+x%=z; ==> x=x%z;
+
+Increment/Decrement Operators:
+-----------------------------
+
+int x=10;
+x++; (or) ++x; ==> (x=x+1)
+x--; (or) --x; ==> (x=x-1)
+
+++ --> Increment operator
+	
+	++x; --> Pre-Increment operator ==>  Value of the variable first increases and then action/operation will be performed
+	x++; --> Post-Increment operator ==> First action/operation will be performed and then value of variable is increases
+	
+	
+	Whenever Pre-Increment (or) Post-Increment is used in the program, value of the x will be increased by +1
+
+-- --> Decrement operator
+	--x; -->Pre-Decrement operator ==> Value of the variable first decreases and then action/operation will be performed
+	x--; -->Post-Decrement operator ==> First action/operation will be performed and then value of variable is decrases
+	
+	
+	Whenever Pre-Decrement (or) Post-Decrement is used in the program, value of the x will be increased by -1
+	
+Relational Operators ==> <, >, <=, >=, ==, !=
+------------------------
+==> Always compare two values and the output is always true/false
+==> Relational operators output is always stored in Boolean data type
+==> Relational operators evaluate single condition
+
+Logical Operators ==> &&, ||
+------------------------------
+==> Logical operators evaluate multiple conditions
+==> Logical operators output is always either true/false and stored in Boolean data type
+
+AND: (&&)
+---------
+Condition1					Condition2					Output
+true			&&			true			-->			true
+true			&& 			false			--> 		false
+false			&&			true			--> 		false
+false			&&			false			--> 		false
+
+OR (||)
+-------
+Condition1					Condition2					Output
+true			||			true			--> 		true
+true			||			false			--> 		true
+false			||			true			--> 		true
+false			||			false			--> 		false
+
+Ternary Operators ==> ?:
+------------------------
+==> In Ternary operator, some condition will be evaluated. 
+==> If the condition is true, first portion will become your output
+==> If the condition is false, second portion will become your outpt
+
+Syntax:
+-------
+	O/P = condition ? value1: value2
+
+
+Statements:
+-----------
+1. Conditional Statements
+2. Iterative Statements
+3. Jump Statements
+
+Conditional Statements:
+-----------------------
+1. If Statement
+2. If else Statement
+3. If else if statement
+4. Nested If Statements
+5. Switch Statement
+
+1. If Statement:
+----------------
+
+	Syntax:
+	
+		if(condition){
+			---------
+			---------
+			---------
+		}
+		
+		If condition is true, then only if block code will be executed.
+		
+2. If else Statement:
+---------------------
+
+	Syntax:
+	
+		if(condition){
+			---------
+			---------
+			---------
+		}else{
+			--------
+			--------
+			--------
+		}
+		=> If the condition is true --> If block code will execute
+		==> If the condition is false --> else block code will execute
+		==> At any point of time, there is no possibility to execute both the If block and else block code executes together
+		
+3. If ElseIf Statement:
+-----------------------
+	
+	Syntax:
+	
+	if(condition1){
+		-----------
+		-----------
+		-----------
+	}else if(condition2){
+		----------
+		----------
+		----------
+	}else if (condition3){
+		---------
+		---------
+		---------
+	}else if(condition4){
+		---------
+		---------
+		---------
+	}else{
+		--------
+		--------
+		--------
+	}
+	
+	==> In the IfelseIf blocks, at any given point only one condition block code will execute i.e., wherever first condition block code is true (and remaining blocks of code will be ignored/skipped)
+	==> If all condition blocks are false --> else block code will execute
+	==> else  block code is optional
+	
+4. Nested If Statement:
+------------------------
+==> If condition within the another If condition is called as NestedIf condition
+
+	Syntax:
+		if(condition1){//true
+			----------------
+			----------------
+			----------------
+			if(condition2){//false
+				------------
+				------------
+				------------
+			}else if(condition3){//true
+				------------
+				------------
+				------------
+				if(condition5){//false
+					--------
+					--------
+					--------
+				}else{
+					--------
+					--------
+					--------
+				}
+				
+			}
+		}else if(Condition4){//true
+			-----------
+			-----------
+			-----------
+		}
+		
+		O/p: 291,292,293,300,301,302,308,309,310
+		
+		
+		==> If the Outer condition is true, then only Inner condition will be verified
+	
+5. Switch Statement:
+--------------------
+
+	Syntax:
+
+		switch(value){
+			case val1: 
+				-----------
+				-----------
+				-----------
+				break;
+			case val2:
+				-----------
+				-----------
+				-----------
+				break;
+			case val3:
+				-----------
+				-----------
+				-----------
+				break;
+			default:
+				-----------
+				-----------
+				-----------
+			
+		}
+
+	==> default block in switch statement is optional
+	==> break keyword is optional
+	==> break statement will terminate the switch case
+	
+Iterative Statements:
+--------------------
+1. While Loop
+2. Do While Loop
+3. For Loop
+4. Advanced For Loop
+5. Nested Loops
+
+While Loop:
+----------
+	
+	Syntax:
+	--------
+	Initialization;
+	
+	while(condition){
+		-----------
+		----------
+		----------
+		Increment/Decrement operators;
+	}
+
+	==> Increment/Decrement operators are optional
+	
+Do While Loop:
+-------------
+
+	Syntax:
+	
+		Initialization;
+		
+		do{
+			----------
+			----------
+			----------
+			Increment/Decrement operators;
+		}while(condition);
+	
+	==> In Do-While Loop, block of code will be executed at least one time, even though condition is false very first instance
+	
+3. For Loop:
+------------
+
+	Syntax:
+	-------
+	
+		for(Initialization;condition;Increment/Decrement){
+			-----------
+			-----------
+			-----------		
+		}
+		
+		==> Initialization will be executed only one time i.e., very first time
+		==> If the condition is true --> every time will be verified, If the value is true --> Loop will continue to execute
+		==> If the condition is false --> Loop will break
+		==> Increment/Decrement operator will be executed the at the end of evey iteration
+		
+5. Nested Loops:
+-----------------
+==> A Loop within the another Loop is called as Nested Loops
+==> For Every Iteration of Outer loop, inner loop will be executed for 'n' number of times
+
+
+Jump Statements:
+-----------------
+1. Break Statement
+2. Continue Statement
+3. Return Statement
+
+1. Break Statement:
+	It is going to break the nearest enclosing loop (or) switch statement.
+	
+2. Continue Statement:
+	It passes the control to the next iteration of a loop
+	Whenever continue statement is executed, remaining portion of the code inside the loop will be skipped for that iteration
+
+
+
+	

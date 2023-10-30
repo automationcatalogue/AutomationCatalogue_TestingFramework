@@ -1,0 +1,71 @@
+==> Applications are '3' types
+	1. Desktop applications
+	2. Web applications --> website
+	3. Mobile applications
+
+Selenium
+--------
+==> It is a web based automation testing tool
+
+SDLC --> Software Development Life Cycle
+STLC --> Software Testing Life Cycle
+
+Testing:
+-------
+==> Testing is one of the process in SDLC, which determines the application is meeting the given requirements (or) not.
+
+1. Requirment Gathering
+2. Feasibility Analysis
+3. Design
+4. Development
+5. Testing
+6. Build & Deployment
+7. Maintenance
+
+==> Defect/Bug/Issue: If Actual result is not matching with the expected result 
+
+
+==> Testing is broadly categorized into two categories
+1. Manual Testing
+2. Automation Testing
+
+
+Regression Testing:
+------------------
+Testing of a Previously tested program following modifications ensure that defects are not been introduced in unchanged areas of a result changes made.
+
+Automation Testing tools:
+--------------------------
+1. Selenium
+2. UFT (QTP)
+3. RFT
+4. JMeter
+5. Test- complete
+6. RPA
+7. Tosca
+8. SoapUI
+9. Katalon Studion
+
+Selenium																			UFT (QTP)
+1. Open Source (free)															1. Commercial (UFT)
+2. Supports multiple languages like (Java, C#, Python, ruby, JavaScript)		2. Supports only VB Scripting
+3. Supports multiple OS (Windows, Mac, linux)									3. Supports only Windows
+4. Supports multiple browsers (IE, chrome, ff, Edge, safari, Opera)				4. Supports only IE, some extent FF
+5. It is set of jars(20MB)														5. Occupies the memory 1.5 GB
+6. Default Reporting is not available											6. Default Reporting is available
+7. Record/ Play back option is available some extent							7. Record/Playback is more reliable
+8. There is no official support available										8. Official support available from HP
+
+Selenium:
+-----------
+1. Web based Automation Testing tool
+2. In 2004, By Jason Hugins
+3. Initially called as JSFT (Java Script functional Testing) later changed to selenium
+4. Official Website for https://seleniumhq.org, changed to https://selenium.dev
+
+Selenium Components
+-------------------
+1. Selenium IDE --Recording/Play back
+2. Selenium WebDriver -- To Automate the scenarios
+3. Selenium Grid -- To run our test cases in multiple browsers and multiple OS at one time
+
