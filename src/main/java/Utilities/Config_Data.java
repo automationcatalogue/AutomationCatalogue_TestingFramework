@@ -1,5 +1,7 @@
 package Utilities;
 
+import org.openqa.selenium.By;
+
 public class Config_Data {
     public static String username ="Admin";
 
@@ -19,4 +21,12 @@ public class Config_Data {
     public static final String pageName = "employee management";
     public static final String employeeName = "ade";
     public static final String description = "Performance test case";
+
+
+    public static final String username1 ="aarosagarch@gmail.com";
+    public static final String password1 ="Admin@123";
+    public static final String Discountcode ="AutomationDiscount2";
+    public static final String Cardholder_name = "Barbara Gordon";
+    public static final String Card_number = "4485564059489345";
+    public static final String Card_code = "123";
 }

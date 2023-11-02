@@ -1,0 +1,31 @@
+Excel Reading and Writing:
+-------------------------
+
+==> Workbook --> It is a collection of Sheets
+
+
+1. FileInputStream --> Pre-defined class in Java Library
+		FileInputStream fis = new FileInputStream("<Path of the Excel file>"); --> This statement/object creation will open the file in a Read-mode
+		fis.close() --> This statement will close the file which is opened in a Read-mode
+
+2. FileOutputStream --> Pre-defined class in Java Library	
+		FileOutputStream fos = new FileOutputStream("<Path of the Excel file>"); --> This statment/object creation will open the file in Write-mode
+		fos.close(); --> This statement will close the file which is opened in a Read-mode
+		
+3. XSSFWorkBook --> Pre-defined class in Apache POI Library which is used to handle Excel-Workbook
+		XSSFWorkBook wbk = new XSSFWorkBook(fis);
+						wbk.write(fos); --> This method is used to write the data into the excel file
+	
+4. XSSFSheet --> Pre-defined class in Apache POI Library which is used to handle Excel Specific SheetName
+		XSSFSheet sh = wbk.getSheet("<SheetName>"); --> This method is used to get the Sheet Information based on SheetName
+		XSSFSheet sh = wbk.getSheetAt("<SheetNumber>") --> This method is used to get the Sheet Information based on SheetNumber
+
+5. XSSFRow --> Pre-defined class in Apache POI Library which is used to handle Row Information in the Sheet
+		XSSFRow row = sh.getRow(<RowNumber>);
+		int rows=sh.getLastRowNum() --> To get total Number of Rows in given Sheet
+
+6. XSSFCell -->Pre-defined class in Apache POI Library which is used to handle Cell Information of a Specific Row
+		XSSFCell cell = row.getCell(<CellNumber>);
+		int cellCount = row.getLastCellNum(); --> This method is used to get the Total number of Cellcount on a given row
+		String data = cell.getStringCellVale(); --> This method is used to read the data from a cell
+		cell.setCellValue() --> This method is used to write the data into a cell

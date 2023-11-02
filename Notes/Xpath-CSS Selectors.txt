@@ -1,0 +1,291 @@
+XPATH: (XML PATH)
+-----------------
+==> There are '8' different types of locators in Selenium
+	ID, Name, LinkText, Partial LinkText, ClassName, TagName, XPATH and CSSSelector
+	
+==> XPATHs are categorized into '3' types
+	1. Absolute XPATH
+	2. Relative XPATH
+	3. XPATH with Attributes
+	
+==> XML Path expression is used to find any kind of WebElement on web page uniqely using HTML page DOM.
+
+How to write a Xpath?
+---------------------
+==> As a tester, If you want to write the xpath, you need to identify the starting point (tagname) and ending point (tagname) in HTML DOM
+==> Once Identified the start point(tagName) and end point(tagName), traversing between the startpoint to endpoint will becomes xpath
+
+==> Endpoint (tagName) is always constant. i.e., your highlighted element (which shows in blue color)
+==> Startpoint(tagName) could be anywhere in the DOM. We need to identify the best optimized xpath when we identify the start point
+==> Best Startpoint (tagName) will be identified with the experience
+
+
+Absolute Xpath:
+--------------
+==> Starting point of the node is always constant for Absolute xpath i.e., html tagName
+==> Ending point is always the highlighted webelement
+==> traverse between your start point to endpoint will become your xpath
+
+points to be considered while writing a xpath:
+----------------------------------------------
+1. If the same tagNames are repeated continuosly one parent, then count (number) should be appended after the tagName
+2. Whenever traversing from one tagName to another tagName i.e., parent node to child node, we should use '/' should be used to distinguish the parent and child nodes
+
+Syntax:
+-------
+/html/................../end node
+
+Examples:
+----------
+1. UserName text-box in OrangeHRM application
+/html/body/div/div/div/div[2]/div/form/div/input
+
+2. Create New Acount button in facebook website
+/html/body/div/div/div/div/div/div/div[2]/div/div/form/div[5]/a
+
+3. Flexible with Date check-box in IRCTC website
+/html/body/app-root/app-home/div[3]/div/app-main-page/div/div/div/div/div/app-jp-input/div/form/div[4]/div/span[2]/label
+
+4. Find Jobs button in CA Indeed website
+/html/body/div/div/div/span/div[3]/div/div/div/div/div/form/button
+
+Assignment-1: (Absolue Xpath)
+------------------------------
+1. Write the xpath for facebook page - Login button
+2. Write the xpath for IRCTC - Ralway Pass Concession checkbox
+3. Write the xpath for naukri - Register button
+4. Write the xpath for wikipedia - search wikipedia text-box
+5. Write the xpath for Paytm - Paytm For Business --> Financial Services --> Insurance button
+6. Next:EducationDetails button in the Monster.com
+7. Mobile number drop-dwon : canada+1 - Monster.com
+8. Download on the app store button in the Instagram
+9. Search for a Job --> LinkedIn website
+10. Subscription in Youtube.com
+11. Electornics - Bluetooth Speakers - in Flipkart.com website
+
+==> Absolute XPATH is not preffered to use, because of the latest changes in the application there could be a possibility to break the xpath all the time, again we need to work rework xpaths all the time. Maintenance of the Absolute Xpath is tedious
+
+XPATH With Attributes:
+----------------------
+==> starting point and ending point of the node is always constant i.e., highlighted webelement
+
+1. Xpath with Single Attribute:
+-------------------------------
+Syntax: 
+	
+	//htmlTagName[@attributeName='attributeValue']
+	
+Examples:
+---------
+==> Organization Chart in Home Page - OrangeHRM Application
+	//a[@data-automation-id='menu_orgChart_OrganizationChart']
+	
+==> Promotions Code in AirCanada website
+	//button[@id='bkmgFlights_promoCodeToggle']
+	
+
+2. Writing a Xpath with text() attribute:
+-----------------------------------------
+Syntax: 
+		//htmltagName[text()='attributeValue']
+		
+Example:
+==> Jobs link in Naukri website
+		//div[text()='Jobs']
+		
+3. Xpath with multiple Attributes
+------------------------------------
+Syntax:		
+		//htmltagName[@attributeType1='attributeValue1'][@attributeType2='attributeValue2']...........[@attributeTypeN='attributeValueN'] 
+		
+Examples:
+==> Careers link in Naukri website
+		//a[@target='_blank'][@title='Careers']
+		//a[@target='_blank'][@title='Careers'][text()='Careers']
+==> Boys Link in Gap website
+	//a[@data-testid='ahref_Boys'][@data-divisionname='Boys']
+	
+	
+Relative Xpath:
+---------------
+==> Starting point of the node should be figured out with experience and ending point will be the Highlighted node.
+==> To Identify the starting point of the node, there are 'n' number of ways are available, can use anyone of the approach to identify the relative xpath of an WebElement
+Syntax
+-------
+		//htmltagName[@attributeName='attributeValue']/............/end of the node (Highlighted node on DOM)
+		
+Examples:
+---------
+1. Air Canada website --> From drop-down result
+	//li[@id='bkmgFlights_origin_trip_1SearchResult0']/abc-ripple/div
+2. Apple.com website --> Mac Book Air 15 --> Click on Buy Link
+	//div[@data-unit-id='macbook-air-15']/div[@class='module-content']/div/div/div/a[2]
+	
+1. Contains method:
+-------------------
+	//htmltagName[contains(@attributeName,'attributeValue')]
+	
+	Examples:
+	1. Amazon website - SignIn for the Best Experience text
+		//span[contains(text(),'best experience')]
+		
+	2. //span[contains(@id,'findButton')]
+
+2. Starts-with method
+	//htmltagName[starts-with(@attributeName,'attributeValue')]
+	
+	Examples:
+	1. //button[starts-with(@aria-labelledby,'bkmgFlights_promo')]
+	
+3. Double Dot symbol(..) --> This is used to traverse one step back from the current node
+	1. Amazon.in website --> Selecting See All Offers link using Handbags
+	//span[text()='Handbags']/../../../../../../div[3]/a
+	
+	2. Facebook --> Create New Account --> Identifying FirstName using Quick easy text
+	(//div[contains(text(),'quick and')]/../../div[2]/div/div/div/form/div[1]/div/div/div[1]/div[1]/input)[1]
+
+
+=============================================================================================================================
+CSS Selectors:
+--------------
+==> cssSelector is a path pattern that can use web element's attributes to locate a web element in the web page
+==> cssSelector is very fast compared to Xpath, because Xpath engines are different in each browser. Therefore some times xpath are not suitable to identify element on IE and CSS is recommended for the same.
+
+==> cssSelector is light weight compared to xpath and it is very straight forward
+==> cssSelector locates the elements only in forward direction
+==> cssSelector can not be identified with text attributes
+
+	syntax:
+	-------
+		htmlTagName[arritbuteType='attributeValue'] --> Single Attribute
+		htmlTagName[arritbuteType1='attributeValue1'][arritbuteType2='attributeValue2'] --> with Multiple attributes
+		
+	Note:	==>	*[attributeName='attributeValue'] --> This will check for all the tags in the DOM
+			==>	[attributeName='attributeValue'] --> Can write the cssSelector without TagName and HtmlTagName also
+			
+		Examples:
+		1. input[name='q'] --> Google Search text-box
+		2. input[name='txtPassword'][id='txtPassword'] --> password button in OrangeHRM
+		
+Using (#) Symbol:
+-----------------
+==> # Symbol is used along with the ID attribute to identify the web element in a web page
+
+	Syntax:
+	-----------
+		"#attributeValue" --> will become your cssSelector
+		
+	Examples:
+	---------
+	1. #txtPassword --> Password in OrangeHRM
+	2. #glow-ingress-line2 --> Select your Addresss link in Amazon
+	3. input[name='txtUsername']#txtUsername --> UserName in OrangeHRM
+	
+Using (Dot) Symbol:
+-------------------
+	==> . Symbol is used along with the className attribute to identify the web element in a web page
+	Syntax:
+	-----------
+		".attributeValue" --> will become your cssSelector
+		
+		Note: If there are any space in the class name, Dot symbol will not work, IF spaces are available in the className, use the multiple Dot symbols for every space in the className
+		
+	Examples:
+	---------
+	1. Amazon.com website --> Cart Link
+		.nav-cart-icon.nav-sprite
+	2. OrangeHRM website --> Logo
+		.orangehrm-logo
+	3 .makeFlex.hrtlCenter.font10.makeRelative.lhUser.userLoggedOut --> Login or Create Acount button in Makemytrp website
+	4 .top-level-menu-item.forced-active.active ==> Dashboard in OrangeHRM
+	5 .css-label_c.t_c --> Flexible with Date in OrangeHRM
+	
+Wild card in CSS:
+-----------------
+==> User can use wild card characters in cssSelector to find the element ^, $, * are wild characters present in the cssSelector in selenium
+
+==>'^' means starting value is fixed
+		HtmlTagName[attribute^='attributeValue'] --> It is similar to the starts-with function in xpath
+		
+		Examples:
+		---------		
+		1. label[for^='concessionBook'] --> Person with Disability Concession check-box in IRCTC
+		2. input[title^='Enter city name and select'][name='fromPlaceName'] --> From in TSRTC
+		3. #topMnuloans[rel^='lendingSub'] --> Loans in Citi bank
+		
+==>'$" means Ending value is fixed
+		HtmlTagName[attribute$='attributeValue'] --> It is similar to the ends-with function in xpath
+		
+		Examples:
+		==> .chkavailabilityBtn[value$='Availability'] --> Check availablity button in TSRTC
+		==> label[class$='virtual-keyboard'] --> Use Virtual Keyboard link in ICICI Direct
+		
+==>'*" means Middle value is fixed
+		HtmlTagName[attribute*='attributeValue'] --> It is similar to the contains function in xpath
+		1. a[onclick*='PassDoorStep'] --> Password at your door step link
+		2. a[title*='alth Managem']#topMnuinvesting --> Wealth Management link in Citi Bank
+		
+Note: ==> To inspect to the specific web element based on the index number--> "tagname:nth-of-type(IndexNumber)"
+	  ==> To inspect to the specific child element based on the index number--> "tagname:nth-child(IndexNumber)"
+
+
+Note: ==> To inspect to the specific web element based on the index number--> "tagname:nth-of-type(IndexNumber)"
+	  ==> To inspect to the specific child element based on the index number--> "tagname:nth-child(IndexNumber)"	
+
+CSS Combinator: (Advanced CSSSelectors)
+----------------------------------------
+
+==>Combinator explains the relationship between the cssSelectors
+==> There are '4' cssCombinators are in cssSelector
+	1. Descendant Selector
+	2. Child Selector
+	3. Adjacent Sibling Selector
+	4. General Selector Sibling
+	
+1. Descendant Selector:
+------------------------
+==> Space is Descendent Selector
+==> The descendant selector matched all elements that are descendants of a specified element
+	
+	Examples:
+	----------
+	1. Facebook --> Email(or)UserName text-box --> form[data-testid='royal_login_form'] div:nth-child(1) input[name='email']
+	2. #nav-xshop a:nth-child(3) --> Amazon.in website --> AmazonPay Link
+	3. .chHeaderContainer nav ul li:nth-child(6) div a span:nth-child(2) --> Buses link in MakemyTrip website
+	
+2. Child Selector:
+------------------
+==> '>' is child selector 
+==> The child selector selects all elements that are immediate children of a specified element
+
+	Examples:
+	---------
+	1. #topbar-ribbon>div:nth-of-type(1)>div:nth-child(2)>top-level-menu-item:nth-child(1) div a[data-automation-id='menu_pim_viewEmployeeList'] --> OrangeHRM (EmployeeList link)
+	2. .form-row.add-employee-details-row>div:nth-child(3)>div>div:nth-child(3) div>div>button[data-id='location']
+	==> Location drop-down (Add Employee) in OrangeHRM application
+	
+3. Adjacent Sibling Selector:
+-----------------------------
+==> '+' is used for Adjacent selector combinator
+==> The Adjacent sibling selector selects a element that is adjacent siblings of a specified element
+
+	Examples:
+	----------
+	1. li[data-cy='menu_Trains']+li>div a span:nth-child(2) --> In MakemyTrip website --> Use the Adjacent Trains link and identify Buses
+	2. #fullname_field+div>div>div>input --> Facebook website --> Identified Email(or)PhoneNumber text-box using one of the Adjacent sibling
+	3. a[data-csa-c-content-id^='nav_cs_sell_T']+a+a+a+a+a+a+a --> In Amazon.in website --> identifying coupons using sell
+	
+4. General Selector Sibling:
+----------------------------
+==> '~' is used for general sibling selector combinator
+==> The general sibling selector selects all elements that are specified element
+
+	Examples:
+	---------
+	1. a[data-csa-c-content-id^='nav_cs_sell_T']~a:nth-of-type(10) --> In Amazon.in website --> identifying coupons using sell
+	2. .desktop-logoContainer~div:nth-of-type(2)>a:nth-of-type(2) span:nth-child(3) --> Myntra website, Identifying the Cart using some sibling
+	
+
+	  
+		
+	
