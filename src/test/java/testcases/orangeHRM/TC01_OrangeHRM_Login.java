@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
 
-public class TC01_OrangeHRM_Login {
+public class   TC01_OrangeHRM_Login {
     public static void main(String[] args) {
         WebDriver driver = new ChromeDriver();
         System.out.println("Chrome Browser is launched");
