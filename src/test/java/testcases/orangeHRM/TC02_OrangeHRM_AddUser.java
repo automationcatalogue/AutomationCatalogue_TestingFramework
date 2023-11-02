@@ -19,7 +19,7 @@ public class TC02_OrangeHRM_AddUser {
         driver.manage().window().maximize();
         System.out.println("The chrome window is been maximized");
 
-        driver.get("https://automatetest-trials710.orangehrmlive.com/");
+        driver.get("https://automationteste-trials710.orangehrmlive.com/");
         System.out.println("Orange HRM Application is been loaded");
 
         driver.findElement(By.name("txtUsername")).sendKeys("Admin");
