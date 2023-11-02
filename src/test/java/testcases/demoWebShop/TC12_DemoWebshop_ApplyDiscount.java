@@ -9,7 +9,7 @@ import pageObjects.PageLocators;
 
 import java.time.Duration;
 
-public class TC04_DemoWebshop_ApplyDiscount {
+public class TC12_DemoWebshop_ApplyDiscount {
     public static void main(String[] args) {
 
         WebDriver driver = new ChromeDriver();
