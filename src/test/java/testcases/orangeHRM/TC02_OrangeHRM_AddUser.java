@@ -1,5 +1,7 @@
 package testcases.orangeHRM;
 
+import Utilities.Config;
+import Utilities.ExcelUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +15,11 @@ import java.util.List;
 
 public class TC02_OrangeHRM_AddUser {
     public static void main(String[] args) throws Exception{
+        String projectPath = System.getProperty("user.dir");
+        String sheetName = "HRM_AddUser";
+        ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
+        int row = ExcelUtils.getRowNumber(Config.testID_HRMAddUser,sheetName);
+
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
@@ -22,11 +29,13 @@ public class TC02_OrangeHRM_AddUser {
         driver.get("https://automationteste-trials710.orangehrmlive.com/");
         System.out.println("Orange HRM Application is been loaded");
 
-        driver.findElement(By.name("txtUsername")).sendKeys("Admin");
-        System.out.println("User name is been entered");
+        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        driver.findElement(By.name("txtUsername")).sendKeys(userName);
+        System.out.println("User name is been entered as " + userName);
 
-        driver.findElement(By.id("txtPassword")).sendKeys("Admin@123");
-        System.out.println("Password is been entered");
+        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+        driver.findElement(By.id("txtPassword")).sendKeys(password);
+        System.out.println("Password is been entered as " + password);
 
         driver.findElement(By.xpath("//button[@type='submit']")).click();
         System.out.println("Login button is been clicked");
@@ -39,16 +48,17 @@ public class TC02_OrangeHRM_AddUser {
         driver.findElement(By.xpath("//i[text()='add']")).click();
         System.out.println("Add button is been clicked");
 
-        driver.findElement(By.id("selectedEmployee_value")).sendKeys("Charlie Carter");
-        System.out.println("Employee name is been entered");
+        String empName = ExcelUtils.getCellData(sheetName, row, Config.col_EmployeeName);
+        driver.findElement(By.id("selectedEmployee_value")).sendKeys(empName);
+        System.out.println("Employee name is been entered as " + empName);
 
         Thread.sleep(1000);
         driver.findElement(By.id("selectedEmployee_value")).sendKeys(Keys.TAB);
         System.out.println("Tab button is pressed");
 
-        driver.findElement(By.id("user_name")).sendKeys("Test_Asma12312");
+        String createUserName = ExcelUtils.getCellData(sheetName, row, Config.col_CreateUserName);
+        driver.findElement(By.id("user_name")).sendKeys(createUserName);
         System.out.println("User name is been entered");
-
 
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='modal-save-button']")));
 
@@ -67,24 +77,28 @@ public class TC02_OrangeHRM_AddUser {
         System.out.println("Test HR is been selected");
 
         //Admin role drop down
+        String adminRole = ExcelUtils.getCellData(sheetName, row, Config.col_AdminRole);
         driver.findElement(By.xpath("//button[@data-id='adminrole']/div/div/div")).click();
         System.out.println("Admin Role drop-down is clicked");
         Thread.sleep(2000);
         List<WebElement> AdminRole=driver.findElements(By.xpath("//button[@data-id='adminrole']//following-sibling::div//ul/li//span"));
         for (WebElement element: AdminRole){
             String actualValue = element.getText();
-            if (actualValue.equalsIgnoreCase("Recruitment Manager")) {
+            if (actualValue.equalsIgnoreCase(adminRole)) {
                 element.click();
                 break;
             }
         }
-        System.out.println("Admin role drop down is been selected");
+        System.out.println("Admin role drop down is been selected as "+adminRole);
 
         //Password and confirm password
-        driver.findElement(By.id("password")).sendKeys("Automationtest123@");
-        System.out.println("Password is been entered");
-        driver.findElement(By.cssSelector("#confirmpassword")).sendKeys("Automationtest123@");
-        System.out.println("Password is been confirmed");
+        String newUserPassword = ExcelUtils.getCellData(sheetName, row, Config.col_NewUserPassword);
+        driver.findElement(By.id("password")).sendKeys(newUserPassword);
+        System.out.println("New user Password is been entered as "+newUserPassword);
+
+        String newUserConfirmPassword = ExcelUtils.getCellData(sheetName, row, Config.col_NewUserConfirmPassword);
+        driver.findElement(By.cssSelector("#confirmpassword")).sendKeys(newUserConfirmPassword);
+        System.out.println("Confirm New Password is been confirmed as "+newUserConfirmPassword);
 
         Thread.sleep(4000);
         //save button is been clicked
