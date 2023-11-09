@@ -3,6 +3,8 @@ package Utilities;
 public class Config {
     public static final String testID_HRMLogin="TC01-04";
     public static final String testID_HRMAddUser="TC02-02";
+    public static final String testID_Demo_CreateAddress="TC09-02";
+
 
     public static final String testID_HRMReports="TC03-01";
 
@@ -34,7 +36,6 @@ public class Config {
     //HRMAttendance
 
 
-
     public static final int col_Product=4;
     public static final int col_ApplyDiscountCode=5;
     public static final int col_PaymentInformation=6;
@@ -47,7 +48,19 @@ public class Config {
 
 
 
-
+    //Create Address
+    public static final int col_FirstName =4;
+    public static final int col_LastName=5;
+    public static final int col_EmailAddress=6;
+    public static final int col_Company=7;
+    public static final int col_Country=8;
+    public static final int col_Province=9;
+    public static final int col_City=10;
+    public static final int col_Address1=11;
+    public static final int col_Address2=12;
+    public static final int col_PostalCode=13;
+    public static final int col_PhoneNumber=14;
+    public static final int col_FaxNumber=15;
 
 
 }
