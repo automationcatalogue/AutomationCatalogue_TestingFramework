@@ -1,10 +1,13 @@
 package testcases.orangeHRM;
 
 import Utilities.Config_Data;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.PageLocators;
 
 import java.time.Duration;
@@ -20,9 +23,13 @@ public class TC06_OrangeHRM_Performance {
         WebDriver driver = new ChromeDriver();
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().window().maximize();
 
-        driver.get("https://automatetest-trials710.orangehrmlive.com");
+        driver.get("https://automationteste-trials710.orangehrmlive.com/");
         System.out.println("Orange HRM Website loaded successfully");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
 
         driver.findElement(PageLocators.txtbx_userName).sendKeys(Config_Data.userName);
         System.out.println("Username entered");
@@ -44,10 +51,11 @@ public class TC06_OrangeHRM_Performance {
         js.executeScript("arguments[0].click();", performLoc);
         System.out.println("Performance tab clicked");
 
-        Thread.sleep(15000);
-        //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        //wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@class='material-icons' and text()='add']")));
-        driver.findElement(PageLocators.add_Appraisal).click();
+        //Thread.sleep(15000);
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@class='material-icons' and text()='add']")));
+        WebElement add_Button = driver.findElement(PageLocators.add_Appraisal);
+        js.executeScript("arguments[0].click();",add_Button);
         System.out.println("Add Appraisal clicked");
 
         //Thread.sleep(6000);
@@ -75,7 +83,7 @@ public class TC06_OrangeHRM_Performance {
         for (WebElement appraisalCycle : cycleDropdown) {
             String s2 = appraisalCycle.getText();
             if(s2.equalsIgnoreCase("End Year Review 2018- HR Executive")){
-                appraisalCycle.click();
+                js.executeScript("arguments[0].click();", appraisalCycle);
                 break;
             }
         }
