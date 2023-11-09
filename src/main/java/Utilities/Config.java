@@ -3,7 +3,10 @@ package Utilities;
 public class Config {
     public static final String testID_HRMLogin="TC01-04";
     public static final String testID_HRMAddUser="TC02-02";
+    public static final String testID_HRM_Attendance="TC04-01";
     public static final String testID_Demo_CreateAddress="TC09-02";
+    public static final String testID_Demo_PlaceOrder="TC13-01";
+
 
 
     //Common
@@ -11,6 +14,10 @@ public class Config {
     public static final int col_TestcaseName=1;
     public static final int col_UserName=2;
     public static final int col_Password=3;
+    public static final int col_Testcase_ID=0;
+    public static final int col_Testcase_Name=1;
+    public static final int col_User_Name=2;
+    public static final int col_Password_DWS=3;
 
     //HRMAddUser
     public static final int col_EmployeeName=4;
@@ -25,6 +32,12 @@ public class Config {
     public static final int col_SelectFolder=5;
 
     //HRMAttendance
+    public static final int col_InDate =4;
+    public static final int col_InTime=5;
+    public static final int col_InNote=6;
+    public static final int col_OutDate=7;
+    public static final int col_OutTime=8;
+    public static final int col_OutNote=9;
 
     //Create Address
     public static final int col_FirstName =4;
