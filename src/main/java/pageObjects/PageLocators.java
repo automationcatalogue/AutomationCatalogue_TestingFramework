@@ -18,7 +18,7 @@ public class PageLocators {
 
     public static final By selfolderBtn = By.xpath("//div[@id='mount-vue-app']/div/div[2]/div[3]/div[3]/div/div/div/form/div[2]/div[2]/div/div");
 
-    public static final By folderDrpdwn = By.xpath("//div[@id='mount-vue-app']/div/div[2]/div[3]/div[3]/div/div/div/form/div[2]/div[2]/div/div[1]/div");
+    public static final By folderDrpdwn = By.xpath("//div[@id='mount-vue-app']/div/div[2]/div[3]/div[3]/div/div/div/form/div[2]/div[2]/div/div");
 
     public static final By nxtBtn1 = By.xpath("//div[@id='mount-vue-app']/div/div[2]/div[3]/div[3]/div/div/div/form/div[4]/button[2]/div");
 

@@ -1,22 +1,35 @@
 package testcases.demoWebShop;
 
-import Utilities.Config_Data;
+import Utilities.Config;
+import Utilities.ExcelUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.PageLocators;
 
 import java.time.Duration;
+import java.util.List;
 
 public class TC12_DemoWebshop_ApplyDiscount {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+
+        String projectPath = System.getProperty("user.dir");
+        String sheetName = "Demo_ApplyDiscount";
+        ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
+        int row = ExcelUtils.getRowNumber(Config.testID_DEMOApplyDiscount,sheetName);
 
         WebDriver driver = new ChromeDriver();
         System.out.println("chrome browser is launched");
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         System.out.println("Implicit timeout is given");
+
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
+        System.out.println("Webdriver timeout is given");
 
         driver.get("https://demowebshop.tricentis.com/");
         System.out.println("DemoWebshop url is loaded");
@@ -27,11 +40,13 @@ public class TC12_DemoWebshop_ApplyDiscount {
         driver.findElement(PageLocators.Loginbtn).click();
         System.out.println("login button is clicked");
 
-        driver.findElement(PageLocators.usrnamebx).sendKeys(Config_Data.username1);
-        System.out.println("username is entered");
+        String userName = ExcelUtils.getCellData(sheetName,row,Config.col_UserName);
+        driver.findElement(PageLocators.usrnamebx).sendKeys(userName);
+        System.out.println("username is entered as " + userName);
 
-        driver.findElement(PageLocators.paswrdbx).sendKeys(Config_Data.password1);
-        System.out.println("username is entered");
+        String Password = ExcelUtils.getCellData(sheetName,row,Config.col_Password);
+        driver.findElement(PageLocators.paswrdbx).sendKeys(Password);
+        System.out.println("password is entered as " + Password);
 
         driver.findElement(PageLocators.Login_btn).click();
         System.out.println("login button is clicked");
@@ -39,11 +54,20 @@ public class TC12_DemoWebshop_ApplyDiscount {
         driver.findElement(PageLocators.computers_icn).click();
         System.out.println("computers is selected");
 
-        driver.findElement(PageLocators.dsktp_img).click();
-        System.out.println("Desktops imag is clicked");
+        driver.findElement(By.xpath("(//ul[@class='sublist']/li/a)[1]")).click();
+        System.out.println("Desktops is clicked");
 
-        driver.findElement(PageLocators.Owndsktp).click();
-        System.out.println("own computer is clicked");
+        String product = ExcelUtils.getCellData(sheetName, row, Config.col_Product);
+        List<WebElement> Product=driver.findElements(By.xpath("//div[@class='details']"));
+        for (WebElement element: Product){
+            String actualValue = element.getText();
+            if (actualValue.equalsIgnoreCase(product)) {
+                element.click();
+                break;
+            }
+        }
+
+        System.out.println("product is selected as" + product);
 
         driver.findElement(PageLocators.Add_cart).click();
         System.out.println("add to cart is clicked");
@@ -51,11 +75,15 @@ public class TC12_DemoWebshop_ApplyDiscount {
         driver.findElement(PageLocators.shp_cart).click();
         System.out.println("shopping cart is clicked");
 
-        driver.findElement(PageLocators.Dis_code).sendKeys(Config_Data.Discountcode);
+        String Discountcode  = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscountCode);
+        driver.findElement(PageLocators.Dis_code).sendKeys(Discountcode);
         System.out.println("discount code is entered");
 
+        wait.until(ExpectedConditions.elementToBeClickable(PageLocators.Dis_code)).click();
+
+
         driver.findElement(PageLocators.Apply_cpn).click();
-        System.out.println("Apply coupon is clicked");
+         System.out.println("Apply coupon is clicked");
 
         WebElement element_actualvalue = driver.findElement(PageLocators.Actual_val);
         System.out.println("acual value is dropdown is selected");
@@ -96,20 +124,26 @@ public class TC12_DemoWebshop_ApplyDiscount {
         driver.findElement(PageLocators.shipping_mtd).click();
         System.out.println("shipping method continue button is clicked");
 
+        String Paymentinfo = ExcelUtils.getCellData(sheetName, row, Config.col_PaymentInformation);
         driver.findElement(PageLocators.creditcard).click();
-        System.out.println("credit card is selected");
+        System.out.println("payment information is selected as " + Paymentinfo);
 
         driver.findElement(PageLocators.payment_btn).click();
         System.out.println("payment method continue button is clicked");
 
-        driver.findElement(PageLocators.Card_holder).sendKeys(Config_Data.Cardholder_name);
-        System.out.println("credit card name is selected");
+        String CardholderName = ExcelUtils.getCellData(sheetName, row, Config.col_CardHolderName);
+        driver.findElement(PageLocators.Card_holder).sendKeys(CardholderName);
+        System.out.println("credit card name is selected as " + CardholderName);
 
-        driver.findElement(PageLocators.Card_number).sendKeys(Config_Data.Card_number);
-        System.out.println("credit card number is entered");
 
+        String CreditcardNum  = ExcelUtils.getCellData(sheetName, row, Config.col_CardNumber);
+        driver.findElement(PageLocators.Card_number).sendKeys(CreditcardNum);
+        System.out.println("credit card number is entered as " + CreditcardNum);
+
+        //String Expdate = ExcelUtils.getCellData(sheetName, row, Config.col_ExpirationDate);
         Select monthDropdown = new Select(driver.findElement(PageLocators.Card_month));
         System.out.println("month is clicked");
+
 
         Select yearDropdown = new Select(driver.findElement(PageLocators.Card_year));
         System.out.println("year is clicked");
@@ -120,8 +154,9 @@ public class TC12_DemoWebshop_ApplyDiscount {
         yearDropdown.selectByVisibleText("2023");
         System.out.println("Year is selected as 2023");
 
-        driver.findElement(PageLocators.Cardcode).sendKeys(Config_Data.Card_code);
-        System.out.println("card code is entered");
+        String Cardcode = ExcelUtils.getCellData(sheetName, row, Config.col_CardCode);
+        driver.findElement(PageLocators.Cardcode).sendKeys(Cardcode);
+        System.out.println("card code is entered as " + Cardcode);
 
         driver.findElement(PageLocators.Paymentinfo_btn).click();
         System.out.println("payment info continue button is clicked");

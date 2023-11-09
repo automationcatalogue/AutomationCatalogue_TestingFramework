@@ -1,6 +1,8 @@
 package testcases.orangeHRM;
 
+import Utilities.Config;
 import Utilities.Config_Data;
+import Utilities.ExcelUtils;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,8 +16,12 @@ import java.util.List;
 
 public class TC03_OrangeHRM_Reports_Analytics {
     public static void main(String[] args) throws Exception{
-        {
+
             String projectPath = System.getProperty("user.dir");
+
+            String sheetName = "HRM_Reports";
+            ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
+            int row = ExcelUtils.getRowNumber(Config.testID_HRMReports,sheetName);
 
             WebDriver driver = new ChromeDriver();
             System.out.println("Browser is launched");
@@ -26,10 +32,10 @@ public class TC03_OrangeHRM_Reports_Analytics {
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
             System.out.println("Implicit timeout is given");
 
-            WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+            WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
             System.out.println("Webdriver timeout is given");
 
-            driver.get("https://automatetest-trials710.orangehrmlive.com/");
+            driver.get("https://automationteste-trials710.orangehrmlive.com/");
             System.out.println("OrangeHRM Application is loaded");
 
             driver.manage().window().maximize();
@@ -38,10 +44,16 @@ public class TC03_OrangeHRM_Reports_Analytics {
             String title = driver.getTitle();
             System.out.println("Title of the page is :" + title);
 
-            driver.findElement(PageLocators.usrnmbx).sendKeys(Config_Data.username);
-            System.out.println("UserName is entered");
+            //user name is selected from test data
 
-            driver.findElement(PageLocators.pwdbx).sendKeys(Config_Data.password);
+            String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+            driver.findElement(PageLocators.usrnmbx).sendKeys(userName);
+            System.out.println("UserName is entered as" + userName);
+
+        //password is selected from test data
+
+        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+            driver.findElement(PageLocators.pwdbx).sendKeys(password);
             System.out.println("Password is entered");
 
             driver.findElement(PageLocators.btn_login).click();
@@ -63,40 +75,51 @@ public class TC03_OrangeHRM_Reports_Analytics {
             } else {
                 System.out.println("Title is not Matched and Login is not successful");
             }
-
             driver.findElement(PageLocators.newreportbtn).click();
-
             System.out.println("new report is clicked");
 
+            String ReportType = ExcelUtils.getCellData(sheetName, row, Config.col_SelectReportType);
             driver.findElement(PageLocators.empinfobtn).click();
-            System.out.println("employ info is clicked");
+            System.out.println("employ add report type drop-down  is clicked");
 
-            List<WebElement> elements_Reports = driver.findElements(PageLocators.reportsDrpdwn);
-            for(WebElement element : elements_Reports) {
+            //report type is selected from test data
+
+            List<WebElement> elements_ReportType = driver.findElements(PageLocators.reportsDrpdwn);
+            for(WebElement element : elements_ReportType) {
                 String Report = element.getText();
-                if(Report.equalsIgnoreCase(Config_Data.webelement1)) {
+                if(Report.equalsIgnoreCase(ReportType)) {
                     element.click();
-                    System.out.println("Reports drop-down is clicked");
+                    System.out.println("Add Reports Type drop-down is selected as " +ReportType);
                     break;
                 }
             }
+
+            //folder is selected from test data
+
+            String SelectFolder = ExcelUtils.getCellData(sheetName, row, Config.col_SelectFolder);
             driver.findElement(PageLocators.selfolderBtn).click();
             System.out.println("select folders is clicked");
 
             List<WebElement> elements_Folders =  driver.findElements(PageLocators.folderDrpdwn);
             for (WebElement element : elements_Folders) {
                 String Folder = element.getText();
-                if (Folder.equalsIgnoreCase(Config_Data.elefolder)) {
+                if (Folder.equalsIgnoreCase(SelectFolder)) {
                     element.click();
-                    System.out.println("Folder drop-down is clicked");
+                    System.out.println("Folder drop-down is selected as " + SelectFolder);
                     break;
                 }
             }
-            driver.findElement(PageLocators.nxtBtn1).click();
+
+           WebElement element_nextclick= driver.findElement(PageLocators.nxtBtn1);
+            JavascriptExecutor js = (JavascriptExecutor)driver;
+            js.executeScript("arguments[0].click();",element_nextclick);
             System.out.println("next button is clicked");
 
-            driver.findElement(PageLocators.repnameBtn).sendKeys(Config_Data.reportname);
-            System.out.println("report name is entered");
+            //report name is selected from test data
+
+            String ReportName = ExcelUtils.getCellData(sheetName, row, Config.col_ReportName);
+            driver.findElement(PageLocators.repnameBtn).sendKeys(ReportName);
+            System.out.println("report name is entered as " + ReportName);
 
             TakesScreenshot ts1=(TakesScreenshot)driver;
             File src_rep =ts1.getScreenshotAs(OutputType.FILE);
@@ -110,25 +133,31 @@ public class TC03_OrangeHRM_Reports_Analytics {
             driver.findElement(PageLocators.trvlreqBtn).click();
             System.out.println("Travel request Id  is selected");
 
-            driver.findElement(PageLocators.jobttlBtn).click();
-            System.out.println("job title  is selected");
 
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+          WebElement element_jobttl =  driver.findElement(By.xpath("//label[@for='selectedFilters_job_title']"));
+            System.out.println("job title  is selected");
+            wait.until(ExpectedConditions.elementToBeClickable(element_jobttl));
+
+
+            JavascriptExecutor js1 = (JavascriptExecutor) driver;
+            js1.executeScript("window.scrollTo(0, document.body.scrollHeight)");
             System.out.println("window is scrolled to down");
 
             driver.findElement(PageLocators.nxtBtn3).click();
             System.out.println("next button is clicked");
 
+            //add display fields is selected from test data
+
+            String DisplayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
             driver.findElement(PageLocators.disfieldBx).click();
             System.out.println("Add display field group is clicked");
 
             List<WebElement> elements_Displayfields =  driver.findElements(PageLocators.displaydrpdwn);
             for (WebElement element : elements_Displayfields) {
                 String Folder = element.getText();
-                if (Folder.equalsIgnoreCase(Config_Data.eleDisfields)) {
+                if (Folder.equalsIgnoreCase(DisplayFields)) {
                     element.click();
-                    System.out.println("Display fields dropdown is selected ");
+                    System.out.println("Display fields dropdown is selected as " + DisplayFields);
                     break;
                 }
             }
@@ -153,7 +182,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             driver.findElement(PageLocators.backarrowbtn).click();
             System.out.println("one step back button is clicked");
 
-            driver.findElement(PageLocators.searchbx).sendKeys(Config_Data.reportname);
+            driver.findElement(PageLocators.searchbx).sendKeys(ReportName);
             System.out.println("clicked on search bar and entered report name");
 
             WebElement element = driver.findElement(PageLocators.texttrvlreq);
@@ -207,4 +236,4 @@ public class TC03_OrangeHRM_Reports_Analytics {
 
         }
     }
-}
+
