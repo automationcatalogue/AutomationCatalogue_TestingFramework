@@ -20,6 +20,7 @@ public class TC06_OrangeHRM_Performance {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         JavascriptExecutor js = (JavascriptExecutor)driver;
+        driver.manage().window().maximize();
 
         driver.get("https://automationteste-trials710.orangehrmlive.com/");
         System.out.println("Orange HRM Website loaded successfully");
@@ -73,7 +74,7 @@ public class TC06_OrangeHRM_Performance {
         for (WebElement appraisalCycle : cycleDropdown) {
             String s2 = appraisalCycle.getText();
             if(s2.equalsIgnoreCase("End Year Review 2018- HR Executive")){
-                appraisalCycle.click();
+                js.executeScript("arguments[0].click();", appraisalCycle);
                 break;
             }
         }
