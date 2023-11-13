@@ -1,5 +1,7 @@
 package testcases.demoWebShop;
 
+import Utilities.Config;
+import Utilities.ExcelUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class TC11_DemoWebshop_MultipleOrders {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+    String projectPath = System.getProperty("user.dir");
+    String sheetName = "Demo_MultipleProducts";
+    ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
+    int row = ExcelUtils.getRowNumber(Config.testID_DemoMultipleProducts,sheetName);
+
         WebDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         System.out.println("Chrome browser is launched");
@@ -19,14 +26,14 @@ public class TC11_DemoWebshop_MultipleOrders {
         driver.manage().window().maximize();
         System.out.println("Chrome browser is maximized");
 
-        driver.findElement(By.name("Email")).sendKeys("aarosagarch@gmail.com");
+        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        driver.findElement(By.name("Email")).sendKeys(userName);
         System.out.println("Email is entered");
-        WebElement password = driver.findElement(By.name("Password"));
-        password.sendKeys("Admin123");
-        System.out.println("Password is entered");
-        password.clear();
-        password.sendKeys("Admin@123");
-        System.out.print("New password is entered");
+
+        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+        driver.findElement(By.name("Password")).sendKeys(password);
+        System.out.print("password is entered");
+
         driver.findElement(By.xpath("//input[@class='button-1 login-button']")).click();
         System.out.println("login is clicked");
         driver.findElement(By.xpath("//div[@class='header-menu']/ul/li/a")).click();

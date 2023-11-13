@@ -5,6 +5,9 @@ public class Config {
     public static final String testID_HRMAddUser="TC02-02";
     public static final String testID_Demo_CreateAddress="TC09-02";
 
+    public static final String testID_HRMLeave="TC05-01";
+    public static final String testID_DemoMultipleProducts="TC11-01";
+
 
     //Common
     public static final int col_TestcaseID=0;
@@ -39,6 +42,20 @@ public class Config {
     public static final int col_PostalCode=13;
     public static final int col_PhoneNumber=14;
     public static final int col_FaxNumber=15;
+
+    //HRMLeave
+    public static final int col_Name=4;
+    public static final int col_Date=5;
+    public static final int col_Workinghours=6;
+    public static final int col_country=7;
+
+    //Demo_MultipleOrders
+    public static final int col_Product1=4;
+    public static final int col_Product2=5;
+    public static final int col_Product3=6;
+    public static final int col_Product4=7;
+    public static final int col_Product5=8;
+    public static final int col_OrderID=4;
 
 
 }
