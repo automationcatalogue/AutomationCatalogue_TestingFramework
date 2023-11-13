@@ -5,8 +5,10 @@ public class Config {
     public static final String testID_HRMAddUser="TC02-02";
     public static final String testID_HRMReports="TC03-01";
     public static final String testID_HRM_Attendance="TC04-01";
+    public static final String testID_HRMLeave="TC05-01";
     public static final String testID_HRM_Performance="TC06-01";
     public static final String testID_Demo_CreateAddress="TC09-02";
+    public static final String testID_DemoMultipleProducts="TC11-01";
     public static final String testID_DEMOApplyDiscount="TC12-01";
     public static final String testID_Demo_PlaceOrder="TC13-01";
 
@@ -41,7 +43,6 @@ public class Config {
     public static final int col_OutTime=8;
     public static final int col_OutNote=9;
 
-
     public static final int col_Product=4;
     public static final int col_ApplyDiscountCode=5;
     public static final int col_PaymentInformation=6;
@@ -75,6 +76,18 @@ public class Config {
     public static final int col_Performance_ToDate =9;
     public static final int col_Performance_DueDate =10;
 
+    //HRMLeave
+    public static final int col_Name=4;
+    public static final int col_Date=5;
+    public static final int col_Workinghours=6;
+    public static final int col_country=7;
 
+    //Demo_MultipleOrders
+    public static final int col_Product1=4;
+    public static final int col_Product2=5;
+    public static final int col_Product3=6;
+    public static final int col_Product4=7;
+    public static final int col_Product5=8;
+    public static final int col_OrderID=4;
 }
 
