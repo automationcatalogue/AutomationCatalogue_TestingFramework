@@ -129,5 +129,6 @@ public class TC02_OrangeHRM_AddUser {
 
         //Logout from the Application
 
+        driver.quit();
     }
 }

@@ -5,6 +5,7 @@ public class Config {
     public static final String testID_HRMAddUser="TC02-02";
     public static final String testID_HRMReports="TC03-01";
     public static final String testID_HRM_Attendance="TC04-01";
+    public static final String testID_HRM_Performance="TC06-01";
     public static final String testID_Demo_CreateAddress="TC09-02";
     public static final String testID_DEMOApplyDiscount="TC12-01";
     public static final String testID_Demo_PlaceOrder="TC13-01";
@@ -14,10 +15,6 @@ public class Config {
     public static final int col_TestcaseName=1;
     public static final int col_UserName=2;
     public static final int col_Password=3;
-    public static final int col_Testcase_ID=0;
-    public static final int col_Testcase_Name=1;
-    public static final int col_User_Name=2;
-    public static final int col_Password_DWS=3;
 
     //HRMAddUser
     public static final int col_EmployeeName=4;
@@ -55,8 +52,6 @@ public class Config {
     public static final int col_CardCode=11;
 
 
-
-
     //Create Address
     public static final int col_FirstName =4;
     public static final int col_LastName=5;
@@ -70,6 +65,15 @@ public class Config {
     public static final int col_PostalCode=13;
     public static final int col_PhoneNumber=14;
     public static final int col_FaxNumber=15;
+
+    //OrangeHRM Performance
+    public static final int col_Performance_EmployeeName =4;
+    public static final int col_Performance_Description =5;
+    public static final int col_Performance_AppraisalCycle =6;
+    public static final int col_Performance_Template =7;
+    public static final int col_Performance_FromDate =8;
+    public static final int col_Performance_ToDate =9;
+    public static final int col_Performance_DueDate =10;
 
 
 }

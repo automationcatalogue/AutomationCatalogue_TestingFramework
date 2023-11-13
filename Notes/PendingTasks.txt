@@ -1,6 +1,23 @@
 Asma Tasks: (To be completed)
 -----------------------------
 1. Complete the Remaining validation for Add User testcase
-2. Execute all '5' sets of TestData and make sure all of them should be passed
+2. Add User testcase-->Execute all '5' sets of TestData and make sure all of them should be passed
+3. Logout from DemoWebshop testcase
+4. Create Address testcase-->Execute all '5' sets of TestData and make sure all of them should be passed
+5. Code refactoring for Add user and Create Address testcase
+
+
+Arun Tasks:
+----------
+1. Complete the remaining excel integration for Performance testcase
+2. Complete the ToDate and Due Dates same like From Date and execute
+3. Complete the remaining latest Validation once performance appraisal is saved
+4. Update the Different sets of TestData in Excel sheet for Performance testcase
+5. Performance testcase-->Execute all '5' sets of TestData and make sure all of them should be passed
+6. Excel Integration for Total orders testcase
+7. Code refactoring for Add user and Create Address testcase
+
+
+
 
 
