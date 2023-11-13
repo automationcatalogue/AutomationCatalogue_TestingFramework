@@ -1,10 +1,13 @@
 package testcases.orangeHRM;
 
 import Utilities.Config_Data;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.PageLocators;
 
 import java.time.Duration;
@@ -13,15 +16,12 @@ import java.util.List;
 public class TC06_OrangeHRM_Performance {
     public static void main(String[] args) throws Exception {
 
-        //String projectPath =System.getProperty("user.dir");
-        //System.out.println(projectPath+"//Screenshots//");
-
-
         WebDriver driver = new ChromeDriver();
-
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        JavascriptExecutor js = (JavascriptExecutor)driver;
 
-        driver.get("https://automatetest-trials710.orangehrmlive.com");
+        driver.get("https://automationteste-trials710.orangehrmlive.com/");
         System.out.println("Orange HRM Website loaded successfully");
 
         driver.findElement(PageLocators.txtbx_userName).sendKeys(Config_Data.userName);
@@ -39,15 +39,13 @@ public class TC06_OrangeHRM_Performance {
             System.out.println("Page logged in failed");
         }
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         WebElement performLoc = driver.findElement(PageLocators.perfor_Tab);
         js.executeScript("arguments[0].click();", performLoc);
         System.out.println("Performance tab clicked");
 
-        Thread.sleep(15000);
-        //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        //wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@class='material-icons' and text()='add']")));
-        driver.findElement(PageLocators.add_Appraisal).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@class='material-icons' and text()='add']")));
+        WebElement element_AddAppraisal = driver.findElement(PageLocators.add_Appraisal);
+        js.executeScript("arguments[0].click();",element_AddAppraisal);
         System.out.println("Add Appraisal clicked");
 
         //Thread.sleep(6000);
@@ -181,7 +179,7 @@ public class TC06_OrangeHRM_Performance {
         List<WebElement> month2 = driver.findElements(PageLocators.dueMonth1);
         for(WebElement months: month2){
             String s9 = months.getText();
-            if(s9.equalsIgnoreCase("August")){
+            if(s9.equalsIgnoreCase("December")){
                 months.click();
                 break;
             }

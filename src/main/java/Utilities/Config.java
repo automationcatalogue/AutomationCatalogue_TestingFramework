@@ -2,7 +2,7 @@ package Utilities;
 
 public class Config {
     public static final String testID_HRMLogin="TC01-04";
-    public static final String testID_HRMAddUser="TC02-02";
+    public static final String testID_HRMAddUser="TC02-05";
 
     //Common
     public static final int col_TestcaseID=0;
