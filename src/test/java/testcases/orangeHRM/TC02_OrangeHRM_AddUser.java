@@ -109,6 +109,25 @@ public class TC02_OrangeHRM_AddUser {
         driver.findElement(By.xpath("//button[@id='modal-save-button']")).click();
         System.out.println("Save button is been clicked at the end");
 
+        //Logout from OrangeHRM Application
+
+        //Login with New User Credentials
+        driver.findElement(By.name("txtUsername")).sendKeys(createUserName);
+        System.out.println("New User name is entered");
+        //password
+        //click on Login
+
+        //Verify the title
+
+        //Get the Employee Name
+        String actualUserName = driver.findElement(By.xpath("")).getText();
+        if(actualUserName.equalsIgnoreCase(empName)){
+            System.out.println("Add User testcase is successful");
+        }else{
+            System.out.println("Add User testcase is not successful");
+        }
+
+        //Logout from the Application
 
     }
 }

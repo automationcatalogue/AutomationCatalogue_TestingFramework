@@ -16,20 +16,14 @@ import java.util.List;
 public class TC06_OrangeHRM_Performance {
     public static void main(String[] args) throws Exception {
 
-        //String projectPath =System.getProperty("user.dir");
-        //System.out.println(projectPath+"//Screenshots//");
-
-
         WebDriver driver = new ChromeDriver();
-
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        JavascriptExecutor js = (JavascriptExecutor)driver;
         driver.manage().window().maximize();
 
         driver.get("https://automationteste-trials710.orangehrmlive.com/");
         System.out.println("Orange HRM Website loaded successfully");
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
 
         driver.findElement(PageLocators.txtbx_userName).sendKeys(Config_Data.userName);
         System.out.println("Username entered");
@@ -46,16 +40,13 @@ public class TC06_OrangeHRM_Performance {
             System.out.println("Page logged in failed");
         }
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         WebElement performLoc = driver.findElement(PageLocators.perfor_Tab);
         js.executeScript("arguments[0].click();", performLoc);
         System.out.println("Performance tab clicked");
 
-        //Thread.sleep(15000);
-
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@class='material-icons' and text()='add']")));
-        WebElement add_Button = driver.findElement(PageLocators.add_Appraisal);
-        js.executeScript("arguments[0].click();",add_Button);
+        WebElement element_AddAppraisal = driver.findElement(PageLocators.add_Appraisal);
+        js.executeScript("arguments[0].click();",element_AddAppraisal);
         System.out.println("Add Appraisal clicked");
 
         //Thread.sleep(6000);
@@ -189,7 +180,7 @@ public class TC06_OrangeHRM_Performance {
         List<WebElement> month2 = driver.findElements(PageLocators.dueMonth1);
         for(WebElement months: month2){
             String s9 = months.getText();
-            if(s9.equalsIgnoreCase("August")){
+            if(s9.equalsIgnoreCase("December")){
                 months.click();
                 break;
             }
