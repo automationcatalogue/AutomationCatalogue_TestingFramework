@@ -14,7 +14,7 @@ public class Config_Data {
     public static String eleDisfields = "Travel Requests";
     public static String texttrvlreq = "Travel Request ID";
     public static String textEstdt = "Estimated Date";
-    public static String textCashadv = "Cash in Advance"
+    public static String textCashadv = "Cash in Advance";
 
 
     public static final String username1 ="aarosagarch@gmail.com";
