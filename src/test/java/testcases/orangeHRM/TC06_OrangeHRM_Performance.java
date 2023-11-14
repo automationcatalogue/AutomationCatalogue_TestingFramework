@@ -3,10 +3,7 @@ package testcases.orangeHRM;
 import Utilities.Config;
 import Utilities.Config_Data;
 import Utilities.ExcelUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -52,7 +49,7 @@ public class TC06_OrangeHRM_Performance {
         js.executeScript("arguments[0].click();", performLoc);
         System.out.println("Performance tab clicked");
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@class='material-icons' and text()='add']")));
+        wait.until(ExpectedConditions.elementToBeClickable(PageLocators.add_Appraisal));
         WebElement element_AddAppraisal = driver.findElement(PageLocators.add_Appraisal);
         js.executeScript("arguments[0].click();",element_AddAppraisal);
         System.out.println("Add Appraisal clicked");
@@ -63,12 +60,12 @@ public class TC06_OrangeHRM_Performance {
 
         String empName = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_EmployeeName);
         driver.findElement(PageLocators.txtbx_Employee).sendKeys(empName);
-        System.out.println("Employee name is clicked and text aar is entered");
+        System.out.println("Employee name is entered");
 
         //Thread.sleep(2000);
         WebElement name = driver.findElement(PageLocators.empName);
         js.executeScript("arguments[0].click();", name);
-        System.out.println("Aaron Hamilton clicked");
+        System.out.println("Employee is clicked");
 
         String description = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_Description);
         driver.findElement(PageLocators.description).sendKeys(description);
@@ -78,12 +75,14 @@ public class TC06_OrangeHRM_Performance {
         driver.findElement(PageLocators.durationDropdown).click();
         System.out.println("Duration Dropdown clicked");
 
+
         //Thread.sleep(2000);
         //driver.findElement(By.xpath("//div[@class='select-wrapper']/ul/li/span[text()='End Year Review 2018- HR Executive']")).click();
+        String duration = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_AppraisalCycle);
         List<WebElement> cycleDropdown = driver.findElements(PageLocators.timePeriod);
         for (WebElement appraisalCycle : cycleDropdown) {
             String s2 = appraisalCycle.getText();
-            if(s2.equalsIgnoreCase("End Year Review 2018- HR Executive")){
+            if(s2.equalsIgnoreCase(duration)){
                 js.executeScript("arguments[0].click();", appraisalCycle);
                 break;
             }
@@ -94,10 +93,10 @@ public class TC06_OrangeHRM_Performance {
         driver.findElement(PageLocators.dateFrom).click();
         System.out.println("date from clicked");
 
-        String fromDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_FromDate);
-        String date = fromDate.split("-")[0];
-        String month = fromDate.split("-")[1];
-        String year = fromDate.split("-")[2];
+        String from_Date = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_FromDate);
+        String fromdate = from_Date.split("-")[0];
+        String frommonth = from_Date.split("-")[1];
+        String fromyear = from_Date.split("-")[2];
 
         //Thread.sleep(2000);
         driver.findElement(PageLocators.fromMonth).click();
@@ -107,7 +106,7 @@ public class TC06_OrangeHRM_Performance {
         List<WebElement> list_months = driver.findElements(PageLocators.fromMonth1);
         for(WebElement element_month: list_months){
             String actualMonth = element_month.getText();
-            if(actualMonth.equalsIgnoreCase(month)){
+            if(actualMonth.equalsIgnoreCase(frommonth)){
                 element_month.click();
                 System.out.println(actualMonth+" is selected as Month for FromDate");
                 break;
@@ -122,7 +121,7 @@ public class TC06_OrangeHRM_Performance {
         List<WebElement> list_years = driver.findElements(PageLocators.fromYear1);
         for(WebElement element_year:list_years){
             String actualYear = element_year.getText();
-            if(actualYear.equalsIgnoreCase(year)){
+            if(actualYear.equalsIgnoreCase(fromyear)){
                 element_year.click();
                 System.out.println(actualYear+" is selected as Year for FromDate");
                 break;
@@ -133,7 +132,7 @@ public class TC06_OrangeHRM_Performance {
         List<WebElement> list_dates= driver.findElements(PageLocators.fromDate);
         for(WebElement element_date:list_dates){
             String actualDate = element_date.getText();
-            if(actualDate.equalsIgnoreCase(date)){
+            if(actualDate.equalsIgnoreCase(fromdate)){
                 element_date.click();
                 System.out.println(actualDate+" is selected as Date for FromDate");
                 break;
@@ -145,6 +144,12 @@ public class TC06_OrangeHRM_Performance {
         driver.findElement(PageLocators.toDatedrop).click();
         System.out.println("To date dropdown clicked");
 
+
+        String to_Date = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_ToDate);
+        String toDate = to_Date.split("-")[0];
+        String toMonth = to_Date.split("-")[1];
+        String toYear = to_Date.split("-")[2];
+
         //Thread.sleep(2000);
         driver.findElement(PageLocators.toMonth).click();
         System.out.println("Month dropdown clicked");
@@ -153,12 +158,13 @@ public class TC06_OrangeHRM_Performance {
         List<WebElement> month1 = driver.findElements(PageLocators.toMonth1);
         for(WebElement months: month1){
             String s6 = months.getText();
-            if(s6.equalsIgnoreCase("March")){
+            if(s6.equalsIgnoreCase(toMonth)){
                 months.click();
+                System.out.println(s6+" Month is selected");
                 break;
             }
         }
-        System.out.println("Month is selected");
+
 
         //Thread.sleep(2000);
         driver.findElement(PageLocators.toYear).click();
@@ -168,26 +174,35 @@ public class TC06_OrangeHRM_Performance {
         List<WebElement> year1 = driver.findElements(PageLocators.toYear1);
         for(WebElement yearsSelect:year1){
             String s7 = yearsSelect.getText();
-            if(s7.equalsIgnoreCase("2023")){
+            if(s7.equalsIgnoreCase(toYear)){
                 yearsSelect.click();
+                System.out.println(s7+" Year selected");
                 break;
             }
         }
-        System.out.println("Year selected");
+
 
         //Thread.sleep(2000);
         List<WebElement> date1= driver.findElements(PageLocators.toDate);
         for(WebElement dateSelect:date1){
             String s8 = dateSelect.getText();
-            if(s8.equalsIgnoreCase("8")){
+            if(s8.equalsIgnoreCase(toDate)){
                 dateSelect.click();
+                System.out.println(s8+" To date from table is selected");
                 break;
             }
         }
-        System.out.println("To date from table is selected");
+
 
         driver.findElement(PageLocators.dueDateDrop).click();
         System.out.println("Due date dropdown clicked");
+
+
+        String due_Date = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_DueDate);
+        String dueDate = to_Date.split("-")[0];
+        String dueMonth = to_Date.split("-")[1];
+        String dueYear = to_Date.split("-")[2];
+
 
         driver.findElement(PageLocators.dueMonth).click();
         System.out.println("Month due date dropdown clicked");
@@ -196,12 +211,13 @@ public class TC06_OrangeHRM_Performance {
         List<WebElement> month2 = driver.findElements(PageLocators.dueMonth1);
         for(WebElement months: month2){
             String s9 = months.getText();
-            if(s9.equalsIgnoreCase("December")){
+            if(s9.equalsIgnoreCase(dueMonth)){
                 months.click();
+                System.out.println(s9+" Month is selected");
                 break;
             }
         }
-        System.out.println("Month is selected");
+
 
         //Thread.sleep(2000);
         driver.findElement(PageLocators.dueYear).click();
@@ -211,23 +227,25 @@ public class TC06_OrangeHRM_Performance {
         List<WebElement> year2 = driver.findElements(PageLocators.dueYear1);
         for(WebElement yearsSelect:year2){
             String s10 = yearsSelect.getText();
-            if(s10.equalsIgnoreCase("2023")){
+            if(s10.equalsIgnoreCase(dueYear)){
                 yearsSelect.click();
+                System.out.println(s10+" Year due date selected");
                 break;
             }
         }
-        System.out.println("Year due date selected");
+
 
         //Thread.sleep(2000);
         List<WebElement> date2= driver.findElements(PageLocators.dueDate);
         for(WebElement dateSelect:date2){
             String s11 = dateSelect.getText();
-            if(s11.equalsIgnoreCase("10")){
+            if(s11.equalsIgnoreCase(dueDate)){
                 dateSelect.click();
+                System.out.println("Due date from table is selected");
                 break;
             }
         }
-        System.out.println("Due date from table is selected");
+
 
         //Thread.sleep(2000);
         driver.findElement(PageLocators.nextButton).click();
@@ -240,6 +258,32 @@ public class TC06_OrangeHRM_Performance {
         //Thread.sleep(2000);
         driver.findElement(PageLocators.nextButton1).click();
         System.out.println("Next button in Evaluator Page Clicked");
+
+
+        driver.findElement(PageLocators.final_Review).click();
+        System.out.println("Final review dropdown clicked");
+
+        driver.findElement(PageLocators.butt_Submit);
+        System.out.println("Submit clicked");
+
+        Alert ob = driver.switchTo().alert();
+        ob.accept();
+        System.out.println("Ok button cliced in Alert window");
+
+        wait.until(ExpectedConditions.elementToBeClickable(PageLocators.arrow_Back));
+        System.out.println("Arrowback button clicked");
+
+        List<WebElement> empNames = driver.findElements(PageLocators.name_Check);
+        for(WebElement employees : empNames){
+            String s12 = employees.getText();
+            if(s12.equalsIgnoreCase(empName)){
+                System.out.println("Test case is successful");
+            }else{
+                System.out.println("Test case not successful");
+            }
+        }
+
+
 
 
         //Select the Jaquline drop-down and click on Submit
