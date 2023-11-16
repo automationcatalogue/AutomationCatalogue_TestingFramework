@@ -59,8 +59,8 @@ public class TC05_OrangeHRM_Leave {
         }catch(Exception e){
             System.out.println("Exception Occurred and More button is not available!!!");
         }
-
-        driver.findElement(By.xpath("//a[contains(@data-automation-id,'menu_leave_Configure')]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[@data-automation-id='menu_leave_Configure']")).click();
         System.out.println("configure option is clicked");
 
         WebElement element_configure = driver.findElement(By.xpath("//a[contains(@data-automation-id,'menu_leave_viewWorkingWeekendList')]"));
