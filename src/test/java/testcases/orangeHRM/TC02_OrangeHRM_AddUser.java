@@ -110,14 +110,30 @@ public class TC02_OrangeHRM_AddUser {
         System.out.println("Save button is been clicked at the end");
 
         //Logout from OrangeHRM Application
+        driver.findElement(By.linkText("Log Out")).click();
+        System.out.println("Logout is succesfully done from the Website");
 
         //Login with New User Credentials
         driver.findElement(By.name("txtUsername")).sendKeys(createUserName);
         System.out.println("New User name is entered");
+
         //password
+        //driver.findElement(By.name("txtPassword")).sendKeys(NewUserPassword);
+        System.out.println("New Password is been entered");
+
         //click on Login
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        System.out.println("Login button is been clicked");
 
         //Verify the title
+        String title = driver.getTitle();
+
+        if (title.equalsIgnoreCase("Employee Management")) {
+            System.out.println("Login is successful");
+        }else{
+            System.out.println("Login is not successful");
+        }
+
 
         //Get the Employee Name
         String actualUserName = driver.findElement(By.xpath("")).getText();
@@ -128,6 +144,9 @@ public class TC02_OrangeHRM_AddUser {
         }
 
         //Logout from the Application
+        driver.findElement(By.linkText("Log Out")).click();
+        System.out.println("Logout is successfully done from the Website");
+
 
         driver.quit();
     }
