@@ -17,7 +17,11 @@ Arun Tasks:
 6. Excel Integration for Total orders testcase
 7. Code refactoring for Add user and Create Address testcase
 
-
+Shalini Tasks:
+--------------
+1. HRM_Leave testcase --> Complete the remaining validation
+2. Leave testcase-->Execute all '5' sets of TestData and make sure all of them should be passed
+3. Code refactoring for Leave and Multiple Orders
 
 
 

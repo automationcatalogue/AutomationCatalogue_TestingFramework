@@ -60,10 +60,10 @@ public class TC05_OrangeHRM_Leave {
             System.out.println("Exception Occurred and More button is not available!!!");
         }
 
-        driver.findElement(By.xpath("//a[@data-automation-id='more_menu_child_menu_leave_Configure']")).click();
-        System.out.println("configure option");
+        driver.findElement(By.xpath("//a[contains(@data-automation-id,'menu_leave_Configure')]")).click();
+        System.out.println("configure option is clicked");
 
-        WebElement element_configure = driver.findElement(By.xpath("//a[@data-automation-id='more_menu_child_menu_leave_viewWorkingWeekendList']"));
+        WebElement element_configure = driver.findElement(By.xpath("//a[contains(@data-automation-id,'menu_leave_viewWorkingWeekendList')]"));
         js.executeScript("arguments[0].click();", element_configure);
 
         driver.switchTo().frame("noncoreIframe");
@@ -89,6 +89,7 @@ public class TC05_OrangeHRM_Leave {
         String year = date.split("/")[2];
         driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--year']/input")).click();
         System.out.println("year is clicked");
+        Thread.sleep(2000);
         List<WebElement> element_year = driver.findElements(By.xpath("//div[@class='select-wrapper picker__select--year']/ul/li/span"));
         for (WebElement element : element_year) {
             String actualYear = element.getText();
@@ -98,6 +99,7 @@ public class TC05_OrangeHRM_Leave {
                 break;
             }
         }
+        Thread.sleep(2000);
         driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--month']/input")).click();
         System.out.println("month is clicked");
         wait.until((ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='select-wrapper picker__select--month']/ul/li/span"))));
@@ -110,10 +112,8 @@ public class TC05_OrangeHRM_Leave {
                 break;
             }
         }
-        driver.findElement(By.xpath("//table[@id='addWorkingWeekend_date_table']/tbody")).click();
-        System.out.println("day is clicked");
-        //wait.until((ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@id='addWorkingWeekend_date_table']/tbody/tr/td/div[ contains(@class,'infocus')]"))));
-        List<WebElement> element_day = driver.findElements(By.xpath("//table[@id='addWorkingWeekend_date_table']/tbody/tr/td/div[ contains(@class,'infocus')]"));
+        Thread.sleep(2000);
+        List<WebElement> element_day = driver.findElements(By.xpath("//table[@id='addWorkingWeekend_date_table']/tbody/tr/td/div[contains(@class,'infocus')]"));
         for (WebElement element : element_day) {
             String actualday = element.getText();
             if (actualday.equalsIgnoreCase(day)) {
@@ -124,9 +124,17 @@ public class TC05_OrangeHRM_Leave {
         }
 
         driver.findElement(By.xpath("//*[@id='addForm']/div/div[2]/div[1]/div/input")).click();
-        System.out.println("hours is clicked");
+        System.out.println("hours drop-down is clicked");
         String hours = ExcelUtils.getCellData(sheetName, row, Config.col_Workinghours);
-        //wait.until((ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//form[@id='addForm']/div/div[2]/div[1]/div/ul/li/span"))));
+        Thread.sleep(5000);
+        if(hours.equalsIgnoreCase("Full Day")){
+            js.executeScript("arguments[0].click();",driver.findElement(By.xpath("//label[@for='addWorkingWeekend_length']/..//li[1]/span")));
+        }else if(hours.equalsIgnoreCase("Half Day")){
+            js.executeScript("arguments[0].click();",driver.findElement(By.xpath("//label[@for='addWorkingWeekend_length']/..//li[2]/span")));
+        }else{
+            System.out.println("Invalid data is given in Excel sheet");
+        }
+
         List<WebElement> element_hours = driver.findElements(By.xpath("//form[@id='addForm']/div/div[2]/div[1]/div/ul/li/span"));
         for (WebElement element : element_hours) {
             String actualhours = element.getText();
@@ -139,8 +147,7 @@ public class TC05_OrangeHRM_Leave {
 
         driver.findElement(By.xpath("//form[@id='addForm']/div/div[2]/div[2]/div/input")).click();
         System.out.println("country is clicked");
-        // driver.switchTo().defaultContent();
-        //System.out.println("Exited from the frame");
+
 
         String country = ExcelUtils.getCellData(sheetName, row, Config.col_country);
         wait.until((ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//ul[@class='dropdown-content select-dropdown active']/li/span"))));
@@ -156,9 +163,7 @@ public class TC05_OrangeHRM_Leave {
         driver.findElement(By.xpath("//a[@id='saveItemBtn']")).click();
         System.out.println("details are saved");
 
-      //  String actualName = driver.findElement(By.xpath("")).getText();
-      //  if(actualName.equalsIgnoreCase(name)){
-       //     System.out.println("Name is correctly added");
+
         }
     }
 
