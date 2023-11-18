@@ -6,13 +6,12 @@ public class Config {
     public static final String testID_HRMReports="TC03-01";
     public static final String testID_HRM_Attendance="TC04-01";
     public static final String testID_HRMLeave="TC05-01";
-    public static final String testID_HRM_Performance="TC06-01";
+    public static final String testID_HRM_Performance="TC06-05";
     public static final String testID_Demo_CreateAddress="TC09-02";
     public static final String testID_Demo_TotalOrders = "TC10-01";
     public static final String testID_DemoMultipleProducts="TC11-01";
     public static final String testID_DEMOApplyDiscount="TC12-01";
     public static final String testID_Demo_PlaceOrder="TC13-01";
-
 
     //Common
     public static final int col_TestcaseID=0;
@@ -85,11 +84,14 @@ public class Config {
     public static final int col_country=7;
 
     //Demo_MultipleOrders
-    public static final int col_Product1=4;
-    public static final int col_Product2=5;
-    public static final int col_Product3=6;
-    public static final int col_Product4=7;
-    public static final int col_Product5=8;
-    public static final int col_OrderID=4;
+    public static final int col_Product1Category=4;
+    public static final int col_Product1Name=5;
+    public static final int col_Product2Category=6;
+    public static final int col_Product2Name=7;
+    public static final int col_Product3Category=8;
+    public static final int col_Product3Name=9;
+    public static final int col_Product4Category=10;
+    public static final int col_Product4Name=11;
+    public static final int col_OrderID=12;
 }
 

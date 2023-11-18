@@ -62,7 +62,7 @@ public class PageLocators {
     public static final By perfor_Tab = By.xpath("//a[@class=' main-menu-item-1' and @data-tooltip='Performance']/span");
     public static final By add_Appraisal = By.xpath("//i[@class='material-icons' and text()='add']");
     public static final By txtbx_Employee = By.cssSelector("input[name='employeeAppraisal[emp_name][empName]']");
-    public static final By empName = By.xpath("//div[text()='1116']");
+    public static final By empName = By.xpath("//div[@class='autoComplete-title']/strong");
     public static final By description = By.cssSelector("#employeeAppraisal_description");
     public static final By durationDropdown = By.xpath("//div[@class='select-wrapper']");
     public static final By timePeriod = By.xpath("//div[@class='select-wrapper']/ul/li/span");

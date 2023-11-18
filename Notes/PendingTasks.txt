@@ -9,7 +9,7 @@ Asma Tasks: (To be completed)
 
 Arun Tasks:
 ----------
-1. Complete the remaining excel integration for Performance testcase
+1. Complete the remaining excel integration for Performance testcase --> DONE
 2. Complete the ToDate and Due Dates same like From Date and execute
 3. Complete the remaining latest Validation once performance appraisal is saved
 4. Update the Different sets of TestData in Excel sheet for Performance testcase

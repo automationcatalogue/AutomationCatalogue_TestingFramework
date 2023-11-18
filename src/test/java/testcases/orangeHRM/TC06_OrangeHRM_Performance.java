@@ -5,6 +5,7 @@ import Utilities.Config_Data;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.PageLocators;
@@ -74,20 +75,11 @@ public class TC06_OrangeHRM_Performance {
         //Thread.sleep(2000);
         driver.findElement(PageLocators.durationDropdown).click();
         System.out.println("Duration Dropdown clicked");
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("(//label[text()='Appraisal Cycle']/..//ul//span[text()])[1]"),"-- Select --"));
 
-
-        //Thread.sleep(2000);
-        //driver.findElement(By.xpath("//div[@class='select-wrapper']/ul/li/span[text()='End Year Review 2018- HR Executive']")).click();
-        String duration = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_AppraisalCycle);
-        List<WebElement> cycleDropdown = driver.findElements(PageLocators.timePeriod);
-        for (WebElement appraisalCycle : cycleDropdown) {
-            String s2 = appraisalCycle.getText();
-            if(s2.equalsIgnoreCase(duration)){
-                js.executeScript("arguments[0].click();", appraisalCycle);
-                break;
-            }
-        }
-        System.out.println("End Year Review 2018- HR Executive is Selected");
+        String appraisalCycle = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_AppraisalCycle);
+        driver.findElement(By.xpath("//label[text()='Appraisal Cycle']/..//ul//span[text()='"+appraisalCycle+"']")).click();
+        System.out.println(appraisalCycle + " is selected from Appraisal Cycle drop-down");
 
         //Thread.sleep(2000);
         driver.findElement(PageLocators.dateFrom).click();
@@ -117,7 +109,7 @@ public class TC06_OrangeHRM_Performance {
         driver.findElement(PageLocators.fromYear).click();
         System.out.println("Year dropdown clicked");
 
-        //Thread.sleep(2000);
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(PageLocators.fromYear1));
         List<WebElement> list_years = driver.findElements(PageLocators.fromYear1);
         for(WebElement element_year:list_years){
             String actualYear = element_year.getText();
@@ -199,9 +191,9 @@ public class TC06_OrangeHRM_Performance {
 
 
         String due_Date = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_DueDate);
-        String dueDate = to_Date.split("-")[0];
-        String dueMonth = to_Date.split("-")[1];
-        String dueYear = to_Date.split("-")[2];
+        String dueDate = due_Date.split("-")[0];
+        String dueMonth = due_Date.split("-")[1];
+        String dueYear = due_Date.split("-")[2];
 
 
         driver.findElement(PageLocators.dueMonth).click();
@@ -263,15 +255,15 @@ public class TC06_OrangeHRM_Performance {
         driver.findElement(PageLocators.final_Review).click();
         System.out.println("Final review dropdown clicked");
 
-        driver.findElement(PageLocators.butt_Submit);
+        driver.findElement(PageLocators.butt_Submit).click();
         System.out.println("Submit clicked");
 
-        Alert ob = driver.switchTo().alert();
-        ob.accept();
-        System.out.println("Ok button cliced in Alert window");
+        driver.findElement(By.xpath("//a[@id='dialogSubmitBtn']")).click();
+        System.out.println("Ok button clicked in Alert window");
 
         wait.until(ExpectedConditions.elementToBeClickable(PageLocators.arrow_Back));
-        System.out.println("Arrowback button clicked");
+        driver.findElement(PageLocators.arrow_Back).click();
+        System.out.println("Back Arrow button is clicked");
 
         List<WebElement> empNames = driver.findElements(PageLocators.name_Check);
         for(WebElement employees : empNames){
@@ -292,7 +284,7 @@ public class TC06_OrangeHRM_Performance {
 
 
         //Thread.sleep(4000);
-        driver.quit();
+       // driver.quit();
 
 
 

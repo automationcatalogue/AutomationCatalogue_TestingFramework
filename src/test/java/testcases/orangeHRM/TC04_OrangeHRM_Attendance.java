@@ -66,7 +66,7 @@ public class TC04_OrangeHRM_Attendance {
         js.executeScript("arguments[0].click();", Date_Range);
         System.out.println("Date range is selected");
 
-        String day = "01/June/2020";
+        String day = "1/June/2020";
         String date = day.split("/")[0];
         String month = day.split("/")[1];
         String year = day.split("/")[2];
@@ -112,10 +112,11 @@ public class TC04_OrangeHRM_Attendance {
             String actualValue = element.getText();
             if(actualValue.equalsIgnoreCase(date)){
                 element.click();
+                System.out.println("Date is selected:"+date);
                 break;
             }
         }
-        System.out.println("Date is selected:"+date);
+
 
 
         driver.findElement(By.xpath("//input[@id='time']")).click();
@@ -141,7 +142,7 @@ public class TC04_OrangeHRM_Attendance {
         System.out.println("Date range is selected");
 
 
-        String day_1 = "01/June/2020";
+        String day_1 = "1/June/2020";
         String date_1 = day_1.split("/")[0];
         String month_1 = day_1.split("/")[1];
         String year_1 = day_1.split("/")[2];
@@ -189,10 +190,11 @@ public class TC04_OrangeHRM_Attendance {
             String actualValue = element.getText();
             if(actualValue.equalsIgnoreCase(date_1)){
                 element.click();
+                System.out.println("Date is selected:"+date_1);
                 break;
             }
         }
-        System.out.println("Date is selected:"+date_1);
+
 
         driver.findElement(By.xpath("//input[@id='time']")).click();
         System.out.println("Out time is selected");
