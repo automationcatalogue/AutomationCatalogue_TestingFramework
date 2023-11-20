@@ -7,6 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -52,37 +53,27 @@ public class TC11_DemoWebshop_MultipleOrders {
         String product3Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product3Name);
         String product4Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product4Name);
 
+        clickCategory(product1Category);
+        driver.findElement(addToCart_Product(product1Name)).click();
+        System.out.println(product1Name+" Add to Cart button is clicked");
+        enterProductData(product1Name);
+
+        clickCategory(product2Category);
+        driver.findElement(addToCart_Product(product2Name)).click();
+        System.out.println(product2Name+" Add to Cart button is clicked");
+        enterProductData(product2Name);
+
+        clickCategory(product3Category);
+        driver.findElement(addToCart_Product(product3Name)).click();
+        System.out.println(product3Name+" Add to Cart button is clicked");
+        enterProductData(product3Name);
+
+        clickCategory(product4Category);
+        driver.findElement(addToCart_Product(product4Name)).click();
+        System.out.println(product4Name+" Add to Cart button is clicked");
+        enterProductData(product4Name);
 
 
-
-        driver.findElement(By.xpath("//h2[@class='product-title']/a")).click();
-        System.out.println("first product is selected");
-        driver.findElement(By.xpath("//input[@id='add-to-cart-button-13']")).click();
-        System.out.println("added to cart");
-
-        driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[4]/div[1]/div[1]/div[2]/ul/li[2]/ul/li[2]/a")).click();
-        System.out.println("notebooks are clicked");
-        driver.findElement(By.xpath("//div[@class='details']/h2/a")).click();
-        System.out.println("laptop is clicked");
-        driver.findElement(By.xpath("//input[@id='add-to-cart-button-31']")).click();
-        System.out.println("laptop is added");
-
-        driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[4]/div[2]/div[2]/div[2]/div[3]/div[1]/div/div[2]/h2/a")).click();
-        System.out.println("product is clicked");
-        driver.findElement(By.xpath("//*[@id=\"product-details-form\"]/div/div[1]/div[2]/div[6]/div/label")).click();
-        System.out.println("added to cart");
-        driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[4]/div[1]/div[1]/div[2]/ul/li[5]/a")).click();
-        System.out.println("digital is clicked");
-        driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[4]/div[2]/div[2]/div[2]/div[3]/div[1]/div/div[2]/h2/a")).click();
-        System.out.println("product is selected");
-        driver.findElement(By.xpath("//input[@id='add-to-cart-button-53']")).click();
-        System.out.println("added to cart");
-        driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[4]/div[1]/div[1]/div[2]/ul/li[6]/a")).click();
-        System.out.println("jewllery is clicked");
-        driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[4]/div[2]/div[2]/div[2]/div[3]/div[2]/div/div[2]/h2/a")).click();
-        System.out.println("jewellery is clicked");
-        driver.findElement(By.xpath("//input[@id='add-to-cart-button-14']")).click();
-        System.out.println("added to cart");
         driver.findElement(By.xpath("//*[@id='topcartlink']/a/span[1]")).click();
         System.out.println("shopping cart is clicked");
         driver.findElement(By.xpath("//input[@id='termsofservice']")).click();
@@ -105,12 +96,29 @@ public class TC11_DemoWebshop_MultipleOrders {
         driver.findElement(By.xpath("//*[@id='confirm-order-buttons-container']/input")).click();
         System.out.println("order is confirmed");
         String data = driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[4]/div/div/div[2]/div/ul/li[1]")).getText();
+        ExcelUtils.setCellData(data, sheetName, row, Config.col_OrderID);
+        System.out.println(data+" is written as Order ID in Excel sheet");
+        // Logout
 
+        //driver.quit();
     }
 
 
     public static By getLocator_Product(String productName){
         return By.xpath("(//h2//a[text()='"+productName+"'])[1]");
+    }
+
+    public static By addToCart_Product(String productName){
+        return By.xpath("(//h2//a[text()='"+productName+"'])[1]/../../div[3]//input");
+    }
+
+    public static void enterProductData(String productName){
+        if(productName.equalsIgnoreCase("Create Your Own Jewelry")){
+            driver.findElement(By.xpath("//label[contains(text(),'Length in cm')]/..//following-sibling::dd[1]/input")).sendKeys("10");
+            System.out.println("Length in cm is entered");
+        }else if(productName.equalsIgnoreCase("Build your own cheap computer")){
+            //
+        }
     }
 
     public static void clickCategory(String productCategory){

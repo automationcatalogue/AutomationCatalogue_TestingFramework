@@ -258,32 +258,98 @@ public class TC06_OrangeHRM_Performance {
         driver.findElement(PageLocators.butt_Submit).click();
         System.out.println("Submit clicked");
 
-        driver.findElement(By.xpath("//a[@id='dialogSubmitBtn']")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@id='dialogSubmitBtn']")));
+        WebElement element = driver.findElement(By.xpath("//a[@id='dialogSubmitBtn']"));
+        js.executeScript("arguments[0].click()",element);
         System.out.println("Ok button clicked in Alert window");
 
-        wait.until(ExpectedConditions.elementToBeClickable(PageLocators.arrow_Back));
-        driver.findElement(PageLocators.arrow_Back).click();
-        System.out.println("Back Arrow button is clicked");
+        WebElement element_HRAdministration = driver.findElement(By.xpath("(//span[text()='HR Administration'])[1]"));
+        js.executeScript("arguments[0].click()",element_HRAdministration);
+        System.out.println("HR Administration link is clicked");
 
-        List<WebElement> empNames = driver.findElements(PageLocators.name_Check);
-        for(WebElement employees : empNames){
-            String s12 = employees.getText();
-            if(s12.equalsIgnoreCase(empName)){
-                System.out.println("Test case is successful");
-            }else{
-                System.out.println("Test case not successful");
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//list/table//tbody/tr/td[4]//span")));
+        List<WebElement> list_EmployeeNames = driver.findElements(By.xpath("//list/table//tbody/tr/td[4]//span"));
+        String userName_Employee ="";
+        for (WebElement element_EmployeeName: list_EmployeeNames){
+            String actualEmployeeName = element_EmployeeName.getText();
+            if (actualEmployeeName.equalsIgnoreCase(empName)){
+                userName_Employee = element_EmployeeName.findElement(By.xpath("./../..//preceding-sibling::td[2]//span")).getText();
+                element_EmployeeName.findElement(By.xpath("./../..//following-sibling::td[4]/i")).click();
+                System.out.println(userName_Employee+" Edit button is clicked");
+                break;
             }
         }
 
+        ExcelUtils.setCellData(userName_Employee, sheetName, row, Config.col_Performance_UserName_Employee);
+        System.out.println(userName_Employee+" is written in the Excel file for a UserNameEmployee");
 
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@for='changepassword']/span")));
+        driver.findElement(By.xpath("//label[@for='changepassword']/span")).click();
+        System.out.println("Change Password check-box is clicked");
 
+        //Password and confirm password
+        String newUserPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_Password);
+        driver.findElement(By.id("password")).sendKeys(newUserPassword);
+        System.out.println("New user Password is been entered as "+newUserPassword);
 
-        //Select the Jaquline drop-down and click on Submit
-        //Go back to the Appraisal List link
-        //Validate EMployeeName, Description and Appraisal Status
+        String newUserConfirmPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_ConfirmPassword);
+        driver.findElement(By.cssSelector("#confirmpassword")).sendKeys(newUserConfirmPassword);
+        System.out.println("Confirm New Password is been confirmed as "+newUserConfirmPassword);
 
+        driver.findElement(By.xpath("//button[@id='modal-save-button']")).click();
+        System.out.println("Save button is been clicked");
 
-        //Thread.sleep(4000);
+        driver.switchTo().defaultContent();
+        System.out.println("Exits from the frame!!!");
+
+        //Logout from the Application
+        driver.findElement(By.xpath("//span[text()='Log Out']")).click();
+        System.out.println("Logout is successfully done from the Website");
+
+        driver.findElement(PageLocators.txtbx_userName).sendKeys(userName_Employee);
+        System.out.println(userName_Employee + " is entered as Username");
+
+        String userPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_Password);
+        driver.findElement(PageLocators.txtbx_pass).sendKeys(userPassword);
+        System.out.println("Password entered");
+
+        driver.findElement(PageLocators.butt_Login).submit();
+        String actualTitle = driver.getTitle();
+        if (actualTitle.equalsIgnoreCase("Employee Management")) {
+            System.out.println("Page logged in successfully");
+        } else {
+            System.out.println("Page logged in failed");
+        }
+
+        WebElement link_Performance = driver.findElement(PageLocators.perfor_Tab);
+        js.executeScript("arguments[0].click();", link_Performance);
+        System.out.println("Performance tab clicked");
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@data-automation-id='menu_performance_viewMyAppraisals']")));
+        WebElement link_MyAppraisal = driver.findElement(By.xpath("//a[@data-automation-id='menu_performance_viewMyAppraisals']"));
+        js.executeScript("arguments[0].click()",link_MyAppraisal);
+        System.out.println("My Appraisal link is clicked");
+
+        //Validating the Description
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//list/table//tbody/tr[1]/td[6]//span")));
+        String actualDescription = driver.findElement(By.xpath("//list/table//tbody/tr[1]/td[6]//span")).getText();
+        if(actualDescription.equalsIgnoreCase(description)){
+            System.out.println("Description data is matched");
+        }else{
+            System.out.println("Description data is not matched");
+        }
+
+        //Validating the Appraisal Status
+        String actualAppraisalStatus = driver.findElement(By.xpath("//list/table//tbody/tr[1]/td[7]//span")).getText();
+        if(actualAppraisalStatus.equalsIgnoreCase("COMPLETED")){
+            System.out.println("Appraisal Status is COMPLETED");
+        }else{
+            System.out.println("Appraisal Status is not COMPLETED");
+        }
+
+        driver.findElement(By.xpath("//span[text()='Log Out']")).click();
+        System.out.println("Logout is successfully done from the Website");
+
        // driver.quit();
 
 

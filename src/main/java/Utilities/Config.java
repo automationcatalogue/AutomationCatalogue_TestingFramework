@@ -76,6 +76,9 @@ public class Config {
     public static final int col_Performance_FromDate =8;
     public static final int col_Performance_ToDate =9;
     public static final int col_Performance_DueDate =10;
+    public static final int col_Performance_UserName_Employee = 11;
+    public static final int col_Performance_UserName_Password = 12;
+    public static final int col_Performance_UserName_ConfirmPassword = 13;
 
     //HRMLeave
     public static final int col_Name=4;
