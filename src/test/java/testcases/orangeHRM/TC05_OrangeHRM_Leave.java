@@ -60,7 +60,7 @@ public class TC05_OrangeHRM_Leave {
             System.out.println("Exception Occurred and More button is not available!!!");
         }
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[@data-automation-id='menu_leave_Configure']")).click();
+        driver.findElement(By.xpath("//a[@data-automation-id='more_menu_child_menu_leave_Configure']")).click();
         System.out.println("configure option is clicked");
 
         WebElement element_configure = driver.findElement(By.xpath("//a[contains(@data-automation-id,'menu_leave_viewWorkingWeekendList')]"));
@@ -160,10 +160,23 @@ public class TC05_OrangeHRM_Leave {
                 break;
             }
         }
+        Thread.sleep(2000);
         driver.findElement(By.xpath("//a[@id='saveItemBtn']")).click();
         System.out.println("details are saved");
 
+        List<WebElement> allelements = driver.findElements(By.xpath("//table[@id='resultTable']/tbody/tr/td[2]/a"));
+        for (WebElement element2 : allelements) {
+            String actualName = element2.getText();
+            if (actualName.equalsIgnoreCase(name)) {
+                System.out.println("Name is correctly added");
+            }
+        }
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//span[text()='Log Out']")).click();
+        System.out.println("Logout is successfully done from the Website");
 
+
+        driver.quit();
         }
     }
 

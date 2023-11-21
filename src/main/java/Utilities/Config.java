@@ -5,7 +5,7 @@ public class Config {
     public static final String testID_HRMAddUser="TC02-02";
     public static final String testID_HRMReports="TC03-01";
     public static final String testID_HRM_Attendance="TC04-01";
-    public static final String testID_HRMLeave="TC05-01";
+    public static final String testID_HRMLeave="TC05-05";
     public static final String testID_HRM_Performance="TC06-05";
     public static final String testID_Demo_CreateAddress="TC09-02";
     public static final String testID_Demo_TotalOrders = "TC10-01";

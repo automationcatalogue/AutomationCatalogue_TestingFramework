@@ -114,11 +114,12 @@ public class TC11_DemoWebshop_MultipleOrders {
 
     public static void enterProductData(String productName){
         if(productName.equalsIgnoreCase("Create Your Own Jewelry")){
-            driver.findElement(By.xpath("//label[contains(text(),'Length in cm')]/..//following-sibling::dd[1]/input")).sendKeys("10");
+            driver.findElement(By.xpath("//label[contains(text(),'Length in cm')]/..//following-sibling::dd[1]/input")).sendKeys("Gold (0,5 mm)");
             System.out.println("Length in cm is entered");
         }else if(productName.equalsIgnoreCase("Build your own cheap computer")){
-            //
-        }
+            driver.findElement(By.xpath("//input[@id='add-to-cart-button-72']")).click();
+            System.out.println("Added to cart");
+          }
     }
 
     public static void clickCategory(String productCategory){
