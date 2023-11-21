@@ -23,6 +23,7 @@ public class TC11_DemoWebshop_MultipleOrders {
         int row = ExcelUtils.getRowNumber(Config.testID_DemoMultipleProducts, sheetName);
 
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         JavascriptExecutor js = (JavascriptExecutor)driver;
         System.out.println("Chrome browser is launched");
@@ -85,6 +86,8 @@ public class TC11_DemoWebshop_MultipleOrders {
         WebElement element_ShippingAddress = driver.findElement(By.xpath("//*[@id='shipping-buttons-container']/input"));
         js.executeScript("arguments[0].click();",element_ShippingAddress);
         System.out.println("shipping address is clicked ");
+        driver.findElement(By.xpath("//*[@id='shipping-buttons-container']/input")).click();
+        System.out.println("continue Shipping address");
         driver.findElement(By.xpath("//*[@id='shipping-method-buttons-container']/input")).click();
         System.out.println("shipping method");
         driver.findElement(By.xpath("//input[@id='paymentmethod_1']")).click();
@@ -99,27 +102,58 @@ public class TC11_DemoWebshop_MultipleOrders {
         ExcelUtils.setCellData(data, sheetName, row, Config.col_OrderID);
         System.out.println(data+" is written as Order ID in Excel sheet");
         // Logout
+        driver.findElement(By.linkText("Log out")).click();
+        System.out.println("Logout link is clicked");
 
-        //driver.quit();
-    }
+        driver.quit();
 
-
-    public static By getLocator_Product(String productName){
-        return By.xpath("(//h2//a[text()='"+productName+"'])[1]");
     }
 
     public static By addToCart_Product(String productName){
-        return By.xpath("(//h2//a[text()='"+productName+"'])[1]/../../div[3]//input");
+        return By.xpath("(//h2//a[text()='"+productName+"'])[1]/../..//input");
     }
 
     public static void enterProductData(String productName){
         if(productName.equalsIgnoreCase("Create Your Own Jewelry")){
-            driver.findElement(By.xpath("//label[contains(text(),'Length in cm')]/..//following-sibling::dd[1]/input")).sendKeys("Gold (0,5 mm)");
-            System.out.println("Length in cm is entered");
-        }else if(productName.equalsIgnoreCase("Build your own cheap computer")){
-            driver.findElement(By.xpath("//input[@id='add-to-cart-button-72']")).click();
-            System.out.println("Added to cart");
-          }
+            driver.findElement(By.xpath("//label[contains(text(),'Length in cm')]/..//following-sibling::dd[1]/input")).sendKeys("10");
+            System.out.println("Length in cm is entered for "+productName);
+            driver.findElement(By.xpath("//input[@class='button-1 add-to-cart-button']")).click();
+            System.out.println("Added to cart button for "+productName+" is clicked");
+        }else if(productName.equalsIgnoreCase("Build your own cheap computer")
+                || productName.equalsIgnoreCase("Blue and green Sneaker")
+                || productName.equalsIgnoreCase("Phone Cover")
+                || productName.equalsIgnoreCase("TCP Coaching day")){
+            driver.findElement(By.xpath("//input[@class='button-1 add-to-cart-button']")).click();
+            System.out.println("Added to cart button for "+productName+" is clicked");
+        }else if(productName.equalsIgnoreCase("$5 Virtual Gift Card")
+                || productName.equalsIgnoreCase("$25 Virtual Gift Card")){
+            enterVirtualGiftCardDetails();
+            driver.findElement(By.xpath("//input[@class='button-1 add-to-cart-button']")).click();
+            System.out.println("Added to cart button for "+productName+" is clicked");
+        }else if(productName.equalsIgnoreCase("$50 Physical Gift Card")
+                || productName.equalsIgnoreCase("$100 Physical Gift Card")){
+            enterPhysicalGiftCardDetails();
+            driver.findElement(By.xpath("//input[@class='button-1 add-to-cart-button']")).click();
+            System.out.println("Added to cart button for "+productName+" is clicked");
+        }
+    }
+
+    public static void enterVirtualGiftCardDetails(){
+        driver.findElement(By.xpath("//input[@class='recipient-name']")).clear();
+        driver.findElement(By.xpath("//input[@class='recipient-name']")).sendKeys("Automation");
+        driver.findElement(By.xpath("//input[@class='recipient-email']")).clear();
+        driver.findElement(By.xpath("//input[@class='recipient-email']")).sendKeys("Automation@test.com");
+        driver.findElement(By.xpath("//input[@class='sender-name']")).clear();
+        driver.findElement(By.xpath("//input[@class='sender-name']")).sendKeys("AutomationCatalogue");
+        driver.findElement(By.xpath("//input[@class='sender-name']")).clear();
+        driver.findElement(By.xpath("//input[@class='sender-name']")).sendKeys("AutomationCatalogue@test.com");
+    }
+
+    public static void enterPhysicalGiftCardDetails(){
+        driver.findElement(By.xpath("//input[@class='recipient-name']")).clear();
+        driver.findElement(By.xpath("//input[@class='recipient-name']")).sendKeys("Automation");
+        driver.findElement(By.xpath("//input[@class='sender-name']")).clear();
+        driver.findElement(By.xpath("//input[@class='sender-name']")).sendKeys("AutomationCatalogue");
     }
 
     public static void clickCategory(String productCategory){
