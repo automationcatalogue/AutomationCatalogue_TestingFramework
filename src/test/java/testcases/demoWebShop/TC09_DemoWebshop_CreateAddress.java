@@ -133,7 +133,8 @@ public class TC09_DemoWebshop_CreateAddress {
         }
 
         //Logout from DemoWebshop testcase
-
-        driver.quit();
+        driver.findElement(By.linkText("Log out")).click();
+        System.out.println("Successfully logout");
+        //driver.quit();
     }
 }

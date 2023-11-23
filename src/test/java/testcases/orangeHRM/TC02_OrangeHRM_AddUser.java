@@ -110,7 +110,7 @@ public class TC02_OrangeHRM_AddUser {
         System.out.println("Save button is been clicked at the end");
 
         //Logout from OrangeHRM Application
-        driver.findElement(By.linkText("Log Out")).click();
+        driver.findElement(By.xpath("(//span[@class='profile-name'])[2]")).click();
         System.out.println("Logout is succesfully done from the Website");
 
         //Login with New User Credentials
@@ -118,7 +118,8 @@ public class TC02_OrangeHRM_AddUser {
         System.out.println("New User name is entered");
 
         //password
-        //driver.findElement(By.name("txtPassword")).sendKeys(NewUserPassword);
+        String NewUserPassword = ExcelUtils.getCellData(sheetName, row, Config.col_NewUserPassword);
+        driver.findElement(By.name("txtPassword")).sendKeys(NewUserPassword);
         System.out.println("New Password is been entered");
 
         //click on Login
@@ -136,15 +137,15 @@ public class TC02_OrangeHRM_AddUser {
 
 
         //Get the Employee Name
-        String actualUserName = driver.findElement(By.xpath("")).getText();
+        String actualUserName = driver.findElement(By.xpath("//a[@class='name'] ")).getText();
         if(actualUserName.equalsIgnoreCase(empName)){
-            System.out.println("Add User testcase is successful");
+            System.out.println(actualUserName+"Add User testcase is successful");
         }else{
-            System.out.println("Add User testcase is not successful");
+            System.out.println(actualUserName+"Add User testcase is not successful");
         }
 
         //Logout from the Application
-        driver.findElement(By.linkText("Log Out")).click();
+        driver.findElement(By.xpath("(//span[@class='profile-name'])[2]")).click();
         System.out.println("Logout is successfully done from the Website");
 
 
