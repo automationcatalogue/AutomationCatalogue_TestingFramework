@@ -50,9 +50,9 @@ public class TC03_OrangeHRM_Reports_Analytics {
             driver.findElement(PageLocators.usrnmbx).sendKeys(userName);
             System.out.println("UserName is entered as" + userName);
 
-        //password is selected from test data
+            //password is selected from test data
 
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+            String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
             driver.findElement(PageLocators.pwdbx).sendKeys(password);
             System.out.println("Password is entered");
 
@@ -75,14 +75,16 @@ public class TC03_OrangeHRM_Reports_Analytics {
             } else {
                 System.out.println("Title is not Matched and Login is not successful");
             }
+
             driver.findElement(PageLocators.newreportbtn).click();
             System.out.println("new report is clicked");
+
+            //report type is selected from test data
 
             String ReportType = ExcelUtils.getCellData(sheetName, row, Config.col_SelectReportType);
             driver.findElement(PageLocators.empinfobtn).click();
             System.out.println("employ add report type drop-down  is clicked");
 
-            //report type is selected from test data
 
             List<WebElement> elements_ReportType = driver.findElements(PageLocators.reportsDrpdwn);
             for(WebElement element : elements_ReportType) {
@@ -110,7 +112,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
                 }
             }
 
-           WebElement element_nextclick= driver.findElement(PageLocators.nxtBtn1);
+            WebElement element_nextclick= driver.findElement(PageLocators.nxtBtn1);
             JavascriptExecutor js = (JavascriptExecutor)driver;
             js.executeScript("arguments[0].click();",element_nextclick);
             System.out.println("next button is clicked");
@@ -133,8 +135,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             driver.findElement(PageLocators.trvlreqBtn).click();
             System.out.println("Travel request Id  is selected");
 
-
-          WebElement element_jobttl =  driver.findElement(By.xpath("//label[@for='selectedFilters_job_title']"));
+            WebElement element_jobttl =  driver.findElement(By.xpath("//label[@for='selectedFilters_job_title']"));
             System.out.println("job title  is selected");
             wait.until(ExpectedConditions.elementToBeClickable(element_jobttl));
 
@@ -161,6 +162,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
                     break;
                 }
             }
+
             driver.findElement(PageLocators.slctEstDt).click();
             System.out.println("Travel request Estimation date is selected");
 
@@ -210,7 +212,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             }
 
             TakesScreenshot ts4=(TakesScreenshot)driver;
-            File src_Estdt =ts3.getScreenshotAs(OutputType.FILE);
+            File src_Estdt =ts4.getScreenshotAs(OutputType.FILE);
             File dest_Estdt= new File(projectPath+"\\Screenshots\\Estdt_text.jpg");
             FileUtils.copyFile(src_Estdt,dest_Estdt);
             System.out.println("Estimated Date text screenshot is captured");
@@ -230,7 +232,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             FileUtils.copyFile(src_Cashadv,dest_Cashadv);
             System.out.println("Estimated Date text screenshot is captured");
 
-            //driver.quit();
+            driver.quit();
             System.out.println("browser is closed");
 
 

@@ -96,11 +96,9 @@ public class PageLocators {
     public static final By paswrdbx = By.cssSelector(".password");
     public static final By Login_btn = By.xpath("//input[@value='Log in']");
     public static final By computers_icn = By.xpath("(//a[@href='/computers'])[1]");
-    public static final By dsktp_img = By.xpath("//img[@alt='Picture for category Desktops']");
-    public static final By Owndsktp = By.xpath("/html/body/div[4]/div[1]/div[4]/div[2]/div[2]/div[2]/div[3]/div[1]/div/div[1]/a/img");
     public static final By Add_cart = By.xpath("(//input[@value='Add to cart'])[1]");
     public static final By shp_cart = By.xpath("//span[text()='Shopping cart']");
-    public static final By Dis_code = By.xpath("/html/body/div[4]/div[1]/div[4]/div/div/div[2]/div/form/div[2]/div[1]/div[1]/div[1]/div[3]/input[1]");
+    public static final By Dis_code = By.xpath("//input[@name='discountcouponcode']");
     public static final By Apply_cpn = By.xpath("//input[@name='applydiscountcouponcode']");
     public static final By Actual_val = By.xpath("(//span[@class='product-price'])[1]");
     public static final By Dis_val = By.xpath("//span[@class='product-price order-total']/strong");

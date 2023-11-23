@@ -3,6 +3,7 @@ package testcases.demoWebShop;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -58,22 +59,25 @@ public class TC12_DemoWebshop_ApplyDiscount {
         System.out.println("Desktops is clicked");
 
         String product = ExcelUtils.getCellData(sheetName, row, Config.col_Product);
-        List<WebElement> Product=driver.findElements(By.xpath("//div[@class='details']"));
-        for (WebElement element: Product){
+        List<WebElement> Product=driver.findElements(By.xpath("//h2[@class='product-title']/a"));
+        for (WebElement element:Product){
             String actualValue = element.getText();
             if (actualValue.equalsIgnoreCase(product)) {
                 element.click();
+                System.out.println("product is selected as" + product);
                 break;
             }
         }
 
-        System.out.println("product is selected as" + product);
 
         driver.findElement(PageLocators.Add_cart).click();
         System.out.println("add to cart is clicked");
 
+        driver.navigate().refresh();
         driver.findElement(PageLocators.shp_cart).click();
         System.out.println("shopping cart is clicked");
+
+        driver.navigate().refresh();
 
         String Discountcode  = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscountCode);
         driver.findElement(PageLocators.Dis_code).sendKeys(Discountcode);
@@ -81,12 +85,11 @@ public class TC12_DemoWebshop_ApplyDiscount {
 
         wait.until(ExpectedConditions.elementToBeClickable(PageLocators.Dis_code)).click();
 
-
         driver.findElement(PageLocators.Apply_cpn).click();
-         System.out.println("Apply coupon is clicked");
+        System.out.println("Apply coupon is clicked");
 
         WebElement element_actualvalue = driver.findElement(PageLocators.Actual_val);
-        System.out.println("acual value is dropdown is selected");
+        System.out.println("acual value dropdown is selected");
 
         WebElement element_Discountvalue=driver.findElement(PageLocators.Dis_val);
         System.out.println("Discount value is drpdown is selected");
@@ -134,7 +137,6 @@ public class TC12_DemoWebshop_ApplyDiscount {
         String CardholderName = ExcelUtils.getCellData(sheetName, row, Config.col_CardHolderName);
         driver.findElement(PageLocators.Card_holder).sendKeys(CardholderName);
         System.out.println("credit card name is selected as " + CardholderName);
-
 
         String CreditcardNum  = ExcelUtils.getCellData(sheetName, row, Config.col_CardNumber);
         driver.findElement(PageLocators.Card_number).sendKeys(CreditcardNum);
