@@ -28,12 +28,12 @@ public class TC13_DemoWebShop_PlaceOrder {
         element_LoginIco.click();
         System.out.println("Login icon button is clicked");
 
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_User_Name);
+        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         WebElement element_Email = driver.findElement(By.name("Email"));
         element_Email.sendKeys(userName);
         System.out.println(userName + "is entered");
 
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password_DWS);
+        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
         WebElement element_Password = driver.findElement(By.id("Password"));
         element_Password.sendKeys(password);
         System.out.println(password + " is entered");

@@ -116,6 +116,25 @@ public class TC09_DemoWebshop_CreateAddress {
         driver.findElement(By.xpath("//input[@class='button-1 save-address-button']")).click();
         System.out.println("Save button is been clicked");
 
+        //Validation of Address
+        boolean isAddressPresent = false;
+        List<WebElement> list_AddressElements = driver.findElements(By.xpath("//div[@class='address-list']/div/div[1]/strong"));
+        for(WebElement element_address:list_AddressElements){
+            String fullName = element_address.getText();
+            if(fullName.equalsIgnoreCase(FirstName + " "+LastName)){
+                System.out.println("Create Address is successful");
+                isAddressPresent = true;
+                break;
+            }
+        }
 
+        if(!isAddressPresent){
+            System.out.println("Create Address is failed....");
+        }
+
+        //Logout from DemoWebshop testcase
+        driver.findElement(By.linkText("Log out")).click();
+        System.out.println("Successfully logout");
+        //driver.quit();
     }
 }
