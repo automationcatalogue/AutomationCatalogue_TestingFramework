@@ -105,7 +105,9 @@ public class TC03_OrangeHRM_Reports_Analytics {
         //folder is selected from test data
 
         String SelectFolder = ExcelUtils.getCellData(sheetName, row, Config.col_SelectFolder);
-        driver.findElement(PageLocators.selfolderBtn).click();
+        WebElement element_selectFldr = driver.findElement(PageLocators.selfolderBtn);
+        JavascriptExecutor js4 =(JavascriptExecutor) driver;
+        js4.executeScript("arguments[0].click();",element_selectFldr);
         System.out.println("select folders is clicked");
 
         List<WebElement> elements_Folders = driver.findElements(PageLocators.folderDrpdwn);
@@ -138,8 +140,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
         wait.until((ExpectedConditions.elementToBeClickable(PageLocators.nxtBtn2))).click();
         System.out.println("next button is clicked");
 
-
-        if(ReportName.equalsIgnoreCase("Travel and Expense Detailed Report")){
+        if(ReportType.equalsIgnoreCase("Travel and Expense Detailed Report")){
             selectFields_TravelExpenseDetailedReport();
 
             driver.findElement(PageLocators.backarrowbtn).click();
@@ -149,17 +150,19 @@ public class TC03_OrangeHRM_Reports_Analytics {
 
             validate_TravelExpenseDetailedReport();
 
-        }else if(ReportName.equalsIgnoreCase("Employee Informational Report")){
+        }else if(ReportType.equalsIgnoreCase("Employee Informational Report")){
             selectFields_EmployeeInformationalReport();
 
             driver.findElement(PageLocators.backarrowbtn).click();
             System.out.println("one step back button is clicked");
             driver.findElement(PageLocators.searchbx).sendKeys(ReportName);
             System.out.println("clicked on search bar and entered report name");
+            driver.findElement(By.xpath("//button[@class='btn btn-secondary']")).click();
+            System.out.println("clicked on generate button");
 
             validate_EmployeeInformationalFields();
 
-        }else if(ReportName.equalsIgnoreCase("Travel and Expense Summary Report")){
+        }else if(ReportType.equalsIgnoreCase("Travel and Expense Summary Report")){
             selectFields_TravelExpenseSummaryReport();
 
             driver.findElement(PageLocators.backarrowbtn).click();
@@ -170,8 +173,8 @@ public class TC03_OrangeHRM_Reports_Analytics {
             validate_TravelExpenseSummaryReport();
         }
 
-        driver.quit();
-        System.out.println("browser is closed");
+        //driver.quit();
+        //System.out.println("browser is closed");
 
 
     }
@@ -228,16 +231,19 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
     public static void selectFields_EmployeeInformationalReport() throws Exception{
         WebElement element_EmployeeName = driver.findElement(By.xpath("//input[@id='selectedFilters_employee_name_withgroup']"));
-        element_EmployeeName.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element_EmployeeName);
         System.out.println("Employee Name check-box is clicked");
 
         WebElement element_JobTitle = driver.findElement(By.xpath("//input[@id='selectedFilters_job_title_withgroup']"));
-        element_JobTitle.click();
+        JavascriptExecutor js1 = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element_JobTitle);
         System.out.println("Job Title checkbox is clicked");
 
 
         WebElement element_Location = driver.findElement(By.xpath("//input[@id='selectedFilters_location_withgroup']"));
-        element_Location.click();
+        JavascriptExecutor js2 = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element_Location);
         System.out.println("Location checkbox is clicked");
 
         driver.findElement(By.xpath("//button[text()='Next']")).click();
@@ -273,6 +279,57 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
 
     public static void selectFields_TravelExpenseSummaryReport() throws Exception{
+
+        WebElement element_ClaimStatus = driver.findElement(By.xpath("//label[@for='selectedGroupingField_claim_status']"));
+        element_ClaimStatus.click();
+        System.out.println("ClaimStatus check-box is clicked");
+
+        WebElement element_CurencyReimbursement = driver.findElement(By.xpath("//label[@for='selectedGroupingField_currency_for_reimbursement']"));
+        element_CurencyReimbursement.click();
+        System.out.println("Reimbursement Currency (Estimates) check-box is clicked");
+
+        driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
+        System.out.println("Next button is clicked");
+
+        WebElement element_ExpenceClaimID = driver.findElement(By.xpath("//label[@for='selectedFilters_claim_id']"));
+        element_ExpenceClaimID.click();
+        System.out.println("ExpenceClaimID check-box is clicked");
+
+        WebElement element_ClaimDate = driver.findElement(By.xpath("//label[@for='selectedFilters_claimed_date']"));
+        element_ClaimDate.click();
+        System.out.println("ClaimDate check-box is clicked");
+
+        WebElement element_Claimstatus = driver.findElement(By.xpath("//label[@for='selectedFilters_claim_status']"));
+        element_Claimstatus.click();
+        System.out.println("Claimstatus check-box is clicked");
+
+        driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
+        System.out.println("Next button is clicked");
+
+        String DisplayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
+        driver.findElement(PageLocators.disfieldBx).click();
+        System.out.println("Add display field group is clicked");
+
+        wait.until((ExpectedConditions.elementToBeClickable(PageLocators.disfieldBx))).click();
+
+
+        List<WebElement> elements_Displayfields = driver.findElements(PageLocators.displaydrpdwn);
+        for (WebElement element : elements_Displayfields) {
+            String Folder = element.getText();
+            if (Folder.equalsIgnoreCase(DisplayFields)) {
+                element.click();
+                System.out.println("Display fields dropdown is selected as " + DisplayFields);
+                break;
+            }
+        }
+
+        driver.findElement(By.xpath("//label[text()='Total Estimated Expense (Reimbursement Currency)']")).click();
+        System.out.println("Total Estimated Expense (Reimbursement Currency) check-box is clicked");
+
+        WebElement element_Savebtn=driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light']"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element_Savebtn);
+        System.out.println("Save Check-box is clicked");
 
     }
 
@@ -322,13 +379,54 @@ public class TC03_OrangeHRM_Reports_Analytics {
         File dest_Cashadv = new File(projectPath + "\\Screenshots\\Cashadv_text.jpg");
         FileUtils.copyFile(src_Cashadv, dest_Cashadv);
         System.out.println("Estimated Date text screenshot is captured");
+
+        System.out.println("TC03-02 execution is completed");
     }
 
     public static void validate_EmployeeInformationalFields(){
+        WebElement element = driver.findElement(PageLocators.EmpId);
+        String s9 = element.getText();
+        String s10 = Config_Data.textEmpId;
+        if (s9.equalsIgnoreCase(s10)) {
+            System.out.println("text is Matched as Employee Id ");
+        } else {
+            System.out.println("Text is not matched");
+        }
+
+
+        WebElement element_EmpName = driver.findElement(PageLocators.EmpName);
+        String s11 = element_EmpName.getText();
+        String s12 = Config_Data.textEmpName;
+        if (s11.equalsIgnoreCase(s12)) {
+            System.out.println("text is Matched as Employee Name");
+        } else {
+            System.out.println("Text is not matched");
+        }
+
+        WebElement element_Nationality = driver.findElement(PageLocators.Nationality);
+        String s13 = element_Nationality.getText();
+        String s14 = Config_Data.textNationality;
+        if (s13.equalsIgnoreCase(s14)) {
+            System.out.println("text is Matched as Nationality");
+        } else {
+            System.out.println("Text is not matched");
+            System.out.println("TC03-01 execution completed");
+        }
+
 
     }
 
     public static void validate_TravelExpenseSummaryReport(){
+        WebElement element_ReimbursementCurrency = driver.findElement(PageLocators.ReimbursementCurrency);
+        String s15 = element_ReimbursementCurrency.getText();
+        String s16 = Config_Data.textReimbursementCurrency;
+        if (s15.equalsIgnoreCase(s16)) {
+            System.out.println("text is Matched as ReimbursementCurrency");
+        } else {
+            System.out.println("Text is not matched");
+        }
+        System.out.println("TC03-03 execution is completed");
+
 
     }
 }

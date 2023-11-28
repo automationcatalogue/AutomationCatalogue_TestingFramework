@@ -13,7 +13,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.PageLocators;
 
 import java.time.Duration;
-import java.util.List;
 
 public class TC12_DemoWebshop_ApplyDiscount {
     static WebDriver driver;

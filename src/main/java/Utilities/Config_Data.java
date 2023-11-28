@@ -14,6 +14,10 @@ public class Config_Data {
     public static String texttrvlreq = "Travel Request ID";
     public static String textEstdt = "Estimated Date";
     public static String textCashadv = "Cash in Advance";
+    public static String textEmpId = "Employee Id";
+    public static String textEmpName = "Employee Name";
+    public static String textNationality = "Nationality";
+    public static String textReimbursementCurrency = "Total Estimated Expense (Reimbursement Currency)";
 
 
     public static final String username1 ="aarosagarch@gmail.com";

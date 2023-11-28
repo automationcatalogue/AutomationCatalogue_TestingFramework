@@ -56,6 +56,16 @@ public class PageLocators {
 
     public static final By textCash = By.xpath("//td[text()='Cash in Advance']");
 
+    public static final By EmpId = By.xpath("//span[text()='Employee Id']");
+
+    public static final By EmpName =By.xpath("//span[text()='Employee Name']");
+
+    public static final By Nationality = By.xpath("//span[text()='Nationality']");
+
+    public static final By ReimbursementCurrency = By.xpath("//td[text()='Total Estimated Expense (Reimbursement Currency)']");
+
+
+
     public static final By txtbx_userName = By.xpath("//input[@id='txtUsername']");
     public static final By txtbx_pass = By.cssSelector("#txtPassword");
     public static final By butt_Login = By.cssSelector("button[type='submit']");
