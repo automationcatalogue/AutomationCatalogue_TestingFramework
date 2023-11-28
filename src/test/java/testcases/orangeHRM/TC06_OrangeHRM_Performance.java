@@ -199,9 +199,9 @@ public class TC06_OrangeHRM_Performance {
 
 
         String due_Date = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_DueDate);
-        String dueDate = to_Date.split("-")[0];
-        String dueMonth = to_Date.split("-")[1];
-        String dueYear = to_Date.split("-")[2];
+        String dueDate = due_Date.split("-")[0];
+        String dueMonth = due_Date.split("-")[1];
+        String dueYear = due_Date.split("-")[2];
 
 
         driver.findElement(PageLocators.dueMonth).click();
@@ -268,7 +268,7 @@ public class TC06_OrangeHRM_Performance {
 
         Alert ob = driver.switchTo().alert();
         ob.accept();
-        System.out.println("Ok button cliced in Alert window");
+        System.out.println("Ok button clicked in Alert window");
 
         wait.until(ExpectedConditions.elementToBeClickable(PageLocators.arrow_Back));
         System.out.println("Arrowback button clicked");
@@ -288,7 +288,7 @@ public class TC06_OrangeHRM_Performance {
 
         //Select the Jaquline drop-down and click on Submit
         //Go back to the Appraisal List link
-        //Validate EMployeeName, Description and Appraisal Status
+        //Validate EmployeeName, Description and Appraisal Status
 
 
         //Thread.sleep(4000);
