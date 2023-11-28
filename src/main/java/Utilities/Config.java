@@ -28,8 +28,8 @@ public class Config {
     public static final int col_NewUserConfirmPassword=9;
 
     //HRMReports
-    public static final int col_SelectReportType=4;
-    public static final int col_SelectFolder=5;
+    public static final int col_ReportType=4;
+    public static final int col_FolderType=5;
     public static final int col_ReportName=6;
     public static final int col_DisplayFields=7;
 

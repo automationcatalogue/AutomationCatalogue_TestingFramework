@@ -63,10 +63,9 @@ public class TC02_OrangeHRM_AddUser {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='modal-save-button']")));
 
         //ESS role dropdown
-        //driver.findElement(By.xpath("((//button[@type='button'])[2]")).click();
-        driver.findElement(By.cssSelector("button.btn[aria-owns=\"bs-select-1\"]")).click();
+        driver.findElement(By.cssSelector("button.btn[aria-owns='bs-select-1']")).click();
         System.out.println("Ess drop down is been selected");
-        //driver.findElement(By.id("bs-select-10-1")).click();
+
         driver.findElement(By.cssSelector("#bs-select-1-1")).click();
         System.out.println("Default ESS is been selected");
 
@@ -86,10 +85,10 @@ public class TC02_OrangeHRM_AddUser {
             String actualValue = element.getText();
             if (actualValue.equalsIgnoreCase(adminRole)) {
                 element.click();
+                System.out.println("Admin role drop down is been selected as "+adminRole);
                 break;
             }
         }
-        System.out.println("Admin role drop down is been selected as "+adminRole);
 
         //Password and confirm password
         String newUserPassword = ExcelUtils.getCellData(sheetName, row, Config.col_NewUserPassword);
@@ -101,17 +100,18 @@ public class TC02_OrangeHRM_AddUser {
         System.out.println("Confirm New Password is been confirmed as "+newUserConfirmPassword);
 
         Thread.sleep(4000);
-        //save button is been clicked
+        //save button
         driver.findElement(By.xpath("//button[@id='modal-save-button']")).click();
         System.out.println("Save button is been clicked");
         Thread.sleep(3000);
+
         //save button is clicked again
         driver.findElement(By.xpath("//button[@id='modal-save-button']")).click();
         System.out.println("Save button is been clicked at the end");
 
         //Logout from OrangeHRM Application
         driver.findElement(By.xpath("(//span[@class='profile-name'])[2]")).click();
-        System.out.println("Logout is succesfully done from the Website");
+        System.out.println("Logout is successfully done from the Website");
 
         //Login with New User Credentials
         driver.findElement(By.name("txtUsername")).sendKeys(createUserName);
@@ -135,7 +135,6 @@ public class TC02_OrangeHRM_AddUser {
             System.out.println("Login is not successful");
         }
 
-
         //Get the Employee Name
         String actualUserName = driver.findElement(By.xpath("//a[@class='name'] ")).getText();
         if(actualUserName.equalsIgnoreCase(empName)){
@@ -147,7 +146,6 @@ public class TC02_OrangeHRM_AddUser {
         //Logout from the Application
         driver.findElement(By.xpath("(//span[@class='profile-name'])[2]")).click();
         System.out.println("Logout is successfully done from the Website");
-
 
         driver.quit();
     }
