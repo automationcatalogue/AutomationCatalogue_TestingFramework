@@ -50,7 +50,7 @@ public class TC05_OrangeHRM_Leave {
         } else {
             System.out.println("Login is not Successful");
         }
-        driver.findElement(By.xpath("/html/body/div[1]/div[1]/div/div[1]/div[4]/div/div/div/ul/li[6]/a[1]/span")).click();
+        driver.findElement(By.xpath("//li[@id='left_menu_item_41']//a[1]")).click();
         System.out.println("leave option is clicked");
         try{
             WebElement element_More = driver.findElement(By.xpath("//a[@class='top-level-menu-item '][@data-automation-id='more_menu_child_menu_top_more']"));
@@ -69,7 +69,7 @@ public class TC05_OrangeHRM_Leave {
         driver.switchTo().frame("noncoreIframe");
         System.out.println("Switched into iframe");
 
-        WebElement element_add = driver.findElement(By.xpath("//*[@id='addItemBtn']/i"));
+        WebElement element_add = driver.findElement(By.xpath("//a[@id='addItemBtn']/i"));
         js.executeScript("arguments[0].click();", element_add);
         System.out.println("add option is clicked");
 
