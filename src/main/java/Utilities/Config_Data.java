@@ -8,7 +8,6 @@ public class Config_Data {
     public static String password ="Admin@123";
     public static String reportname ="TESTCASE001 " + "";
     public static String textNationality = "Nationality";
-    public static String textReimbursementCurrency = "Total Estimated Expense (Reimbursement Currency)";
 
 
     public static final String username1 ="aarosagarch@gmail.com";

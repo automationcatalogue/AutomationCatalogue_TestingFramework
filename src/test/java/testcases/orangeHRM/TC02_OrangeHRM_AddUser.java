@@ -148,5 +148,6 @@ public class TC02_OrangeHRM_AddUser {
         System.out.println("Logout is successfully done from the Website");
 
         driver.quit();
+        System.out.println("Testcase Execution is completed and Driver instance is terminated");
     }
 }

@@ -47,5 +47,6 @@ public class   TC01_OrangeHRM_Login {
         System.out.println("Logout button is clicked");
 
         driver.quit();
+        System.out.println("Testcase Execution is completed and Driver instance is terminated");
     }
 }

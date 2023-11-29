@@ -7,6 +7,7 @@ public class Config {
     public static final String testID_HRM_Attendance="TC04-01";
     public static final String testID_HRMLeave="TC05-05";
     public static final String testID_HRM_Performance="TC06-05";
+    public static final String testID_HRM_Nationality="TC07-01";
     public static final String testID_Demo_CreateAddress="TC09-02";
     public static final String testID_Demo_TotalOrders = "TC10-01";
     public static final String testID_DemoMultipleProducts="TC11-05";
@@ -94,5 +95,8 @@ public class Config {
     public static final int col_Product4Category=10;
     public static final int col_Product4Name=11;
     public static final int col_OrderID=12;
+
+    //Nationalities
+    public static final int col_Nationality_CountryName = 4;
 }
 

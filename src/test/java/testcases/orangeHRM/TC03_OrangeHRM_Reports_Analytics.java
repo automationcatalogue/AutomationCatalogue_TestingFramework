@@ -155,10 +155,12 @@ public class TC03_OrangeHRM_Reports_Analytics {
             validate_TravelExpenseSummaryReport();
         }
 
-        //driver.quit();
-        //System.out.println("browser is closed");
+        //Logout from the Application
+        driver.findElement(By.xpath("(//span[@class='profile-name'])[2]")).click();
+        System.out.println("Logout is successfully done from the Website");
 
-
+        driver.quit();
+        System.out.println("Testcase Execution is completed and Driver instance is terminated");
     }
 
     public static void selectFields_TravelExpenseDetailedReport() throws Exception{
@@ -247,45 +249,38 @@ public class TC03_OrangeHRM_Reports_Analytics {
 
     public static void selectFields_TravelExpenseSummaryReport() throws Exception{
 
-        WebElement element_ClaimStatus = driver.findElement(By.xpath("//label[@for='selectedGroupingField_claim_status']"));
-        element_ClaimStatus.click();
+        driver.findElement(By.xpath("//label[@for='selectedGroupingField_claim_status']")).click();
         System.out.println("ClaimStatus check-box is clicked");
 
-        WebElement element_CurencyReimbursement = driver.findElement(By.xpath("//label[@for='selectedGroupingField_currency_for_reimbursement']"));
-        element_CurencyReimbursement.click();
+        driver.findElement(By.xpath("//label[@for='selectedGroupingField_currency_for_reimbursement']")).click();
         System.out.println("Reimbursement Currency (Estimates) check-box is clicked");
 
         driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
         System.out.println("Next button is clicked");
 
-        WebElement element_ExpenceClaimID = driver.findElement(By.xpath("//label[@for='selectedFilters_claim_id']"));
-        element_ExpenceClaimID.click();
-        System.out.println("ExpenceClaimID check-box is clicked");
+        driver.findElement(By.xpath("//label[@for='selectedFilters_claim_id']")).click();
+        System.out.println("Expense ClaimID check-box is clicked");
 
-        WebElement element_ClaimDate = driver.findElement(By.xpath("//label[@for='selectedFilters_claimed_date']"));
-        element_ClaimDate.click();
+        driver.findElement(By.xpath("//label[@for='selectedFilters_claimed_date']")).click();
         System.out.println("ClaimDate check-box is clicked");
 
-        WebElement element_Claimstatus = driver.findElement(By.xpath("//label[@for='selectedFilters_claim_status']"));
-        element_Claimstatus.click();
-        System.out.println("Claimstatus check-box is clicked");
+        driver.findElement(By.xpath("//label[@for='selectedFilters_claim_status']")).click();
+        System.out.println("ClaimStatus check-box is clicked");
 
         driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
         System.out.println("Next button is clicked");
 
-        String DisplayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
-        driver.findElement(PageLocators.disfieldBx).click();
-        System.out.println("Add display field group is clicked");
+        //Add Display
+        String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
+        driver.findElement(By.cssSelector("#display-group-dropdown-trigger")).click();
+        System.out.println("Add display field button is clicked");
 
-        wait.until((ExpectedConditions.elementToBeClickable(PageLocators.disfieldBx))).click();
-
-
-        List<WebElement> elements_Displayfields = driver.findElements(PageLocators.displaydrpdwn);
-        for (WebElement element : elements_Displayfields) {
-            String Folder = element.getText();
-            if (Folder.equalsIgnoreCase(DisplayFields)) {
-                element.click();
-                System.out.println("Display fields dropdown is selected as " + DisplayFields);
+        List<WebElement> elements_DisplayFields = driver.findElements(By.xpath("//ul[@id='add-display-group-dropdown']/li"));
+        for (WebElement element_DisplayField : elements_DisplayFields) {
+            String fieldName = element_DisplayField.getText();
+            if (fieldName.equalsIgnoreCase(displayFields)) {
+                element_DisplayField.click();
+                System.out.println(fieldName + " is clicked from Display Fields");
                 break;
             }
         }
@@ -293,11 +288,9 @@ public class TC03_OrangeHRM_Reports_Analytics {
         driver.findElement(By.xpath("//label[text()='Total Estimated Expense (Reimbursement Currency)']")).click();
         System.out.println("Total Estimated Expense (Reimbursement Currency) check-box is clicked");
 
-        WebElement element_Savebtn=driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light']"));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click();", element_Savebtn);
-        System.out.println("Save Check-box is clicked");
-
+        WebElement element_SaveBtn=driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light']"));
+        js.executeScript("arguments[0].click();", element_SaveBtn);
+        System.out.println("Save button is clicked");
     }
 
     public static void validate_TravelExpenseDetailedReport() throws Exception{
@@ -364,17 +357,14 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
 
     public static void validate_TravelExpenseSummaryReport(){
-        WebElement element_ReimbursementCurrency = driver.findElement(PageLocators.ReimbursementCurrency);
-        String s15 = element_ReimbursementCurrency.getText();
-        String s16 = Config_Data.textReimbursementCurrency;
-        if (s15.equalsIgnoreCase(s16)) {
-            System.out.println("text is Matched as ReimbursementCurrency");
-        } else {
-            System.out.println("Text is not matched");
+        WebElement element_ReimbursementCurrency = driver.findElement(By.xpath("//td[text()='Total Estimated Expense (Reimbursement Currency)']"));
+        String actualReimbursementCurrency = element_ReimbursementCurrency.getText();
+        String expectedReimbursementCurrency= "Total Estimated Expense (Reimbursement Currency)";
+        if (actualReimbursementCurrency.equalsIgnoreCase(expectedReimbursementCurrency)) {
+            System.out.println("Total Estimated Expense (Reimbursement Currency) column is verified in the Report");
+        }else{
+            System.out.println("Total Estimated Expense (Reimbursement Currency column is not present in the Report");
         }
-        System.out.println("TC03-03 execution is completed");
-
-
     }
 }
 
