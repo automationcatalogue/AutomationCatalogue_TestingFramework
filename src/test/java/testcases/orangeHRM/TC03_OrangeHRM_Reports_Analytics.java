@@ -137,9 +137,6 @@ public class TC03_OrangeHRM_Reports_Analytics {
             driver.findElement(By.xpath("(//input[@placeholder='Search'])[2]")).sendKeys(reportName);
             System.out.println(reportName + " is entered in Search text-box");
 
-            driver.findElement(By.xpath("//button[@class='btn btn-secondary']")).click();
-            System.out.println("clicked on generate button");
-
             validate_EmployeeInformationalFields();
 
         }else if(reportType.equalsIgnoreCase("Travel and Expense Summary Report")){

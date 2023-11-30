@@ -6,7 +6,6 @@ public class Config_Data {
     public static String username ="Admin";
 
     public static String password ="Admin@123";
-    public static String reportname ="TESTCASE001 " + "";
     public static String textNationality = "Nationality";
 
 

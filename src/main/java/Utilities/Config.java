@@ -3,7 +3,7 @@ package Utilities;
 public class Config {
     public static final String testID_HRMLogin="TC01-04";
     public static final String testID_HRMAddUser="TC02-02";
-    public static final String testID_HRMReports="TC03-04";
+    public static final String testID_HRMReports="TC03-03";
     public static final String testID_HRM_Attendance="TC04-01";
     public static final String testID_HRMLeave="TC05-05";
     public static final String testID_HRM_Performance="TC06-05";
