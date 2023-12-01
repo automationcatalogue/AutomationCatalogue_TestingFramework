@@ -89,11 +89,11 @@ public class TC03_OrangeHRM_Reports_Analytics {
 
         //Folder
         String folderType = ExcelUtils.getCellData(sheetName, row, Config.col_FolderType);
-        WebElement element_selectFolder = driver.findElement(By.xpath("//div[@id='mount-vue-app']/div/div[2]/div[3]/div[3]/div/div/div/form/div[2]/div[2]/div/div"));
+        WebElement element_selectFolder = driver.findElement(By.xpath("(//div[@clear='false'])[2]"));
         js.executeScript("arguments[0].click();",element_selectFolder);
         System.out.println("Select folder drop-down is clicked");
 
-        List<WebElement> elements_Folders = driver.findElements(By.xpath("//div[@id='mount-vue-app']/div/div[2]/div[3]/div[3]/div/div/div/form/div[2]/div[2]/div/div"));
+        List<WebElement> elements_Folders = driver.findElements(By.xpath("(//div[@clear='false'])[2]"));
         for (WebElement element_folder : elements_Folders) {
             String folderName = element_folder.getText();
             if (folderName.equalsIgnoreCase(folderType)) {
@@ -103,7 +103,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             }
         }
 
-        WebElement element_NextBtn = driver.findElement(By.xpath("//div[@id='mount-vue-app']/div/div[2]/div[3]/div[3]/div/div/div/form/div[4]/button[2]/div"));
+        WebElement element_NextBtn = driver.findElement(By.xpath("//button[@type='submit']"));
         js.executeScript("arguments[0].click();", element_NextBtn);
         System.out.println("Next button is clicked");
 
