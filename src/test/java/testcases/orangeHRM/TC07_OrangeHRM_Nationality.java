@@ -22,7 +22,7 @@ public class TC07_OrangeHRM_Nationality {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         driver.manage().window().maximize();
 
-        driver.get("https://automationteste-trials710.orangehrmlive.com/");
+        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
         System.out.println("Orange HRM Website loaded successfully");
 
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);

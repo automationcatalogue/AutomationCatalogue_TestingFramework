@@ -26,7 +26,7 @@ public class TC06_OrangeHRM_Performance {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         driver.manage().window().maximize();
 
-        driver.get("https://automationteste-trials710.orangehrmlive.com/");
+        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
         System.out.println("Orange HRM Website loaded successfully");
 
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);

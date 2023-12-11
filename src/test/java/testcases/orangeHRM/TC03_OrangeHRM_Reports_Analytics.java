@@ -1,7 +1,6 @@
 package testcases.orangeHRM;
 
 import Utilities.Config;
-import Utilities.Config_Data;
 import Utilities.ExcelUtils;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
@@ -37,7 +36,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
         js =(JavascriptExecutor)driver;
         ts = (TakesScreenshot) driver;
 
-        driver.get("https://automationteste-trials710.orangehrmlive.com/");
+        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
         System.out.println("OrangeHRM Application is loaded");
 
         //UserName
@@ -343,7 +342,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
 
         WebElement element_Nationality = driver.findElement(By.xpath("//span[text()='Nationality']"));
         String actualNationality = element_Nationality.getText();
-        String expectedNationality = Config_Data.textNationality;
+        String expectedNationality = "Nationality";
         if (actualNationality.equalsIgnoreCase(expectedNationality)) {
             System.out.println("Nationality column is verified in the Report");
         } else {

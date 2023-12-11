@@ -29,7 +29,7 @@ public class TC05_OrangeHRM_Leave {
         driver.manage().window().maximize();
         System.out.println("Chrome browser is maximized");
 
-        driver.get("https://automationteste-trials710.orangehrmlive.com/");
+        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
         System.out.println("Orange HRM Application is loaded");
 
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);

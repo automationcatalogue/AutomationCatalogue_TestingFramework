@@ -5,6 +5,9 @@ import Utilities.ExcelUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.orangeHRM.OrangeHRM_HomePage;
+import pages.orangeHRM.OrangeHRM_LoginPage;
+
 import java.time.Duration;
 
 public class   TC01_OrangeHRM_Login {
@@ -20,18 +23,18 @@ public class   TC01_OrangeHRM_Login {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         //Opening OrangeHRM Application
-        driver.get("https://automationteste-trials710.orangehrmlive.com/");
+        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
         System.out.println("OrangeHRM URL is launched");
         //UserName
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(By.xpath("//input[@id='txtUsername']")).sendKeys(userName);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_UserName).sendKeys(userName);
         System.out.println(userName + " is entered as userName");
         //Password
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(By.xpath("//input[@id='txtPassword']")).sendKeys(password);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_Password).sendKeys(password);
         System.out.println(password + " is entered");
         //Login
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        driver.findElement(OrangeHRM_LoginPage.btn_Login).click();
         System.out.println("Login button is clicked");
 
         //Title Verification
@@ -43,7 +46,7 @@ public class   TC01_OrangeHRM_Login {
         }
 
         //Logout
-        driver.findElement(By.xpath("//span[text()='Log Out']")).click();
+        driver.findElement(OrangeHRM_HomePage.link_Logout).click();
         System.out.println("Logout button is clicked");
 
         driver.quit();

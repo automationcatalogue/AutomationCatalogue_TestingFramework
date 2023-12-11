@@ -9,6 +9,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.orangeHRM.OrangeHRM_HRAdministrationPage;
+import pages.orangeHRM.OrangeHRM_HomePage;
+import pages.orangeHRM.OrangeHRM_LoginPage;
 
 import java.time.Duration;
 import java.util.List;
@@ -26,24 +29,24 @@ public class TC02_OrangeHRM_AddUser {
         driver.manage().window().maximize();
         System.out.println("The chrome window is been maximized");
 
-        driver.get("https://automationteste-trials710.orangehrmlive.com/");
+        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
         System.out.println("Orange HRM Application is been loaded");
 
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(By.name("txtUsername")).sendKeys(userName);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_UserName).sendKeys(userName);
         System.out.println("User name is been entered as " + userName);
 
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(By.id("txtPassword")).sendKeys(password);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_Password).sendKeys(password);
         System.out.println("Password is been entered as " + password);
 
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        driver.findElement(OrangeHRM_LoginPage.btn_Login).click();
         System.out.println("Login button is been clicked");
 
-        driver.findElement(By.xpath("(//a[@data-automation-id='menu_admin_viewSystemUsers'])[1]/span")).click();
+        driver.findElement(OrangeHRM_HomePage.link_HRAdministration).click();
         System.out.println("HR administration is been clicked");
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='systemUserDiv']/crud-panel/div/div/list/table/tbody/tr[1]/td[2]/ng-include/span")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(OrangeHRM_HRAdministrationPage.table_UserData));
 
         driver.findElement(By.xpath("//i[text()='add']")).click();
         System.out.println("Add button is been clicked");
