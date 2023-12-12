@@ -290,7 +290,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
 
     public static void validate_TravelExpenseDetailedReport() throws Exception{
-        WebElement element_TravelRequestID = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_TravelRequestID);
+        WebElement element_TravelRequestID = driver.findElement(By.xpath("//td[text()='Travel Request ID']"));
         String actualTravelRequestID = element_TravelRequestID.getText();
         String expectedTravelRequestID = "Travel Request ID";
         if (actualTravelRequestID.equalsIgnoreCase(expectedTravelRequestID)) {
@@ -299,7 +299,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("Travel Request ID column is not present in the Report");
         }
 
-        WebElement element_EstimatedDate = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_EstimatedDate);
+        WebElement element_EstimatedDate = driver.findElement(By.xpath("//td[text()='Estimated Date']"));
         String actualEstimatedDate = element_EstimatedDate.getText();
         String expectedEstimatedDate = "Estimated Date";
         if (actualEstimatedDate.equalsIgnoreCase(expectedEstimatedDate)) {
@@ -308,7 +308,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("EstimatedDate column is not present in the Report");
         }
 
-        WebElement element_CashInAdvance = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_CashInAdvance);
+        WebElement element_CashInAdvance = driver.findElement(By.xpath("//td[text()='Cash in Advance']"));
         String actualCashInAdvance = element_CashInAdvance.getText();
         String expectedCashInAdvance = "Cash in Advance";
         if (actualCashInAdvance.equalsIgnoreCase(expectedCashInAdvance)) {
@@ -324,7 +324,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
 
     public static void validate_EmployeeInformationalFields(){
-        WebElement element = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_EmployeeID);
+        WebElement element = driver.findElement(By.xpath("//span[text()='Employee Id']"));
         String actualEmployeeId = element.getText();
         String expectedEmployeeId = "Employee Id";
         if (actualEmployeeId.equalsIgnoreCase(expectedEmployeeId)) {
@@ -333,7 +333,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("Employee Id column is not present in the Report");
         }
 
-        WebElement element_EmpName = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_EmployeeName);
+        WebElement element_EmpName = driver.findElement(By.xpath("//span[text()='Employee Name']"));
         String actualEmployeeName = element_EmpName.getText();
         String expectedEmployeeName = "Employee Name";
         if (actualEmployeeName.equalsIgnoreCase(expectedEmployeeName)) {
@@ -342,7 +342,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("Employee Name column is not present in the Report");
         }
 
-        WebElement element_Nationality = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_Nationality);
+        WebElement element_Nationality = driver.findElement(By.xpath("//span[text()='Nationality']"));
         String actualNationality = element_Nationality.getText();
         String expectedNationality = "Nationality";
         if (actualNationality.equalsIgnoreCase(expectedNationality)) {
