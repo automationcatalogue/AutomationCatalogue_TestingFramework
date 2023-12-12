@@ -9,6 +9,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.orangeHRM.OrangeHRM_HomePage;
+import pages.orangeHRM.OrangeHRM_LeavePage;
+import pages.orangeHRM.OrangeHRM_LoginPage;
+import pages.orangeHRM.OrangeHRM_WorkingWeekendPage;
 
 import java.time.Duration;
 import java.util.List;
@@ -33,14 +37,14 @@ public class TC05_OrangeHRM_Leave {
         System.out.println("Orange HRM Application is loaded");
 
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(By.name("txtUsername")).sendKeys(userName);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_UserName).sendKeys(userName);
         System.out.println("User name is been entered as " + userName);
 
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(By.id("txtPassword")).sendKeys(password);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_Password).sendKeys(password);
         System.out.println("Password is been entered as " + password);
 
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        driver.findElement(OrangeHRM_LoginPage.btn_Login).click();
         System.out.println("Login button is been clicked");
 
         String title = driver.getTitle();
@@ -49,7 +53,7 @@ public class TC05_OrangeHRM_Leave {
         } else {
             System.out.println("Login is not Successful");
         }
-        driver.findElement(By.xpath("(//span[text()='Leave'])[1]")).click();
+        driver.findElement(OrangeHRM_HomePage.link_Leave).click();
         System.out.println("Leave link is clicked");
         try {
             WebElement element_More = driver.findElement(By.xpath("//a[@class='top-level-menu-item '][@data-automation-id='more_menu_child_menu_top_more']"));
@@ -59,25 +63,25 @@ public class TC05_OrangeHRM_Leave {
             System.out.println("Exception Occurred and More button is not available!!!");
         }
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[@data-automation-id='more_menu_child_menu_leave_Configure']")).click();
+        driver.findElement(OrangeHRM_LeavePage.link_Configure).click();
         System.out.println("configure link is clicked");
 
-        WebElement element_configure = driver.findElement(By.xpath("//a[contains(@data-automation-id,'menu_leave_viewWorkingWeekendList')]"));
+        WebElement element_configure = driver.findElement(OrangeHRM_LeavePage.link_Workingweekends);
         js.executeScript("arguments[0].click();", element_configure);
         System.out.println("Working Weekends is clicked");
 
         driver.switchTo().frame("noncoreIframe");
         System.out.println("Switched into iframe");
 
-        WebElement element_add = driver.findElement(By.xpath("//a[@id='addItemBtn']/i"));
+        WebElement element_add = driver.findElement(OrangeHRM_WorkingWeekendPage.btn_addWorkingWeekend);
         js.executeScript("arguments[0].click();", element_add);
         System.out.println("add option is clicked");
 
         String name = ExcelUtils.getCellData(sheetName, row, Config.col_Name);
-        driver.findElement(By.xpath("//input[@id='addWorkingWeekend_description']")).sendKeys(name);
+        driver.findElement(OrangeHRM_WorkingWeekendPage.txtbx_Name).sendKeys(name);
         System.out.println(name + " is entered as Name");
 
-        WebElement element_date = driver.findElement(By.xpath("//label[@for='addWorkingWeekend_date']"));
+        WebElement element_date = driver.findElement(OrangeHRM_WorkingWeekendPage.cal_Date);
         js.executeScript("arguments[0].click();", element_date);
         System.out.println("Date calendar is clicked");
 
@@ -87,7 +91,7 @@ public class TC05_OrangeHRM_Leave {
         String year = date.split("/")[2];
 
         //Year
-        driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--year']/input")).click();
+        driver.findElement(OrangeHRM_WorkingWeekendPage.drpdwn_Year).click();
         System.out.println("Year drop-down is clicked");
         Thread.sleep(2000);
         List<WebElement> elements_years = driver.findElements(By.xpath("//div[@class='select-wrapper picker__select--year']/ul/li/span"));
@@ -101,7 +105,7 @@ public class TC05_OrangeHRM_Leave {
         }
         //Month
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--month']/input")).click();
+        driver.findElement(OrangeHRM_WorkingWeekendPage.drpdwn_Month).click();
         System.out.println("Month drop-down is clicked");
         wait.until((ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='select-wrapper picker__select--month']/ul/li/span"))));
         List<WebElement> elements_Months = driver.findElements(By.xpath("//div[@class='select-wrapper picker__select--month']/ul/li/span"));
@@ -115,7 +119,7 @@ public class TC05_OrangeHRM_Leave {
         }
         //Day
         Thread.sleep(2000);
-        List<WebElement> elements_Days = driver.findElements(By.xpath("//table[@id='addWorkingWeekend_date_table']/tbody/tr/td/div[contains(@class,'infocus')]"));
+        List<WebElement> elements_Days = driver.findElements(OrangeHRM_WorkingWeekendPage.link_Day);
         for (WebElement element_Day : elements_Days) {
             String actualDay = element_Day.getText();
             if (actualDay.equalsIgnoreCase(day)) {
@@ -125,7 +129,7 @@ public class TC05_OrangeHRM_Leave {
             }
         }
 
-        driver.findElement(By.xpath("//*[@id='addForm']/div/div[2]/div[1]/div/input")).click();
+        driver.findElement(OrangeHRM_WorkingWeekendPage.link_Hours).click();
         System.out.println("hours drop-down is clicked");
         String hours = ExcelUtils.getCellData(sheetName, row, Config.col_Workinghours);
         Thread.sleep(5000);
@@ -139,7 +143,7 @@ public class TC05_OrangeHRM_Leave {
             System.out.println("Invalid data is given in Excel sheet");
         }
 
-        driver.findElement(By.xpath("//form[@id='addForm']/div/div[2]/div[2]/div/input")).click();
+        driver.findElement(OrangeHRM_WorkingWeekendPage.drpdwn_Country).click();
         System.out.println("Country drop-down is clicked");
 
         String country = ExcelUtils.getCellData(sheetName, row, Config.col_country);
@@ -154,7 +158,7 @@ public class TC05_OrangeHRM_Leave {
             }
         }
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[@id='saveItemBtn']")).click();
+        driver.findElement(OrangeHRM_WorkingWeekendPage.btn_Save).click();
         System.out.println("Save button is clicked");
 
         List<WebElement> elements_Names = driver.findElements(By.xpath("//table[@id='resultTable']/tbody/tr/td[2]/a"));
@@ -166,7 +170,7 @@ public class TC05_OrangeHRM_Leave {
         }
 
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//span[text()='Log Out']")).click();
+        driver.findElement(OrangeHRM_HomePage.link_Logout).click();
         System.out.println("Logout is successfully done from the Website");
 
         driver.quit();
