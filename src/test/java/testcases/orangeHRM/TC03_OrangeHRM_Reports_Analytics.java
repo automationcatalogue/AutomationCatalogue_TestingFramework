@@ -1,239 +1,364 @@
 package testcases.orangeHRM;
 
 import Utilities.Config;
-import Utilities.Config_Data;
 import Utilities.ExcelUtils;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObjects.PageLocators;
-
 import java.io.File;
 import java.time.Duration;
 import java.util.List;
 
 public class TC03_OrangeHRM_Reports_Analytics {
-    public static void main(String[] args) throws Exception{
 
-            String projectPath = System.getProperty("user.dir");
+    public static WebDriver driver;
+    public static WebDriverWait wait;
+    public static String sheetName;
+    public static int row;
+    public static JavascriptExecutor js;
+    public static TakesScreenshot ts;
+    public static File src, dest;
+    public static String projectPath;
 
-            String sheetName = "HRM_Reports";
-            ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
-            int row = ExcelUtils.getRowNumber(Config.testID_HRMReports,sheetName);
+    public static void main(String[] args) throws Exception {
+        projectPath = System.getProperty("user.dir");
+        sheetName = "HRM_Reports";
+        ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
+        row = ExcelUtils.getRowNumber(Config.testID_HRMReports, sheetName);
 
-            WebDriver driver = new ChromeDriver();
-            System.out.println("Browser is launched");
+        driver = new ChromeDriver();
+        System.out.println("Chrome Browser is opened");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        driver.manage().window().maximize();
+        js =(JavascriptExecutor)driver;
+        ts = (TakesScreenshot) driver;
 
-            String projectpath = System.getProperty("user.dir");
-            System.out.println(projectpath+"Screenshots");
+        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
+        System.out.println("OrangeHRM Application is loaded");
 
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-            System.out.println("Implicit timeout is given");
+        //UserName
+        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        driver.findElement(By.name("txtUsername")).sendKeys(userName);
+        System.out.println("UserName is entered as" + userName);
 
-            WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
-            System.out.println("Webdriver timeout is given");
-
-            driver.get("https://automationteste-trials710.orangehrmlive.com/");
-            System.out.println("OrangeHRM Application is loaded");
-
-            driver.manage().window().maximize();
-            System.out.println("browser is maximized");
-
-            String title = driver.getTitle();
-            System.out.println("Title of the page is :" + title);
-
-            //user name is selected from test data
-
-            String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-            driver.findElement(PageLocators.usrnmbx).sendKeys(userName);
-            System.out.println("UserName is entered as" + userName);
-
-        //password is selected from test data
-
+        //password
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-            driver.findElement(PageLocators.pwdbx).sendKeys(password);
-            System.out.println("Password is entered");
+        driver.findElement(By.id("txtPassword")).sendKeys(password);
+        System.out.println("Password is entered");
 
-            driver.findElement(PageLocators.btn_login).click();
-            System.out.println("Login button is clicked");
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        System.out.println("Login button is clicked");
 
-            TakesScreenshot ts=(TakesScreenshot)driver;
-            File src =ts.getScreenshotAs(OutputType.FILE);
-            File dest = new File(projectPath+"\\Screenshots\\Login.jpg");
-            FileUtils.copyFile(src,dest);
-            System.out.println("login screenshot is captured");
+        src = ts.getScreenshotAs(OutputType.FILE);
+        dest = new File(projectPath + "\\Screenshots\\OrangeHRMLogin.jpg");
+        FileUtils.copyFile(src, dest);
+        System.out.println("OrangeHRMLogin screenshot is captured");
 
-            driver.findElement(PageLocators.reportstxtbx).click();
-            System.out.println("reports and analytics is clicked");
+        driver.findElement(By.xpath("(//span[text()='Reports and Analytics'])[1]")).click();
+        System.out.println("Reports and analytics link is clicked");
 
-            String s1 = driver.getTitle();
-            String s2 = Config_Data.Titel1;
-            if (s1.equalsIgnoreCase(s2)) {
-                System.out.println("Title is Matched and Login is successful");
-            } else {
-                System.out.println("Title is not Matched and Login is not successful");
+        String actualTitle = driver.getTitle();
+        String expectedTitle = "Reports and Analytics";
+        if (actualTitle.equalsIgnoreCase(expectedTitle)) {
+            System.out.println("Reports and Analytics Title is Matched");
+        } else {
+            System.out.println("Reports and Analytics Title is not Matched");
+        }
+
+        driver.findElement(By.cssSelector(".oxd-button-label-wrapper")).click();
+        System.out.println("New Report button is clicked");
+
+        //Report type
+        String reportType = ExcelUtils.getCellData(sheetName, row, Config.col_ReportType);
+        driver.findElement(By.xpath("//div[text()='Employee Informational Report']")).click();
+        System.out.println("Report Type drop-down is clicked");
+
+        List<WebElement> elements_ReportType = driver.findElements(By.xpath("//div[@role='listbox']/div/div"));
+        for (WebElement element_Report : elements_ReportType) {
+            String reportName = element_Report.getText();
+            if (reportName.equalsIgnoreCase(reportType)) {
+                element_Report.click();
+                System.out.println(reportName+" is selected as Report Type from drop-down");
+                break;
             }
-            driver.findElement(PageLocators.newreportbtn).click();
-            System.out.println("new report is clicked");
+        }
 
-            String ReportType = ExcelUtils.getCellData(sheetName, row, Config.col_SelectReportType);
-            driver.findElement(PageLocators.empinfobtn).click();
-            System.out.println("employ add report type drop-down  is clicked");
+        //Folder
+        String folderType = ExcelUtils.getCellData(sheetName, row, Config.col_FolderType);
+        WebElement element_selectFolder = driver.findElement(By.xpath("(//div[@clear='false'])[2]"));
+        js.executeScript("arguments[0].click();",element_selectFolder);
+        System.out.println("Select folder drop-down is clicked");
 
-            //report type is selected from test data
-
-            List<WebElement> elements_ReportType = driver.findElements(PageLocators.reportsDrpdwn);
-            for(WebElement element : elements_ReportType) {
-                String Report = element.getText();
-                if(Report.equalsIgnoreCase(ReportType)) {
-                    element.click();
-                    System.out.println("Add Reports Type drop-down is selected as " +ReportType);
-                    break;
-                }
+        List<WebElement> elements_Folders = driver.findElements(By.xpath("(//div[@clear='false'])[2]"));
+        for (WebElement element_folder : elements_Folders) {
+            String folderName = element_folder.getText();
+            if (folderName.equalsIgnoreCase(folderType)) {
+                element_folder.click();
+                System.out.println(folderName+" is selected as Folder Type from drop-down");
+                break;
             }
+        }
 
-            //folder is selected from test data
+        WebElement element_NextBtn = driver.findElement(By.xpath("//button[@type='submit']"));
+        js.executeScript("arguments[0].click();", element_NextBtn);
+        System.out.println("Next button is clicked");
 
-            String SelectFolder = ExcelUtils.getCellData(sheetName, row, Config.col_SelectFolder);
-            driver.findElement(PageLocators.selfolderBtn).click();
-            System.out.println("select folders is clicked");
+        //Report Name
+        String reportName = ExcelUtils.getCellData(sheetName, row, Config.col_ReportName);
+        driver.findElement(By.cssSelector("#pimDefineReportName")).sendKeys(reportName);
+        System.out.println("Report Name is entered as " + reportName);
 
-            List<WebElement> elements_Folders =  driver.findElements(PageLocators.folderDrpdwn);
-            for (WebElement element : elements_Folders) {
-                String Folder = element.getText();
-                if (Folder.equalsIgnoreCase(SelectFolder)) {
-                    element.click();
-                    System.out.println("Folder drop-down is selected as " + SelectFolder);
-                    break;
-                }
+        src = ts.getScreenshotAs(OutputType.FILE);
+        dest = new File(projectPath + "\\Screenshots\\OrangeHRMReportName.jpg");
+        FileUtils.copyFile(src, dest);
+        System.out.println("OrangeHRMReportName screenshot is captured");
+
+        wait.until((ExpectedConditions.elementToBeClickable(By.xpath("//button[@translate='Next']")))).click();
+        System.out.println("Next button is clicked");
+
+        if(reportType.equalsIgnoreCase("Travel and Expense Detailed Report")){
+            selectFields_TravelExpenseDetailedReport();
+
+            driver.findElement(By.xpath("//i[text()='arrow_back']")).click();
+            System.out.println("Back Arrow button is clicked");
+            driver.findElement(By.xpath("(//input[@placeholder='Search'])[2]")).sendKeys(reportName);
+            System.out.println(reportName + " is entered in Search text-box");
+
+            validate_TravelExpenseDetailedReport();
+        }else if(reportType.equalsIgnoreCase("Employee Informational Report")){
+            selectFields_EmployeeInformationalReport();
+
+            driver.findElement(By.xpath("//i[text()='arrow_back']")).click();
+            System.out.println("Back Arrow button is clicked");
+            driver.findElement(By.xpath("(//input[@placeholder='Search'])[2]")).sendKeys(reportName);
+            System.out.println(reportName + " is entered in Search text-box");
+
+            validate_EmployeeInformationalFields();
+
+        }else if(reportType.equalsIgnoreCase("Travel and Expense Summary Report")){
+            selectFields_TravelExpenseSummaryReport();
+
+            driver.findElement(By.xpath("//i[text()='arrow_back']")).click();
+            System.out.println("Back Arrow button is clicked");
+            driver.findElement(By.xpath("(//input[@placeholder='Search'])[2]")).sendKeys(reportName);
+            System.out.println(reportName + " is entered in Search text-box");
+
+            validate_TravelExpenseSummaryReport();
+        }
+
+        //Logout from the Application
+        driver.findElement(By.xpath("(//span[@class='profile-name'])[2]")).click();
+        System.out.println("Logout is successfully done from the Website");
+
+        driver.quit();
+        System.out.println("Testcase Execution is completed and Driver instance is terminated");
+    }
+
+    public static void selectFields_TravelExpenseDetailedReport() throws Exception{
+        wait.until(ExpectedConditions.elementToBeClickable((By.xpath("//label[@for='selectedFilters_request_id']"))));
+        driver.findElement(By.xpath("//label[@for='selectedFilters_request_id']")).click();
+        System.out.println("Travel Request Id check-box is selected");
+
+        driver.findElement(By.xpath("//label[@for='selectedFilters_job_title']")).click();
+        System.out.println("Job Title check-box is selected");
+
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        System.out.println("window is scrolled down till bottom of the page");
+
+        driver.findElement(By.xpath("//button[text()='Next']")).click();
+        System.out.println("Next button is clicked");
+
+        //Add Display
+        String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
+        driver.findElement(By.cssSelector("#display-group-dropdown-trigger")).click();
+        System.out.println("Add display field button is clicked");
+
+        List<WebElement> elements_DisplayFields = driver.findElements(By.xpath("//ul[@id='add-display-group-dropdown']/li"));
+        for (WebElement element_DisplayField : elements_DisplayFields) {
+            String fieldName = element_DisplayField.getText();
+            if (fieldName.equalsIgnoreCase(displayFields)) {
+                element_DisplayField.click();
+                System.out.println(fieldName + " is clicked from Display Fields");
+                break;
             }
+        }
 
-           WebElement element_nextclick= driver.findElement(PageLocators.nxtBtn1);
-            JavascriptExecutor js = (JavascriptExecutor)driver;
-            js.executeScript("arguments[0].click();",element_nextclick);
-            System.out.println("next button is clicked");
+        driver.findElement(By.xpath("//label[text()='Estimated Date']")).click();
+        System.out.println("Estimated date check-box is selected");
 
-            //report name is selected from test data
+        driver.findElement(By.xpath("//label[text()='Travel Request ID']")).click();
+        System.out.println("Travel Request ID check-box is clicked");
 
-            String ReportName = ExcelUtils.getCellData(sheetName, row, Config.col_ReportName);
-            driver.findElement(PageLocators.repnameBtn).sendKeys(ReportName);
-            System.out.println("report name is entered as " + ReportName);
+        driver.findElement(By.xpath("//label[text()='Cash in Advance']")).click();
+        System.out.println("Cash in Advance check-box is clicked");
 
-            TakesScreenshot ts1=(TakesScreenshot)driver;
-            File src_rep =ts1.getScreenshotAs(OutputType.FILE);
-            File dest_rep= new File(projectPath+"\\Screenshots\\reportname.jpg");
-            FileUtils.copyFile(src_rep,dest_rep);
-            System.out.println("report screenshot is captured");
+        driver.findElement(By.xpath("//button[text()='Save']")).click();
+        System.out.println("Save button is clicked");
+    }
+    public static void selectFields_EmployeeInformationalReport() throws Exception{
+        WebElement element_EmployeeName = driver.findElement(By.xpath("//input[@id='selectedFilters_employee_name_withgroup']"));
+        js.executeScript("arguments[0].click();", element_EmployeeName);
+        System.out.println("Employee Name check-box is clicked");
 
-            wait.until((ExpectedConditions.elementToBeClickable(PageLocators.nxtBtn2))).click();
-            System.out.println("next button is clicked");
+        WebElement element_JobTitle = driver.findElement(By.xpath("//input[@id='selectedFilters_job_title_withgroup']"));
+        js.executeScript("arguments[0].click();", element_JobTitle);
+        System.out.println("Job Title checkbox is clicked");
 
-            driver.findElement(PageLocators.trvlreqBtn).click();
-            System.out.println("Travel request Id  is selected");
+        WebElement element_Location = driver.findElement(By.xpath("//input[@id='selectedFilters_location_withgroup']"));
+        js.executeScript("arguments[0].click();", element_Location);
+        System.out.println("Location checkbox is clicked");
 
+        driver.findElement(By.xpath("//button[text()='Next']")).click();
+        System.out.println("Next button is clicked");
 
-          WebElement element_jobttl =  driver.findElement(By.xpath("//label[@for='selectedFilters_job_title']"));
-            System.out.println("job title  is selected");
-            wait.until(ExpectedConditions.elementToBeClickable(element_jobttl));
+        //Add Display
+        String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
+        driver.findElement(By.cssSelector("#display-group-dropdown-trigger")).click();
+        System.out.println("Add display field button is clicked");
 
-
-            JavascriptExecutor js1 = (JavascriptExecutor) driver;
-            js1.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-            System.out.println("window is scrolled to down");
-
-            driver.findElement(PageLocators.nxtBtn3).click();
-            System.out.println("next button is clicked");
-
-            //add display fields is selected from test data
-
-            String DisplayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
-            driver.findElement(PageLocators.disfieldBx).click();
-            System.out.println("Add display field group is clicked");
-
-            List<WebElement> elements_Displayfields =  driver.findElements(PageLocators.displaydrpdwn);
-            for (WebElement element : elements_Displayfields) {
-                String Folder = element.getText();
-                if (Folder.equalsIgnoreCase(DisplayFields)) {
-                    element.click();
-                    System.out.println("Display fields dropdown is selected as " + DisplayFields);
-                    break;
-                }
+        List<WebElement> elements_DisplayFields = driver.findElements(By.xpath("//ul[@id='add-display-group-dropdown']/li"));
+        for (WebElement element_DisplayField : elements_DisplayFields) {
+            String fieldName = element_DisplayField.getText();
+            if (fieldName.equalsIgnoreCase(displayFields)) {
+                element_DisplayField.click();
+                System.out.println(fieldName + " is clicked from Display Fields");
+                break;
             }
-            driver.findElement(PageLocators.slctEstDt).click();
-            System.out.println("Travel request Estimation date is selected");
+        }
+        driver.findElement(By.xpath("//label[text()='Employee Id']")).click();
+        System.out.println("Employee Id check-box is clicked");
 
-            TakesScreenshot ts2=(TakesScreenshot)driver;
-            File src_trvlreq =ts2.getScreenshotAs(OutputType.FILE);
-            File dest_trvlreq= new File("C:projectpath+\\trvlreq_est.jpg");
-            FileUtils.copyFile(src_trvlreq,dest_trvlreq);
-            System.out.println(" Travel request Estimation date is captured");
+        driver.findElement(By.xpath("//label[text()='Employee Name']")).click();
+        System.out.println("Employee Name check-box is clicked");
 
-            driver.findElement(PageLocators.trvlreqbx).click();
-            System.out.println("travel request btn is clicked");
+        driver.findElement(By.xpath("//label[text()='Nationality']")).click();
+        System.out.println("Nationality check-box is clicked");
 
-            driver.findElement(PageLocators.cashadvbx).click();
-            System.out.println("cash in advance button is clicked");
+        driver.findElement(By.xpath("//button[text()='Save']")).click();
+        System.out.println("Save button is clicked");
+    }
 
-            driver.findElement(PageLocators.saveBtn).click();
-            System.out.println("save button is clicked");
+    public static void selectFields_TravelExpenseSummaryReport() throws Exception{
 
-            driver.findElement(PageLocators.backarrowbtn).click();
-            System.out.println("one step back button is clicked");
+        driver.findElement(By.xpath("//label[@for='selectedGroupingField_claim_status']")).click();
+        System.out.println("ClaimStatus check-box is clicked");
 
-            driver.findElement(PageLocators.searchbx).sendKeys(ReportName);
-            System.out.println("clicked on search bar and entered report name");
+        driver.findElement(By.xpath("//label[@for='selectedGroupingField_currency_for_reimbursement']")).click();
+        System.out.println("Reimbursement Currency (Estimates) check-box is clicked");
 
-            WebElement element = driver.findElement(PageLocators.texttrvlreq);
-            String s3 = element.getText();
-            String s4 =Config_Data.texttrvlreq;
-            if (s3.equalsIgnoreCase(s4)) {
-                System.out.println("text is Matched as travel request ");
-            } else {
-                System.out.println("Text is not matched");
+        driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
+        System.out.println("Next button is clicked");
+
+        driver.findElement(By.xpath("//label[@for='selectedFilters_claim_id']")).click();
+        System.out.println("Expense ClaimID check-box is clicked");
+
+        driver.findElement(By.xpath("//label[@for='selectedFilters_claimed_date']")).click();
+        System.out.println("ClaimDate check-box is clicked");
+
+        driver.findElement(By.xpath("//label[@for='selectedFilters_claim_status']")).click();
+        System.out.println("ClaimStatus check-box is clicked");
+
+        driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
+        System.out.println("Next button is clicked");
+
+        //Add Display
+        String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
+        driver.findElement(By.cssSelector("#display-group-dropdown-trigger")).click();
+        System.out.println("Add display field button is clicked");
+
+        List<WebElement> elements_DisplayFields = driver.findElements(By.xpath("//ul[@id='add-display-group-dropdown']/li"));
+        for (WebElement element_DisplayField : elements_DisplayFields) {
+            String fieldName = element_DisplayField.getText();
+            if (fieldName.equalsIgnoreCase(displayFields)) {
+                element_DisplayField.click();
+                System.out.println(fieldName + " is clicked from Display Fields");
+                break;
             }
+        }
 
-            TakesScreenshot ts3=(TakesScreenshot)driver;
-            File src_trvltxt =ts3.getScreenshotAs(OutputType.FILE);
-            File dest_trvltxt= new File(projectPath+"\\Screenshots\\travelreq_text.jpg");
-            FileUtils.copyFile(src_trvltxt,dest_trvltxt);
-            System.out.println("travel request text screenshot is captured");
+        driver.findElement(By.xpath("//label[text()='Total Estimated Expense (Reimbursement Currency)']")).click();
+        System.out.println("Total Estimated Expense (Reimbursement Currency) check-box is clicked");
 
-            WebElement element_EstDt = driver.findElement(PageLocators.textEstdt);
-            String s5 = element_EstDt.getText();
-            String s6 =Config_Data.textEstdt;
-            if (s5.equalsIgnoreCase(s6)) {
-                System.out.println("text is Matched as Estimated Date ");
-            } else {
-                System.out.println("Text is not matched");
-            }
+        WebElement element_SaveBtn=driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light']"));
+        js.executeScript("arguments[0].click();", element_SaveBtn);
+        System.out.println("Save button is clicked");
+    }
 
-            TakesScreenshot ts4=(TakesScreenshot)driver;
-            File src_Estdt =ts3.getScreenshotAs(OutputType.FILE);
-            File dest_Estdt= new File(projectPath+"\\Screenshots\\Estdt_text.jpg");
-            FileUtils.copyFile(src_Estdt,dest_Estdt);
-            System.out.println("Estimated Date text screenshot is captured");
+    public static void validate_TravelExpenseDetailedReport() throws Exception{
+        WebElement element_TravelRequestID = driver.findElement(By.xpath("//td[text()='Travel Request ID']"));
+        String actualTravelRequestID = element_TravelRequestID.getText();
+        String expectedTravelRequestID = "Travel Request ID";
+        if (actualTravelRequestID.equalsIgnoreCase(expectedTravelRequestID)) {
+            System.out.println("Travel Request ID column is verified in the Report");
+        }else{
+            System.out.println("Travel Request ID column is not present in the Report");
+        }
 
-            WebElement element_Cash= driver.findElement(PageLocators.textCash);
-            String s7 = element_Cash.getText();
-            String s8 =Config_Data.textCashadv;
-            if (s7.equalsIgnoreCase(s8)) {
-                System.out.println("text is Matched as Cash in Advance ");
-            } else {
-                System.out.println("Text is not matched");
-            }
+        WebElement element_EstimatedDate = driver.findElement(By.xpath("//td[text()='Estimated Date']"));
+        String actualEstimatedDate = element_EstimatedDate.getText();
+        String expectedEstimatedDate = "Estimated Date";
+        if (actualEstimatedDate.equalsIgnoreCase(expectedEstimatedDate)) {
+            System.out.println("EstimatedDate column is verified in the Report");
+        }else{
+            System.out.println("EstimatedDate column is not present in the Report");
+        }
 
-            TakesScreenshot ts5=(TakesScreenshot)driver;
-            File src_Cashadv =ts5.getScreenshotAs(OutputType.FILE);
-            File dest_Cashadv= new File(projectPath+"\\Screenshots\\Cashadv_text.jpg");
-            FileUtils.copyFile(src_Cashadv,dest_Cashadv);
-            System.out.println("Estimated Date text screenshot is captured");
+        WebElement element_CashInAdvance = driver.findElement(By.xpath("//td[text()='Cash in Advance']"));
+        String actualCashInAdvance = element_CashInAdvance.getText();
+        String expectedCashInAdvance = "Cash in Advance";
+        if (actualCashInAdvance.equalsIgnoreCase(expectedCashInAdvance)) {
+            System.out.println("Cash In Advance column is verified in the Report");
+        }else{
+            System.out.println("Cash In Advance column is not present in the Report");
+        }
 
-            //driver.quit();
-            System.out.println("browser is closed");
+        src = ts.getScreenshotAs(OutputType.FILE);
+        dest = new File(projectPath + "\\Screenshots\\OrangeHRMTravelExpenseDetailedReport.jpg");
+        FileUtils.copyFile(src, dest);
+        System.out.println("OrangeHRMTravelExpenseDetailedReport screenshot is captured");
+    }
 
+    public static void validate_EmployeeInformationalFields(){
+        WebElement element = driver.findElement(By.xpath("//span[text()='Employee Id']"));
+        String actualEmployeeId = element.getText();
+        String expectedEmployeeId = "Employee Id";
+        if (actualEmployeeId.equalsIgnoreCase(expectedEmployeeId)) {
+            System.out.println("Employee Id column is verified in the Report");
+        } else {
+            System.out.println("Employee Id column is not present in the Report");
+        }
 
+        WebElement element_EmpName = driver.findElement(By.xpath("//span[text()='Employee Name']"));
+        String actualEmployeeName = element_EmpName.getText();
+        String expectedEmployeeName = "Employee Name";
+        if (actualEmployeeName.equalsIgnoreCase(expectedEmployeeName)) {
+            System.out.println("Employee Name column is verified in the Report");
+        } else {
+            System.out.println("Employee Name column is not present in the Report");
+        }
+
+        WebElement element_Nationality = driver.findElement(By.xpath("//span[text()='Nationality']"));
+        String actualNationality = element_Nationality.getText();
+        String expectedNationality = "Nationality";
+        if (actualNationality.equalsIgnoreCase(expectedNationality)) {
+            System.out.println("Nationality column is verified in the Report");
+        } else {
+            System.out.println("Nationality column is not present in the Report");
         }
     }
+
+    public static void validate_TravelExpenseSummaryReport(){
+        WebElement element_ReimbursementCurrency = driver.findElement(By.xpath("//td[text()='Total Estimated Expense (Reimbursement Currency)']"));
+        String actualReimbursementCurrency = element_ReimbursementCurrency.getText();
+        String expectedReimbursementCurrency= "Total Estimated Expense (Reimbursement Currency)";
+        if (actualReimbursementCurrency.equalsIgnoreCase(expectedReimbursementCurrency)) {
+            System.out.println("Total Estimated Expense (Reimbursement Currency) column is verified in the Report");
+        }else{
+            System.out.println("Total Estimated Expense (Reimbursement Currency column is not present in the Report");
+        }
+    }
+}
 

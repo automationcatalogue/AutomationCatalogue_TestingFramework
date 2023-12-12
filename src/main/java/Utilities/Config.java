@@ -3,16 +3,16 @@ package Utilities;
 public class Config {
     public static final String testID_HRMLogin="TC01-04";
     public static final String testID_HRMAddUser="TC02-02";
-    public static final String testID_HRMReports="TC03-01";
+    public static final String testID_HRMReports="TC03-03";
     public static final String testID_HRM_Attendance="TC04-01";
-    public static final String testID_HRMLeave="TC05-01";
-    public static final String testID_HRM_Performance="TC06-01";
+    public static final String testID_HRMLeave="TC05-05";
+    public static final String testID_HRM_Performance="TC06-05";
+    public static final String testID_HRM_Nationality="TC07-01";
     public static final String testID_Demo_CreateAddress="TC09-02";
     public static final String testID_Demo_TotalOrders = "TC10-01";
-    public static final String testID_DemoMultipleProducts="TC11-01";
-    public static final String testID_DEMOApplyDiscount="TC12-01";
-    public static final String testID_Demo_PlaceOrder="TC13-01";
-
+    public static final String testID_DemoMultipleProducts="TC11-05";
+    public static final String testID_DEMOApplyDiscount="TC12-05";
+    public static final String testID_Demo_PlaceOrder="TC13-02";
 
     //Common
     public static final int col_TestcaseID=0;
@@ -29,12 +29,10 @@ public class Config {
     public static final int col_NewUserConfirmPassword=9;
 
     //HRMReports
-    public static final int col_SelectReportType=4;
-    public static final int col_SelectFolder=5;
+    public static final int col_ReportType=4;
+    public static final int col_FolderType=5;
     public static final int col_ReportName=6;
-    //public static final int col_PersonalDetails=7;
-    //public static final int col_Job=8;
-    public static final int col_DisplayFields=9;
+    public static final int col_DisplayFields=7;
 
 
     //HRMAttendance
@@ -45,14 +43,14 @@ public class Config {
     public static final int col_OutTime=8;
     public static final int col_OutNote=9;
 
-    public static final int col_Product=4;
-    public static final int col_ApplyDiscountCode=5;
-    public static final int col_PaymentInformation=6;
-    public static final int col_SelectCreditCard=7;
-    public static final int col_CardHolderName=8;
-    public static final int col_CardNumber=9;
-    public static final int col_ExpirationDate=10;
-    public static final int col_CardCode=11;
+    //DemoWebShop-Apply Discount
+    public static final int col_ApplyDiscount_ProductCategory=4;
+    public static final int col_ApplyDiscount_ProductName=5;
+    public static final int col_ApplyDiscount_DiscountCode=6;
+    public static final int col_ApplyDiscount_PaymentInformation=7;
+    public static final int col_ApplyDiscount_CardHolderName=8;
+    public static final int col_ApplyDiscount_CardNumber=9;
+    public static final int col_ApplyDiscount_CardCode=10;
 
 
     //Create Address
@@ -77,6 +75,9 @@ public class Config {
     public static final int col_Performance_FromDate =8;
     public static final int col_Performance_ToDate =9;
     public static final int col_Performance_DueDate =10;
+    public static final int col_Performance_UserName_Employee = 11;
+    public static final int col_Performance_UserName_Password = 12;
+    public static final int col_Performance_UserName_ConfirmPassword = 13;
 
     //HRMLeave
     public static final int col_Name=4;
@@ -85,11 +86,17 @@ public class Config {
     public static final int col_country=7;
 
     //Demo_MultipleOrders
-    public static final int col_Product1=4;
-    public static final int col_Product2=5;
-    public static final int col_Product3=6;
-    public static final int col_Product4=7;
-    public static final int col_Product5=8;
-    public static final int col_OrderID=4;
+    public static final int col_Product1Category=4;
+    public static final int col_Product1Name=5;
+    public static final int col_Product2Category=6;
+    public static final int col_Product2Name=7;
+    public static final int col_Product3Category=8;
+    public static final int col_Product3Name=9;
+    public static final int col_Product4Category=10;
+    public static final int col_Product4Name=11;
+    public static final int col_OrderID=12;
+
+    //Nationalities
+    public static final int col_Nationality_CountryName = 4;
 }
 

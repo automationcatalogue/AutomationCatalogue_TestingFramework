@@ -70,11 +70,12 @@ public class TC09_DemoWebshop_CreateAddress {
         for (WebElement element: Country){
             String actualValue = element.getText();
             if (actualValue.equalsIgnoreCase("Canada")){
+                System.out.println("Canada is been selected from the drop down"+country);
                 element.click();
                 break;
             }
         }
-        System.out.println("Canada is been selected from the drop down"+country);
+
 
         String province = ExcelUtils.getCellData(sheetName, row, Config.col_Province);
         driver.findElement(By.xpath("//select[@id='Address_StateProvinceId']")).click();
@@ -84,10 +85,10 @@ public class TC09_DemoWebshop_CreateAddress {
             String actualValue =element.getText();
             if (actualValue.equalsIgnoreCase("Ontario")){
                 element.click();
+                System.out.println("Ontario is been selected"+province);
                 break;
             }
         }
-        System.out.println("Ontario is been selected"+province);
 
         String cityName = ExcelUtils.getCellData(sheetName, row, Config.col_City);
         driver.findElement(By.xpath("//input[@id='Address_City']")).sendKeys(cityName);
@@ -101,17 +102,17 @@ public class TC09_DemoWebshop_CreateAddress {
         driver.findElement(By.xpath("//input[@id='Address_Address2']")).sendKeys(address2);
         System.out.println("Address 2 is been entered"+address2);
 
-        String postalcode= ExcelUtils.getCellData(sheetName, row, Config.col_PostalCode);
-        driver.findElement(By.xpath("//input[@id='Address_ZipPostalCode']")).sendKeys(postalcode);
-        System.out.println("Postal code is been entered"+postalcode);
+        String postalCode= ExcelUtils.getCellData(sheetName, row, Config.col_PostalCode);
+        driver.findElement(By.xpath("//input[@id='Address_ZipPostalCode']")).sendKeys(postalCode);
+        System.out.println("Postal code is been entered"+postalCode);
 
-        String phonenumber= ExcelUtils.getCellData(sheetName, row, Config.col_PhoneNumber);
-        driver.findElement(By.id("Address_PhoneNumber")).sendKeys(phonenumber);
-        System.out.println("Phone number is been entered"+phonenumber);
+        String phoneNumber= ExcelUtils.getCellData(sheetName, row, Config.col_PhoneNumber);
+        driver.findElement(By.id("Address_PhoneNumber")).sendKeys(phoneNumber);
+        System.out.println("Phone number is been entered"+phoneNumber);
 
-        String Faxnumber= ExcelUtils.getCellData(sheetName, row, Config.col_FaxNumber);
-        driver.findElement(By.name("Address.FaxNumber")).sendKeys(Faxnumber);
-        System.out.println("Fax number is been entered"+Faxnumber);
+        String FaxNumber= ExcelUtils.getCellData(sheetName, row, Config.col_FaxNumber);
+        driver.findElement(By.name("Address.FaxNumber")).sendKeys(FaxNumber);
+        System.out.println("Fax number is been entered"+FaxNumber);
 
         driver.findElement(By.xpath("//input[@class='button-1 save-address-button']")).click();
         System.out.println("Save button is been clicked");
@@ -133,7 +134,8 @@ public class TC09_DemoWebshop_CreateAddress {
         }
 
         //Logout from DemoWebshop testcase
-
+        driver.findElement(By.linkText("Log out")).click();
+        System.out.println("Successfully logout");
         driver.quit();
     }
 }

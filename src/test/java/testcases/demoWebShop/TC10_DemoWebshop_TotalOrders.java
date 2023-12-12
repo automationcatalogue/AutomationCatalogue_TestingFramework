@@ -6,8 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.devtools.v85.page.Page;
-import pageObjects.PageLocators;
 
 import java.time.Duration;
 import java.util.List;
@@ -45,13 +43,13 @@ public class TC10_DemoWebshop_TotalOrders {
         driver.findElement(By.xpath("//input[@class='button-1 login-button' and @type='submit']")).submit();
         System.out.println("Login button clicked successfully");
 
-        driver.findElement(PageLocators.account_Name).click();
+        driver.findElement(By.xpath("//a[text()='aarosagarch@gmail.com']")).click();
         System.out.println("Account clicked");
 
-        driver.findElement(PageLocators.order_Dropdown).click();
+        driver.findElement(By.xpath("(//a[text()='Orders'])[1]")).click();
         System.out.println("Orders dropdown clicked");
 
-        List<WebElement> totalOrders = driver.findElements(PageLocators.total_Orders);
+        List<WebElement> totalOrders = driver.findElements(By.xpath("//div[@class='order-list']/div/div/strong"));
         //System.out.println(totalOrders.size());
         int count = 0;
         for (WebElement size : totalOrders){
@@ -59,7 +57,7 @@ public class TC10_DemoWebshop_TotalOrders {
         }
         System.out.println("The total no. of orders are: "+count);
 
-        List<WebElement> totalValue= driver.findElements(PageLocators.total_Value);
+        List<WebElement> totalValue= driver.findElements(By.xpath("//div[@class='order-list']/div/ul/li[3]"));
 
         float totalSum = 0;
         for(WebElement text : totalValue){

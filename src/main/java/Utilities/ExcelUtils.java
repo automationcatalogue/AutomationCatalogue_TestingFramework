@@ -41,7 +41,7 @@ public class ExcelUtils {
         sh = wbk.getSheet(sheetName);
         int rowSize= sh.getLastRowNum();
         int finalRowNumber=0;
-        for(int i=0;i<rowSize;i++){
+        for(int i=0;i<=rowSize;i++){
             String actualTestId = sh.getRow(i).getCell(0).getStringCellValue();
             if(actualTestId.equals(testId)){
                 finalRowNumber=i;
