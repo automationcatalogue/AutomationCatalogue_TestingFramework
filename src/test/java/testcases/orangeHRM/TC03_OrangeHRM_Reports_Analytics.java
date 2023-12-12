@@ -290,7 +290,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
 
     public static void validate_TravelExpenseDetailedReport() throws Exception{
-        WebElement element_TravelRequestID = driver.findElement(By.xpath("//td[text()='Travel Request ID']"));
+        WebElement element_TravelRequestID = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_TravelRequestID);
         String actualTravelRequestID = element_TravelRequestID.getText();
         String expectedTravelRequestID = "Travel Request ID";
         if (actualTravelRequestID.equalsIgnoreCase(expectedTravelRequestID)) {
@@ -299,7 +299,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("Travel Request ID column is not present in the Report");
         }
 
-        WebElement element_EstimatedDate = driver.findElement(By.xpath("//td[text()='Estimated Date']"));
+        WebElement element_EstimatedDate = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_EstimatedDate);
         String actualEstimatedDate = element_EstimatedDate.getText();
         String expectedEstimatedDate = "Estimated Date";
         if (actualEstimatedDate.equalsIgnoreCase(expectedEstimatedDate)) {
@@ -308,7 +308,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("EstimatedDate column is not present in the Report");
         }
 
-        WebElement element_CashInAdvance = driver.findElement(By.xpath("//td[text()='Cash in Advance']"));
+        WebElement element_CashInAdvance = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_CashInAdvance);
         String actualCashInAdvance = element_CashInAdvance.getText();
         String expectedCashInAdvance = "Cash in Advance";
         if (actualCashInAdvance.equalsIgnoreCase(expectedCashInAdvance)) {
@@ -324,7 +324,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
 
     public static void validate_EmployeeInformationalFields(){
-        WebElement element = driver.findElement(By.xpath("//span[text()='Employee Id']"));
+        WebElement element = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_EmployeeID);
         String actualEmployeeId = element.getText();
         String expectedEmployeeId = "Employee Id";
         if (actualEmployeeId.equalsIgnoreCase(expectedEmployeeId)) {
@@ -333,7 +333,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("Employee Id column is not present in the Report");
         }
 
-        WebElement element_EmpName = driver.findElement(By.xpath("//span[text()='Employee Name']"));
+        WebElement element_EmpName = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_EmployeeName);
         String actualEmployeeName = element_EmpName.getText();
         String expectedEmployeeName = "Employee Name";
         if (actualEmployeeName.equalsIgnoreCase(expectedEmployeeName)) {
@@ -342,7 +342,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("Employee Name column is not present in the Report");
         }
 
-        WebElement element_Nationality = driver.findElement(By.xpath("//span[text()='Nationality']"));
+        WebElement element_Nationality = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_Nationality);
         String actualNationality = element_Nationality.getText();
         String expectedNationality = "Nationality";
         if (actualNationality.equalsIgnoreCase(expectedNationality)) {
@@ -353,7 +353,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
 
     public static void validate_TravelExpenseSummaryReport(){
-        WebElement element_ReimbursementCurrency = driver.findElement(By.xpath("//td[text()='Total Estimated Expense (Reimbursement Currency)']"));
+        WebElement element_ReimbursementCurrency = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_ReiumbersmentCurrency);
         String actualReimbursementCurrency = element_ReimbursementCurrency.getText();
         String expectedReimbursementCurrency= "Total Estimated Expense (Reimbursement Currency)";
         if (actualReimbursementCurrency.equalsIgnoreCase(expectedReimbursementCurrency)) {
