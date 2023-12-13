@@ -17,6 +17,8 @@ public class DemoWebShop_HomePage {
     public static By link_ShoppingCart=By.xpath("//*[@id='topcartlink']/a/span[1]");
     public static By link_Logout=By.linkText("Log out");
 
+    public static By link_ShpngCart = By.xpath("//span[text()='Shopping cart']");
+
 
 
 

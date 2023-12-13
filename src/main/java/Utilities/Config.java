@@ -11,7 +11,7 @@ public class Config {
     public static final String testID_Demo_CreateAddress="TC09-02";
     public static final String testID_Demo_TotalOrders = "TC10-01";
     public static final String testID_DemoMultipleProducts="TC11-05";
-    public static final String testID_DEMOApplyDiscount="TC12-01";
+    public static final String testID_DEMOApplyDiscount="TC12-05";
     public static final String testID_Demo_PlaceOrder="TC13-02";
 
     //Common
