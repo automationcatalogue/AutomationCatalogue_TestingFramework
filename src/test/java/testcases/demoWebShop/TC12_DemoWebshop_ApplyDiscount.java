@@ -48,7 +48,7 @@ public class TC12_DemoWebshop_ApplyDiscount {
         System.out.println(productName+" Add to Cart button is clicked");
         enterProductData(productName);
 
-        driver.findElement(DemoWebShop_HomePage.link_ShpngCart).click();
+        driver.findElement(DemoWebShop_HomePage.link_ShoppingCart).click();
         System.out.println("Shopping cart button is clicked");
 
         driver.navigate().refresh();
