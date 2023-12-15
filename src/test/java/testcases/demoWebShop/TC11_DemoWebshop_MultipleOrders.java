@@ -36,14 +36,14 @@ public class TC11_DemoWebshop_MultipleOrders {
         System.out.println("Chrome browser is maximized");
 
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(By.name("Email")).sendKeys(userName);
+        driver.findElement(DemoWebShop_LoginPage.txtbx_UserName).sendKeys(userName);
         System.out.println("Email is entered");
 
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(By.name("Password")).sendKeys(password);
+        driver.findElement(DemoWebShop_LoginPage.txtbx_Password).sendKeys(password);
         System.out.print("password is entered");
 
-        driver.findElement(By.xpath("//input[@class='button-1 login-button']")).click();
+        driver.findElement(DemoWebShop_LoginPage.btn_Login).click();
         System.out.println("login is clicked");
 
         String product1Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product1Category);

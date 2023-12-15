@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.demoWebShop.*;
 
 import java.time.Duration;
 import java.util.List;
@@ -29,24 +30,24 @@ public class TC13_DemoWebShop_PlaceOrder {
         System.out.println("Login icon button is clicked");
 
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        WebElement element_Email = driver.findElement(By.name("Email"));
+        WebElement element_Email = driver.findElement(DemoWebShop_LoginPage.txtbx_UserName);
         element_Email.sendKeys(userName);
         System.out.println(userName + "is entered");
 
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        WebElement element_Password = driver.findElement(By.id("Password"));
+        WebElement element_Password = driver.findElement(DemoWebShop_LoginPage.txtbx_Password);
         element_Password.sendKeys(password);
         System.out.println(password + " is entered");
 
-        WebElement element_Login = driver.findElement(By.xpath("//input[@value='Log in']"));
+        WebElement element_Login = driver.findElement(DemoWebShop_LoginPage.btn_Login);
         element_Login.click();
         System.out.println("Login button is clicked");
 
-        WebElement element_Apparels_Shoes =driver.findElement(By.xpath("//div[@class='listbox']/ul/li[4]/a"));
+        WebElement element_Apparels_Shoes =driver.findElement(DemoWebShop_HomePage.link_ApparelShoesCategory);
         element_Apparels_Shoes.click();
         System.out.println("Apparels_Shoes is clicked");
 
-        WebElement element_Shoes = driver.findElement(By.xpath("//div[@class='product-grid']/div[2]/div/div[2]/h2/a"));
+        WebElement element_Shoes = driver.findElement(DemoWebShop_ProductListingPage.link_Shoes);
         element_Shoes.click();
         System.out.println("Shoes is clicked");
 
@@ -54,11 +55,11 @@ public class TC13_DemoWebShop_PlaceOrder {
         double itemValue = Double.parseDouble(itemPrice);
         System.out.println("Selected Iem Value is :" + itemValue);
 
-        WebElement element_Addtocart = driver.findElement(By.xpath("//div[@class='add-to-cart']/div/input[2]"));
+        WebElement element_Addtocart = driver.findElement(DemoWebShop_ProductListingPage.btn_addToCart);
         element_Addtocart.click();
         System.out.println("Add to cart button is clicked");
 
-        WebElement element_Shopping_cart = driver.findElement(By.xpath("//span[text()='Shopping cart']"));
+        WebElement element_Shopping_cart = driver.findElement(DemoWebShop_HomePage.link_ShoppingCart);
         element_Shopping_cart.click();
         System.out.println("Shopping cart is clicked");
 
@@ -74,35 +75,35 @@ public class TC13_DemoWebShop_PlaceOrder {
         System.out.println("Belgium is selected");
 
 
-        WebElement element_Checkbox = driver.findElement(By.xpath("//input[@id='termsofservice']"));
+        WebElement element_Checkbox = driver.findElement(DemoWebShop_ShoppingCartPage.chckbox_termsconditions);
         element_Checkbox.click();
         System.out.println("Checkbox is selected");
 
-        WebElement element_Checkout = driver.findElement(By.xpath("//button[@id='checkout']"));
+        WebElement element_Checkout = driver.findElement(DemoWebShop_ShoppingCartPage.btn_Checkout);
         element_Checkout.click();
         System.out.println("Checkout button is clicked");
 
-        WebElement element_BillingAddress = driver.findElement(By.xpath("(//input[@type='button'])[2]"));
+        WebElement element_BillingAddress = driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueBillingAddress);
         element_BillingAddress.click();
         System.out.println("Billing address continue button is clicked");
 
-        WebElement element_ShoppingAddress = driver.findElement(By.xpath("(//input[@type='button'])[3]"));
+        WebElement element_ShoppingAddress = driver.findElement(DemoWebShop_CheckoutPage.link_ShippingAddress);
         element_ShoppingAddress.click();
         System.out.println("Shopping address continue button is clicked");
 
-        WebElement element_ShoppingMethod = driver.findElement(By.xpath("(//input[@type='button'])[4]"));
+        WebElement element_ShoppingMethod = driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueShippingAddress);
         element_ShoppingMethod.click();
         System.out.println("Shopping method continue button is clicked");
 
-        WebElement element_PaymentMethod = driver.findElement(By.xpath("(//input[@type='button'])[5]"));
+        WebElement element_PaymentMethod = driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueShippingMethod);
         element_PaymentMethod.click();
         System.out.println("Payment method continue button is clicked");
 
-        WebElement element_PaymentInformation = driver.findElement(By.xpath("(//input[@type='button'])[6]"));
+        WebElement element_PaymentInformation = driver.findElement(DemoWebShop_CheckoutPage.btn_ContinuePaymentMethod);
         element_PaymentInformation.click();
         System.out.println("Payment information continue button is clicked");
 
-        WebElement element_Confirm = driver.findElement(By.xpath("//input[@value='Confirm']"));
+        WebElement element_Confirm = driver.findElement(DemoWebShop_CheckoutPage.btn_ConfirmOrder);
         element_Confirm.click();
         System.out.println("Confirm button is clicked");
 
@@ -124,7 +125,7 @@ public class TC13_DemoWebShop_PlaceOrder {
             System.out.println("Sub Total is displayed not correctly");
         }
 
-        driver.findElement(By.xpath("//a[text()='Log out']")).click();
+        driver.findElement(DemoWebShop_HomePage.link_Logout).click();
         System.out.println("Logout is clicked");
 
         driver.quit();
