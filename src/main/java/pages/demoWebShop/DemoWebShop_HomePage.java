@@ -16,6 +16,7 @@ public class DemoWebShop_HomePage {
     public static By link_GiftCardsCategory=By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Gift Cards')]");
     public static By link_ShoppingCart=By.xpath("//*[@id='topcartlink']/a/span[1]");
     public static By link_Logout=By.linkText("Log out");
+    public static By link_UserName=By.xpath("(//a[@class='account'])[1]");
 
 
 }
