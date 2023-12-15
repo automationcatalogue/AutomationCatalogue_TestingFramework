@@ -7,6 +7,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.orangeHRM.*;
+
 import java.io.File;
 import java.time.Duration;
 import java.util.List;
@@ -41,15 +43,15 @@ public class TC03_OrangeHRM_Reports_Analytics {
 
         //UserName
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(By.name("txtUsername")).sendKeys(userName);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_UserName).sendKeys(userName);
         System.out.println("UserName is entered as" + userName);
 
         //password
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(By.id("txtPassword")).sendKeys(password);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_Password).sendKeys(password);
         System.out.println("Password is entered");
 
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        driver.findElement(OrangeHRM_LoginPage.btn_Login).click();
         System.out.println("Login button is clicked");
 
         src = ts.getScreenshotAs(OutputType.FILE);
@@ -57,7 +59,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
         FileUtils.copyFile(src, dest);
         System.out.println("OrangeHRMLogin screenshot is captured");
 
-        driver.findElement(By.xpath("(//span[text()='Reports and Analytics'])[1]")).click();
+        driver.findElement(OrangeHRM_HomePage.link_ReportsandAnalytics).click();
         System.out.println("Reports and analytics link is clicked");
 
         String actualTitle = driver.getTitle();
@@ -68,15 +70,15 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("Reports and Analytics Title is not Matched");
         }
 
-        driver.findElement(By.cssSelector(".oxd-button-label-wrapper")).click();
+        driver.findElement(OrangeHRM_ReportAnalyticsPage.btn_NewReport).click();
         System.out.println("New Report button is clicked");
 
         //Report type
         String reportType = ExcelUtils.getCellData(sheetName, row, Config.col_ReportType);
-        driver.findElement(By.xpath("//div[text()='Employee Informational Report']")).click();
+        driver.findElement(OrangeHRM_ReportAnalyticsPage.drpdwn_ReportType).click();
         System.out.println("Report Type drop-down is clicked");
 
-        List<WebElement> elements_ReportType = driver.findElements(By.xpath("//div[@role='listbox']/div/div"));
+        List<WebElement> elements_ReportType = driver.findElements(OrangeHRM_ReportAnalyticsPage.drpdwn_SelectReportType);
         for (WebElement element_Report : elements_ReportType) {
             String reportName = element_Report.getText();
             if (reportName.equalsIgnoreCase(reportType)) {
@@ -88,11 +90,11 @@ public class TC03_OrangeHRM_Reports_Analytics {
 
         //Folder
         String folderType = ExcelUtils.getCellData(sheetName, row, Config.col_FolderType);
-        WebElement element_selectFolder = driver.findElement(By.xpath("(//div[@clear='false'])[2]"));
+        WebElement element_selectFolder = driver.findElement(OrangeHRM_ReportAnalyticsPage.drpdwn_FolderType);
         js.executeScript("arguments[0].click();",element_selectFolder);
-        System.out.println("Select folder drop-down is clicked");
+        System.out.println("Folder drop-down is clicked");
 
-        List<WebElement> elements_Folders = driver.findElements(By.xpath("(//div[@clear='false'])[2]"));
+        List<WebElement> elements_Folders = driver.findElements(OrangeHRM_ReportAnalyticsPage.drpdwn_SelectFolderType);
         for (WebElement element_folder : elements_Folders) {
             String folderName = element_folder.getText();
             if (folderName.equalsIgnoreCase(folderType)) {
@@ -102,13 +104,13 @@ public class TC03_OrangeHRM_Reports_Analytics {
             }
         }
 
-        WebElement element_NextBtn = driver.findElement(By.xpath("//button[@type='submit']"));
+        WebElement element_NextBtn = driver.findElement(OrangeHRM_ReportAnalyticsPage.btn_Next);
         js.executeScript("arguments[0].click();", element_NextBtn);
         System.out.println("Next button is clicked");
 
         //Report Name
         String reportName = ExcelUtils.getCellData(sheetName, row, Config.col_ReportName);
-        driver.findElement(By.cssSelector("#pimDefineReportName")).sendKeys(reportName);
+        driver.findElement(OrangeHRM_ReportAnalyticsPage.txtbx_ReportName).sendKeys(reportName);
         System.out.println("Report Name is entered as " + reportName);
 
         src = ts.getScreenshotAs(OutputType.FILE);
@@ -116,24 +118,24 @@ public class TC03_OrangeHRM_Reports_Analytics {
         FileUtils.copyFile(src, dest);
         System.out.println("OrangeHRMReportName screenshot is captured");
 
-        wait.until((ExpectedConditions.elementToBeClickable(By.xpath("//button[@translate='Next']")))).click();
+        wait.until((ExpectedConditions.elementToBeClickable(OrangeHRM_ReportAnalyticsPage.btn_ReportsNext))).click();
         System.out.println("Next button is clicked");
 
         if(reportType.equalsIgnoreCase("Travel and Expense Detailed Report")){
             selectFields_TravelExpenseDetailedReport();
 
-            driver.findElement(By.xpath("//i[text()='arrow_back']")).click();
+            driver.findElement(OrangeHRM_ReportAnalyticsPage.btn_BackArrow).click();
             System.out.println("Back Arrow button is clicked");
-            driver.findElement(By.xpath("(//input[@placeholder='Search'])[2]")).sendKeys(reportName);
+            driver.findElement(OrangeHRM_ReportAnalyticsPage.txtbx_Search).sendKeys(reportName);
             System.out.println(reportName + " is entered in Search text-box");
 
             validate_TravelExpenseDetailedReport();
         }else if(reportType.equalsIgnoreCase("Employee Informational Report")){
             selectFields_EmployeeInformationalReport();
 
-            driver.findElement(By.xpath("//i[text()='arrow_back']")).click();
+            driver.findElement(OrangeHRM_ReportAnalyticsPage.btn_BackArrow).click();
             System.out.println("Back Arrow button is clicked");
-            driver.findElement(By.xpath("(//input[@placeholder='Search'])[2]")).sendKeys(reportName);
+            driver.findElement(OrangeHRM_ReportAnalyticsPage.txtbx_Search).sendKeys(reportName);
             System.out.println(reportName + " is entered in Search text-box");
 
             validate_EmployeeInformationalFields();
@@ -141,16 +143,16 @@ public class TC03_OrangeHRM_Reports_Analytics {
         }else if(reportType.equalsIgnoreCase("Travel and Expense Summary Report")){
             selectFields_TravelExpenseSummaryReport();
 
-            driver.findElement(By.xpath("//i[text()='arrow_back']")).click();
+            driver.findElement(OrangeHRM_ReportAnalyticsPage.btn_BackArrow).click();
             System.out.println("Back Arrow button is clicked");
-            driver.findElement(By.xpath("(//input[@placeholder='Search'])[2]")).sendKeys(reportName);
+            driver.findElement(OrangeHRM_ReportAnalyticsPage.txtbx_Search).sendKeys(reportName);
             System.out.println(reportName + " is entered in Search text-box");
 
             validate_TravelExpenseSummaryReport();
         }
 
         //Logout from the Application
-        driver.findElement(By.xpath("(//span[@class='profile-name'])[2]")).click();
+        driver.findElement(OrangeHRM_HomePage.link_Logout).click();
         System.out.println("Logout is successfully done from the Website");
 
         driver.quit();
@@ -158,25 +160,25 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
 
     public static void selectFields_TravelExpenseDetailedReport() throws Exception{
-        wait.until(ExpectedConditions.elementToBeClickable((By.xpath("//label[@for='selectedFilters_request_id']"))));
-        driver.findElement(By.xpath("//label[@for='selectedFilters_request_id']")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(OrangeHRM_ReportsFieldsPage.chkbx_TravelRequestID));
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_TravelRequestID).click();
         System.out.println("Travel Request Id check-box is selected");
 
-        driver.findElement(By.xpath("//label[@for='selectedFilters_job_title']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_JobTitle).click();
         System.out.println("Job Title check-box is selected");
 
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
         System.out.println("window is scrolled down till bottom of the page");
 
-        driver.findElement(By.xpath("//button[text()='Next']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.btn_Next).click();
         System.out.println("Next button is clicked");
 
         //Add Display
         String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
-        driver.findElement(By.cssSelector("#display-group-dropdown-trigger")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.btn_AddDisplayFields).click();
         System.out.println("Add display field button is clicked");
 
-        List<WebElement> elements_DisplayFields = driver.findElements(By.xpath("//ul[@id='add-display-group-dropdown']/li"));
+        List<WebElement> elements_DisplayFields = driver.findElements(OrangeHRM_ReportsFieldsPage.drpdwn_SelectAddDisplayFields);
         for (WebElement element_DisplayField : elements_DisplayFields) {
             String fieldName = element_DisplayField.getText();
             if (fieldName.equalsIgnoreCase(displayFields)) {
@@ -186,40 +188,40 @@ public class TC03_OrangeHRM_Reports_Analytics {
             }
         }
 
-        driver.findElement(By.xpath("//label[text()='Estimated Date']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_EstimatedDate).click();
         System.out.println("Estimated date check-box is selected");
 
-        driver.findElement(By.xpath("//label[text()='Travel Request ID']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_TravelRequestID).click();
         System.out.println("Travel Request ID check-box is clicked");
 
-        driver.findElement(By.xpath("//label[text()='Cash in Advance']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chbx_CashInAdvance).click();
         System.out.println("Cash in Advance check-box is clicked");
 
-        driver.findElement(By.xpath("//button[text()='Save']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.btn_Save).click();
         System.out.println("Save button is clicked");
     }
     public static void selectFields_EmployeeInformationalReport() throws Exception{
-        WebElement element_EmployeeName = driver.findElement(By.xpath("//input[@id='selectedFilters_employee_name_withgroup']"));
+        WebElement element_EmployeeName = driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_EmployeeName);
         js.executeScript("arguments[0].click();", element_EmployeeName);
         System.out.println("Employee Name check-box is clicked");
 
-        WebElement element_JobTitle = driver.findElement(By.xpath("//input[@id='selectedFilters_job_title_withgroup']"));
+        WebElement element_JobTitle = driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_SelectionCriteriaJobtitle);
         js.executeScript("arguments[0].click();", element_JobTitle);
         System.out.println("Job Title checkbox is clicked");
 
-        WebElement element_Location = driver.findElement(By.xpath("//input[@id='selectedFilters_location_withgroup']"));
+        WebElement element_Location = driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_Location);
         js.executeScript("arguments[0].click();", element_Location);
         System.out.println("Location checkbox is clicked");
 
-        driver.findElement(By.xpath("//button[text()='Next']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.btn_Next).click();
         System.out.println("Next button is clicked");
 
         //Add Display
         String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
-        driver.findElement(By.cssSelector("#display-group-dropdown-trigger")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.btn_AddDisplayFields).click();
         System.out.println("Add display field button is clicked");
 
-        List<WebElement> elements_DisplayFields = driver.findElements(By.xpath("//ul[@id='add-display-group-dropdown']/li"));
+        List<WebElement> elements_DisplayFields = driver.findElements(OrangeHRM_ReportsFieldsPage.drpdwn_SelectAddDisplayFields);
         for (WebElement element_DisplayField : elements_DisplayFields) {
             String fieldName = element_DisplayField.getText();
             if (fieldName.equalsIgnoreCase(displayFields)) {
@@ -228,48 +230,48 @@ public class TC03_OrangeHRM_Reports_Analytics {
                 break;
             }
         }
-        driver.findElement(By.xpath("//label[text()='Employee Id']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_EmployeeID).click();
         System.out.println("Employee Id check-box is clicked");
 
-        driver.findElement(By.xpath("//label[text()='Employee Name']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_PersonalEmployeeName).click();
         System.out.println("Employee Name check-box is clicked");
 
-        driver.findElement(By.xpath("//label[text()='Nationality']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_Nationality).click();
         System.out.println("Nationality check-box is clicked");
 
-        driver.findElement(By.xpath("//button[text()='Save']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.btn_Save).click();
         System.out.println("Save button is clicked");
     }
 
     public static void selectFields_TravelExpenseSummaryReport() throws Exception{
 
-        driver.findElement(By.xpath("//label[@for='selectedGroupingField_claim_status']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_ClaimStatus).click();
         System.out.println("ClaimStatus check-box is clicked");
 
-        driver.findElement(By.xpath("//label[@for='selectedGroupingField_currency_for_reimbursement']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_Reiumbersment).click();
         System.out.println("Reimbursement Currency (Estimates) check-box is clicked");
 
-        driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.btn_TrvlReqSummaryReportNext).click();
         System.out.println("Next button is clicked");
 
-        driver.findElement(By.xpath("//label[@for='selectedFilters_claim_id']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_ExpenseClaimID).click();
         System.out.println("Expense ClaimID check-box is clicked");
 
-        driver.findElement(By.xpath("//label[@for='selectedFilters_claimed_date']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_ClaimDate).click();
         System.out.println("ClaimDate check-box is clicked");
 
-        driver.findElement(By.xpath("//label[@for='selectedFilters_claim_status']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_ClaimStatus).click();
         System.out.println("ClaimStatus check-box is clicked");
 
-        driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light right']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.btn_TrvlReqSummaryReportNext).click();
         System.out.println("Next button is clicked");
 
         //Add Display
         String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
-        driver.findElement(By.cssSelector("#display-group-dropdown-trigger")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.btn_AddDisplayFields).click();
         System.out.println("Add display field button is clicked");
 
-        List<WebElement> elements_DisplayFields = driver.findElements(By.xpath("//ul[@id='add-display-group-dropdown']/li"));
+        List<WebElement> elements_DisplayFields = driver.findElements(OrangeHRM_ReportsFieldsPage.drpdwn_SelectAddDisplayFields);
         for (WebElement element_DisplayField : elements_DisplayFields) {
             String fieldName = element_DisplayField.getText();
             if (fieldName.equalsIgnoreCase(displayFields)) {
@@ -279,16 +281,16 @@ public class TC03_OrangeHRM_Reports_Analytics {
             }
         }
 
-        driver.findElement(By.xpath("//label[text()='Total Estimated Expense (Reimbursement Currency)']")).click();
+        driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_ReiumbersmentCurrency).click();
         System.out.println("Total Estimated Expense (Reimbursement Currency) check-box is clicked");
 
-        WebElement element_SaveBtn=driver.findElement(By.xpath("//button[@class='btn waves-effect waves-light']"));
+        WebElement element_SaveBtn=driver.findElement(OrangeHRM_ReportsFieldsPage.btn_Save);
         js.executeScript("arguments[0].click();", element_SaveBtn);
         System.out.println("Save button is clicked");
     }
 
     public static void validate_TravelExpenseDetailedReport() throws Exception{
-        WebElement element_TravelRequestID = driver.findElement(By.xpath("//td[text()='Travel Request ID']"));
+        WebElement element_TravelRequestID = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_TravelRequestID);
         String actualTravelRequestID = element_TravelRequestID.getText();
         String expectedTravelRequestID = "Travel Request ID";
         if (actualTravelRequestID.equalsIgnoreCase(expectedTravelRequestID)) {
@@ -297,7 +299,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("Travel Request ID column is not present in the Report");
         }
 
-        WebElement element_EstimatedDate = driver.findElement(By.xpath("//td[text()='Estimated Date']"));
+        WebElement element_EstimatedDate = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_EstimatedDate);
         String actualEstimatedDate = element_EstimatedDate.getText();
         String expectedEstimatedDate = "Estimated Date";
         if (actualEstimatedDate.equalsIgnoreCase(expectedEstimatedDate)) {
@@ -306,7 +308,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("EstimatedDate column is not present in the Report");
         }
 
-        WebElement element_CashInAdvance = driver.findElement(By.xpath("//td[text()='Cash in Advance']"));
+        WebElement element_CashInAdvance = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_CashInAdvance);
         String actualCashInAdvance = element_CashInAdvance.getText();
         String expectedCashInAdvance = "Cash in Advance";
         if (actualCashInAdvance.equalsIgnoreCase(expectedCashInAdvance)) {
@@ -322,7 +324,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
 
     public static void validate_EmployeeInformationalFields(){
-        WebElement element = driver.findElement(By.xpath("//span[text()='Employee Id']"));
+        WebElement element = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_EmployeeID);
         String actualEmployeeId = element.getText();
         String expectedEmployeeId = "Employee Id";
         if (actualEmployeeId.equalsIgnoreCase(expectedEmployeeId)) {
@@ -331,7 +333,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("Employee Id column is not present in the Report");
         }
 
-        WebElement element_EmpName = driver.findElement(By.xpath("//span[text()='Employee Name']"));
+        WebElement element_EmpName = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_EmployeeName);
         String actualEmployeeName = element_EmpName.getText();
         String expectedEmployeeName = "Employee Name";
         if (actualEmployeeName.equalsIgnoreCase(expectedEmployeeName)) {
@@ -340,7 +342,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             System.out.println("Employee Name column is not present in the Report");
         }
 
-        WebElement element_Nationality = driver.findElement(By.xpath("//span[text()='Nationality']"));
+        WebElement element_Nationality = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_Nationality);
         String actualNationality = element_Nationality.getText();
         String expectedNationality = "Nationality";
         if (actualNationality.equalsIgnoreCase(expectedNationality)) {
@@ -351,7 +353,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
     }
 
     public static void validate_TravelExpenseSummaryReport(){
-        WebElement element_ReimbursementCurrency = driver.findElement(By.xpath("//td[text()='Total Estimated Expense (Reimbursement Currency)']"));
+        WebElement element_ReimbursementCurrency = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_ReiumbersmentCurrency);
         String actualReimbursementCurrency = element_ReimbursementCurrency.getText();
         String expectedReimbursementCurrency= "Total Estimated Expense (Reimbursement Currency)";
         if (actualReimbursementCurrency.equalsIgnoreCase(expectedReimbursementCurrency)) {

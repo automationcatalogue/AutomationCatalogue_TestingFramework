@@ -18,6 +18,4 @@ public class DemoWebShop_HomePage {
     public static By link_Logout=By.linkText("Log out");
 
 
-
-
 }
