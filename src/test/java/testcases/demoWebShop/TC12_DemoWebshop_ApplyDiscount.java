@@ -27,19 +27,10 @@ public class TC12_DemoWebshop_ApplyDiscount {
         wait = new WebDriverWait(driver,Duration.ofSeconds(30));
         driver.manage().window().maximize();
 
-        driver.get("https://demowebshop.tricentis.com/login");
+        driver.get(Config.demoWebShopLogin_URL);
         System.out.println("DemoWebshop Application is loaded");
 
-        String userName = ExcelUtils.getCellData(sheetName,row,Config.col_UserName);
-        driver.findElement(DemoWebShop_LoginPage.txtbx_UserName).sendKeys(userName);
-        System.out.println("UserName is entered as " + userName);
-
-        String password = ExcelUtils.getCellData(sheetName,row,Config.col_Password);
-        driver.findElement(DemoWebShop_LoginPage.txtbx_Password).sendKeys(password);
-        System.out.println("Password is entered as " + password);
-
-        driver.findElement(DemoWebShop_LoginPage.btn_Login).click();
-        System.out.println("Login button is clicked");
+        DemoWebShop_LoginPage.login(driver, sheetName, row);
 
         String productCategory = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_ProductCategory);
         String productName = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_ProductName);
@@ -167,8 +158,8 @@ public class TC12_DemoWebshop_ApplyDiscount {
         }else {
             System.out.println("OrderIDvalue and total order is not as expected");
         }
-        driver.findElement(DemoWebShop_HomePage.link_Logout).click();
-        System.out.println("Successfully logout");
+
+        DemoWebShop_HomePage.logout(driver);
 
         driver.quit();
         System.out.println("Testcase Execution is completed and Driver instance is terminated");

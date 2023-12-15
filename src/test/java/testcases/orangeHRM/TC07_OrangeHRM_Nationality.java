@@ -25,24 +25,12 @@ public class TC07_OrangeHRM_Nationality {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         driver.manage().window().maximize();
 
-        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
+        driver.get(Config.orangeHRM_URL);
         System.out.println("Orange HRM Website loaded successfully");
 
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(OrangeHRM_LoginPage.txtbx_UserName).sendKeys(userName);
-        System.out.println("Username entered");
+        OrangeHRM_LoginPage.orangeHRM_Login(driver, sheetName, row);
 
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(OrangeHRM_LoginPage.txtbx_Password).sendKeys(password);
-        System.out.println("Password entered");
-
-        driver.findElement(OrangeHRM_LoginPage.btn_Login).submit();
-        String actualTitle = driver.getTitle();
-        if (actualTitle.equalsIgnoreCase("Employee Management")) {
-            System.out.println("Title is Verified and Login is successful");
-        } else {
-            System.out.println("Title is not matched and Login is not successful");
-        }
+        OrangeHRM_HomePage.verifyTitle(driver);
 
         driver.findElement(OrangeHRM_HomePage.link_EmployeeManagement).click();
         System.out.println("Employee Management link is selected");
@@ -95,8 +83,7 @@ public class TC07_OrangeHRM_Nationality {
             System.out.println(countryName + "New Nationality is not present");
         }
 
-        driver.findElement(OrangeHRM_HomePage.link_Logout).click();
-        System.out.println("Logout is successfully done from the Website");
+        OrangeHRM_HomePage.logout(driver);
 
         driver.quit();
         System.out.println("Testcase Execution is completed and Driver instance is terminated");

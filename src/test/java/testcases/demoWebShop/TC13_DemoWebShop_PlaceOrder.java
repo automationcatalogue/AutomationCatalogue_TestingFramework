@@ -22,26 +22,10 @@ public class TC13_DemoWebShop_PlaceOrder {
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 
-        driver.get("https://demowebshop.tricentis.com/");
+        driver.get(Config.demoWebShopLogin_URL);
         System.out.println("DemoWebShop url is launched");
 
-        WebElement element_LoginIco = driver.findElement(By.className("ico-login"));
-        element_LoginIco.click();
-        System.out.println("Login icon button is clicked");
-
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        WebElement element_Email = driver.findElement(DemoWebShop_LoginPage.txtbx_UserName);
-        element_Email.sendKeys(userName);
-        System.out.println(userName + "is entered");
-
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        WebElement element_Password = driver.findElement(DemoWebShop_LoginPage.txtbx_Password);
-        element_Password.sendKeys(password);
-        System.out.println(password + " is entered");
-
-        WebElement element_Login = driver.findElement(DemoWebShop_LoginPage.btn_Login);
-        element_Login.click();
-        System.out.println("Login button is clicked");
+        DemoWebShop_LoginPage.login(driver, sheetName, row);
 
         WebElement element_Apparels_Shoes =driver.findElement(DemoWebShop_HomePage.link_ApparelShoesCategory);
         element_Apparels_Shoes.click();
@@ -125,8 +109,7 @@ public class TC13_DemoWebShop_PlaceOrder {
             System.out.println("Sub Total is displayed not correctly");
         }
 
-        driver.findElement(DemoWebShop_HomePage.link_Logout).click();
-        System.out.println("Logout is clicked");
+        DemoWebShop_HomePage.logout(driver);
 
         driver.quit();
     }

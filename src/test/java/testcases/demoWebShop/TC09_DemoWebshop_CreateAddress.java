@@ -27,19 +27,10 @@ public class TC09_DemoWebshop_CreateAddress {
         driver.manage().window().maximize();
         System.out.println("Chrome window will be maximized");
 
-        driver.get("http://demowebshop.tricentis.com/login");
+        driver.get(Config.demoWebShopLogin_URL);
         System.out.println("Demo workshop website will be open");
 
-        String username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(DemoWebShop_LoginPage.txtbx_UserName).sendKeys(username);
-        System.out.println("User name is been entered "+username);
-
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(DemoWebShop_LoginPage.txtbx_Password).sendKeys(password);
-        System.out.println("Password is been entered "+password);
-
-        driver.findElement(DemoWebShop_LoginPage.btn_Login).click();
-        System.out.println("Login button is been clicked");
+        DemoWebShop_LoginPage.login(driver, sheetName, row);
 
         driver.findElement(DemoWebShop_HomePage.link_UserName).click();
         System.out.println("User name is been clicked");
@@ -136,9 +127,8 @@ public class TC09_DemoWebshop_CreateAddress {
             System.out.println("Create Address is failed....");
         }
 
-        //Logout from DemoWebshop testcase
-        driver.findElement(DemoWebShop_HomePage.link_Logout).click();
-        System.out.println("Successfully logout");
+        DemoWebShop_HomePage.logout(driver);
+
         driver.quit();
     }
 }

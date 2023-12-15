@@ -1,6 +1,11 @@
 package Utilities;
 
 public class Config {
+
+    public static final String orangeHRM_URL = "https://testcatalogu-trials711.orangehrmlive.com/";
+    public static final String demoWebShop_URL = "https://demowebshop.tricentis.com";
+    public static final String demoWebShopLogin_URL = "https://demowebshop.tricentis.com";
+
     public static final String testID_HRMLogin="TC01-04";
     public static final String testID_HRMAddUser="TC02-02";
     public static final String testID_HRMReports="TC03-01";

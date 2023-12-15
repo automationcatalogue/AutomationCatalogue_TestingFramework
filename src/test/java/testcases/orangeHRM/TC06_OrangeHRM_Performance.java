@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.orangeHRM.OrangeHRM_HomePage;
+import pages.orangeHRM.OrangeHRM_LoginPage;
 
 import java.time.Duration;
 import java.util.List;
@@ -26,24 +28,12 @@ public class TC06_OrangeHRM_Performance {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         driver.manage().window().maximize();
 
-        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
+        driver.get(Config.orangeHRM_URL);
         System.out.println("Orange HRM Website loaded successfully");
 
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(By.xpath("//input[@id='txtUsername']")).sendKeys(userName);
-        System.out.println("Username entered");
+        OrangeHRM_LoginPage.orangeHRM_Login(driver, sheetName, row);
 
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(By.cssSelector("#txtPassword")).sendKeys(password);
-        System.out.println("Password entered");
-
-        driver.findElement(By.cssSelector("button[type='submit']")).submit();
-        String actualTitle = driver.getTitle();
-        if (actualTitle.equalsIgnoreCase("Employee Management")) {
-            System.out.println("Title is Verified and Login is successful");
-        } else {
-            System.out.println("Title is not matched and Login is not successful");
-        }
+        OrangeHRM_HomePage.verifyTitle(driver);
 
         WebElement element_Performance = driver.findElement(By.xpath("//a[@class=' main-menu-item-1' and @data-tooltip='Performance']/span"));
         js.executeScript("arguments[0].click();", element_Performance);
@@ -282,12 +272,7 @@ public class TC06_OrangeHRM_Performance {
         driver.findElement(By.xpath("//button[@type='submit']")).submit();
         System.out.println("Login button is clicked");
 
-        actualTitle = driver.getTitle();
-        if (actualTitle.equalsIgnoreCase("Employee Management")) {
-            System.out.println("Page logged in successfully");
-        } else {
-            System.out.println("Page logged in failed");
-        }
+        OrangeHRM_HomePage.verifyTitle(driver);
 
         WebElement link_Performance = driver.findElement(By.xpath("//a[@class=' main-menu-item-1' and @data-tooltip='Performance']/span"));
         js.executeScript("arguments[0].click();", link_Performance);
@@ -315,8 +300,7 @@ public class TC06_OrangeHRM_Performance {
             System.out.println("Appraisal Status is not COMPLETED");
         }
 
-        driver.findElement(By.xpath("//span[text()='Log Out']")).click();
-        System.out.println("Logout is successfully done from the Website");
+        OrangeHRM_HomePage.logout(driver);
 
         driver.quit();
         System.out.println("Testcase Execution is completed and Driver instance is terminated");

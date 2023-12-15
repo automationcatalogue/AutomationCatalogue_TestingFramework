@@ -33,26 +33,13 @@ public class TC05_OrangeHRM_Leave {
         driver.manage().window().maximize();
         System.out.println("Chrome browser is maximized");
 
-        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
+        driver.get(Config.orangeHRM_URL);
         System.out.println("Orange HRM Application is loaded");
 
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(OrangeHRM_LoginPage.txtbx_UserName).sendKeys(userName);
-        System.out.println("User name is been entered as " + userName);
+        OrangeHRM_LoginPage.orangeHRM_Login(driver, sheetName, row);
 
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(OrangeHRM_LoginPage.txtbx_Password).sendKeys(password);
-        System.out.println("Password is been entered as " + password);
+        OrangeHRM_HomePage.verifyTitle(driver);
 
-        driver.findElement(OrangeHRM_LoginPage.btn_Login).click();
-        System.out.println("Login button is been clicked");
-
-        String title = driver.getTitle();
-        if (title.equalsIgnoreCase("Employee Management")) {
-            System.out.println("Login is Successful");
-        } else {
-            System.out.println("Login is not Successful");
-        }
         driver.findElement(OrangeHRM_HomePage.link_Leave).click();
         System.out.println("Leave link is clicked");
         try {
@@ -170,8 +157,7 @@ public class TC05_OrangeHRM_Leave {
         }
 
         Thread.sleep(2000);
-        driver.findElement(OrangeHRM_HomePage.link_Logout).click();
-        System.out.println("Logout is successfully done from the Website");
+        OrangeHRM_HomePage.logout(driver);
 
         driver.quit();
         System.out.println("Testcase Execution is completed and Driver instance is terminated");

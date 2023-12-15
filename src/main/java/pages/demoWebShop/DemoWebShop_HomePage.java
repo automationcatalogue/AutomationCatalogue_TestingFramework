@@ -1,6 +1,7 @@
 package pages.demoWebShop;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class DemoWebShop_HomePage {
     public static By link_BooksCategory=By.xpath("//div[@class='header-menu']/ul/li/a");
@@ -18,5 +19,8 @@ public class DemoWebShop_HomePage {
     public static By link_Logout=By.linkText("Log out");
     public static By link_UserName=By.xpath("(//a[@class='account'])[1]");
 
-
+    public static void logout(WebDriver driver){
+        driver.findElement(DemoWebShop_HomePage.link_Logout).click();
+        System.out.println("Successfully logout");
+    }
 }
