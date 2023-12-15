@@ -6,6 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.demoWebShop.DemoWebShop_AddressesPage;
+import pages.demoWebShop.DemoWebShop_HomePage;
+import pages.demoWebShop.DemoWebShop_LoginPage;
 
 import java.time.Duration;
 import java.util.List;
@@ -28,45 +31,45 @@ public class TC09_DemoWebshop_CreateAddress {
         System.out.println("Demo workshop website will be open");
 
         String username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(By.xpath("//div[@class='inputs']/input")).sendKeys(username);
+        driver.findElement(DemoWebShop_LoginPage.txtbx_UserName).sendKeys(username);
         System.out.println("User name is been entered "+username);
 
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(By.xpath("(//div[@class='inputs']/input)[2]")).sendKeys(password);
+        driver.findElement(DemoWebShop_LoginPage.txtbx_Password).sendKeys(password);
         System.out.println("Password is been entered "+password);
 
-        driver.findElement(By.xpath("//input[@class='button-1 login-button']")).click();
+        driver.findElement(DemoWebShop_LoginPage.btn_Login).click();
         System.out.println("Login button is been clicked");
 
-        driver.findElement(By.xpath("(//a[@class='account'])[1]")).click();
+        driver.findElement(DemoWebShop_HomePage.link_UserName).click();
         System.out.println("User name is been clicked");
 
-        driver.findElement(By.xpath("(//a[@class='inactive'])[1]")).click();
+        driver.findElement(DemoWebShop_AddressesPage.link_Addresses).click();
         System.out.println("A Click on the address is done");
 
-        driver.findElement(By.xpath("//input[@class='button-1 add-address-button']")).click();
+        driver.findElement(DemoWebShop_AddressesPage.btn_Add).click();
         System.out.println("A click on the Add new button is been made");
 
         String FirstName = ExcelUtils.getCellData(sheetName, row, Config.col_FirstName);
-        driver.findElement(By.id("Address_FirstName")).sendKeys(FirstName);
+        driver.findElement(DemoWebShop_AddressesPage.txtbx_First_name).sendKeys(FirstName);
         System.out.println("First name is been entered as "+FirstName);
 
         String LastName = ExcelUtils.getCellData(sheetName, row, Config.col_LastName);
-        driver.findElement(By.id("Address_LastName")).sendKeys(LastName);
+        driver.findElement(DemoWebShop_AddressesPage.txtbx_Last_name).sendKeys(LastName);
         System.out.println("Last name is been entered "+LastName);
 
         String emailAddress = ExcelUtils.getCellData(sheetName, row, Config.col_EmailAddress);
-        driver.findElement(By.id("Address_Email")).sendKeys(emailAddress);
+        driver.findElement(DemoWebShop_AddressesPage.txtbx_Email).sendKeys(emailAddress);
         System.out.println("Email is been entered "+emailAddress);
 
         String company = ExcelUtils.getCellData(sheetName, row, Config.col_Company);
-        driver.findElement(By.name("Address.Company")).sendKeys(company);
+        driver.findElement(DemoWebShop_AddressesPage.txtbx_Company).sendKeys(company);
         System.out.println("Company name is been entered "+company);
 
         String country = ExcelUtils.getCellData(sheetName, row, Config.col_Country);
-        driver.findElement(By.xpath("//select[@id='Address_CountryId']")).click();
+        driver.findElement(DemoWebShop_AddressesPage.drpdwn_Country).click();
         System.out.println("Country dropdown is been clicked");
-        List<WebElement> Country = driver.findElements(By.xpath("//select[@id='Address_CountryId']/option"));
+        List<WebElement> Country = driver.findElements(DemoWebShop_AddressesPage.list_Countries);
         for (WebElement element: Country){
             String actualValue = element.getText();
             if (actualValue.equalsIgnoreCase("Canada")){
@@ -78,9 +81,9 @@ public class TC09_DemoWebshop_CreateAddress {
 
 
         String province = ExcelUtils.getCellData(sheetName, row, Config.col_Province);
-        driver.findElement(By.xpath("//select[@id='Address_StateProvinceId']")).click();
+        driver.findElement(DemoWebShop_AddressesPage.drpdwn_State).click();
         System.out.println("State/Province dropdown is been selected");
-        List<WebElement> Province = driver.findElements(By.xpath("//select[@id='Address_StateProvinceId']/option"));
+        List<WebElement> Province = driver.findElements(DemoWebShop_AddressesPage.list_States);
         for (WebElement element: Province){
             String actualValue =element.getText();
             if (actualValue.equalsIgnoreCase("Ontario")){
@@ -91,35 +94,35 @@ public class TC09_DemoWebshop_CreateAddress {
         }
 
         String cityName = ExcelUtils.getCellData(sheetName, row, Config.col_City);
-        driver.findElement(By.xpath("//input[@id='Address_City']")).sendKeys(cityName);
+        driver.findElement(DemoWebShop_AddressesPage.txtbx_City).sendKeys(cityName);
         System.out.println("City is been entered"+cityName);
 
         String address1 = ExcelUtils.getCellData(sheetName, row, Config.col_Address1);
-        driver.findElement(By.xpath("//input[@id='Address_Address1']")).sendKeys(address1);
+        driver.findElement(DemoWebShop_AddressesPage.txtxbx_Address1).sendKeys(address1);
         System.out.println("Address 1 is been entered"+address1);
 
         String address2= ExcelUtils.getCellData(sheetName, row, Config.col_Address2);
-        driver.findElement(By.xpath("//input[@id='Address_Address2']")).sendKeys(address2);
+        driver.findElement(DemoWebShop_AddressesPage.txtbx_Address2).sendKeys(address2);
         System.out.println("Address 2 is been entered"+address2);
 
         String postalCode= ExcelUtils.getCellData(sheetName, row, Config.col_PostalCode);
-        driver.findElement(By.xpath("//input[@id='Address_ZipPostalCode']")).sendKeys(postalCode);
+        driver.findElement(DemoWebShop_AddressesPage.txtbx_PostalCode).sendKeys(postalCode);
         System.out.println("Postal code is been entered"+postalCode);
 
         String phoneNumber= ExcelUtils.getCellData(sheetName, row, Config.col_PhoneNumber);
-        driver.findElement(By.id("Address_PhoneNumber")).sendKeys(phoneNumber);
+        driver.findElement(DemoWebShop_AddressesPage.txtbx_PhoneNumber).sendKeys(phoneNumber);
         System.out.println("Phone number is been entered"+phoneNumber);
 
         String FaxNumber= ExcelUtils.getCellData(sheetName, row, Config.col_FaxNumber);
-        driver.findElement(By.name("Address.FaxNumber")).sendKeys(FaxNumber);
+        driver.findElement(DemoWebShop_AddressesPage.txtbx_FaxNumber).sendKeys(FaxNumber);
         System.out.println("Fax number is been entered"+FaxNumber);
 
-        driver.findElement(By.xpath("//input[@class='button-1 save-address-button']")).click();
+        driver.findElement(DemoWebShop_AddressesPage.btn_Save).click();
         System.out.println("Save button is been clicked");
 
         //Validation of Address
         boolean isAddressPresent = false;
-        List<WebElement> list_AddressElements = driver.findElements(By.xpath("//div[@class='address-list']/div/div[1]/strong"));
+        List<WebElement> list_AddressElements = driver.findElements(DemoWebShop_AddressesPage.list_Addresses);
         for(WebElement element_address:list_AddressElements){
             String fullName = element_address.getText();
             if(fullName.equalsIgnoreCase(FirstName + " "+LastName)){
@@ -134,7 +137,7 @@ public class TC09_DemoWebshop_CreateAddress {
         }
 
         //Logout from DemoWebshop testcase
-        driver.findElement(By.linkText("Log out")).click();
+        driver.findElement(DemoWebShop_HomePage.link_Logout).click();
         System.out.println("Successfully logout");
         driver.quit();
     }

@@ -7,6 +7,7 @@ public class OrangeHRM_HomePage {
     public static By link_HRAdministration = By.xpath("(//a[@data-automation-id='menu_admin_viewSystemUsers'])[1]/span");
     public static By link_ReportsandAnalytics = By.xpath("(//span[text()='Reports and Analytics'])[1]");
     public static By link_Leave = By.xpath("(//span[text()='Leave'])[1]");
+    public static By label_EmployeeName = By.xpath("//a[@class='name']");
 }
 
 
