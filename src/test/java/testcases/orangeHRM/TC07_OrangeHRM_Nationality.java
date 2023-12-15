@@ -6,6 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.orangeHRM.OrangeHRM_EmployeeManagement;
+import pages.orangeHRM.OrangeHRM_HomePage;
+import pages.orangeHRM.OrangeHRM_LoginPage;
 
 import java.time.Duration;
 import java.util.List;
@@ -26,14 +29,14 @@ public class TC07_OrangeHRM_Nationality {
         System.out.println("Orange HRM Website loaded successfully");
 
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(By.xpath("//input[@id='txtUsername']")).sendKeys(userName);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_UserName).sendKeys(userName);
         System.out.println("Username entered");
 
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(By.cssSelector("#txtPassword")).sendKeys(password);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_Password).sendKeys(password);
         System.out.println("Password entered");
 
-        driver.findElement(By.cssSelector("button[type='submit']")).submit();
+        driver.findElement(OrangeHRM_LoginPage.btn_Login).submit();
         String actualTitle = driver.getTitle();
         if (actualTitle.equalsIgnoreCase("Employee Management")) {
             System.out.println("Title is Verified and Login is successful");
@@ -41,43 +44,43 @@ public class TC07_OrangeHRM_Nationality {
             System.out.println("Title is not matched and Login is not successful");
         }
 
-        driver.findElement(By.xpath("//a[@data-automation-id='menu_pim_viewEmployeeList']/span")).click();
+        driver.findElement(OrangeHRM_HomePage.link_EmployeeManagement).click();
         System.out.println("Employee Management link is selected");
 
         try {
-            driver.findElement(By.xpath("//i[@class='expand-icon material-icons']")).click();
+            driver.findElement(OrangeHRM_EmployeeManagement.link_MoreOption).click();
             System.out.println("More link is present and it is clicked");
         } catch (Exception e) {
             System.out.println("More option is not available");
         }
 
-        driver.findElement(By.xpath("//a[@data-automation-id='more_menu_child_menu_admin_nationality']")).click();
+        driver.findElement(OrangeHRM_EmployeeManagement.link_Nationality).click();
         System.out.println("Nationalities link is clicked");
 
-        driver.findElement(By.xpath("//i[text()='add']")).click();
+        driver.findElement(OrangeHRM_EmployeeManagement.btn_addNationality).click();
         System.out.println("Add button is selected");
 
         String countryName = ExcelUtils.getCellData(sheetName, row, Config.col_Nationality_CountryName);
-        driver.findElement(By.xpath("//input[@id='name']")).sendKeys(countryName);
+        driver.findElement(OrangeHRM_EmployeeManagement.txtbx_CountryName).sendKeys(countryName);
         System.out.println(countryName + " is entered as CountryName");
 
-        driver.findElement(By.xpath("//a[@class='modal-action waves-effect waves-green btn primary-btn']")).click();
+        driver.findElement(OrangeHRM_EmployeeManagement.btn_Save).click();
         System.out.println("Save button is clicked");
 
-        driver.findElement(By.xpath("//a[@data-automation-id='menu_pim_viewEmployeeList']/span")).click();
+        driver.findElement(OrangeHRM_HomePage.link_EmployeeManagement).click();
         System.out.println("Employee Management link is clicked");
 
-        driver.findElement(By.xpath("//a[@data-automation-id='menu_pim_viewMyDetails']")).click();
+        driver.findElement(OrangeHRM_EmployeeManagement.link_MyInfo).click();
         System.out.println("MyInfo link is clicked");
 
-        driver.findElement(By.xpath("//a[@data-automation-id='menu_employee_profile_PersonalDetails']")).click();
+        driver.findElement(OrangeHRM_EmployeeManagement.link_PersonalDetails).click();
         System.out.println("Personal Details link is clicked");
 
-        driver.findElement(By.xpath("((//input[@readonly='true'])[4]")).click();
+        driver.findElement(OrangeHRM_EmployeeManagement.drpdwn_Nationality).click();
         System.out.println("Nationality Dropdown is clicked");
 
         boolean isNationalityPresent = false;
-        List<WebElement> list_Nationalities = driver.findElements(By.xpath("(//ul[@class='dropdown-content select-dropdown '])[4]/li"));
+        List<WebElement> list_Nationalities = driver.findElements(OrangeHRM_EmployeeManagement.drpdown_selectNationality);
         for (WebElement element_Nationality : list_Nationalities) {
             String actualNationality = element_Nationality.getText();
             if (actualNationality.equalsIgnoreCase(countryName)) {
@@ -92,7 +95,7 @@ public class TC07_OrangeHRM_Nationality {
             System.out.println(countryName + "New Nationality is not present");
         }
 
-        driver.findElement(By.xpath("//span[text()='Log Out']")).click();
+        driver.findElement(OrangeHRM_HomePage.link_Logout).click();
         System.out.println("Logout is successfully done from the Website");
 
         driver.quit();
