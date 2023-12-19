@@ -38,37 +38,20 @@ public class TC03_OrangeHRM_Reports_Analytics {
         js =(JavascriptExecutor)driver;
         ts = (TakesScreenshot) driver;
 
-        driver.get("https://testcatalogu-trials711.orangehrmlive.com/");
+        driver.get(Config.orangeHRM_URL);
         System.out.println("OrangeHRM Application is loaded");
 
-        //UserName
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(OrangeHRM_LoginPage.txtbx_UserName).sendKeys(userName);
-        System.out.println("UserName is entered as" + userName);
-
-        //password
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(OrangeHRM_LoginPage.txtbx_Password).sendKeys(password);
-        System.out.println("Password is entered");
-
-        driver.findElement(OrangeHRM_LoginPage.btn_Login).click();
-        System.out.println("Login button is clicked");
+        OrangeHRM_LoginPage.orangeHRM_Login(driver, sheetName, row);
 
         src = ts.getScreenshotAs(OutputType.FILE);
         dest = new File(projectPath + "\\Screenshots\\OrangeHRMLogin.jpg");
         FileUtils.copyFile(src, dest);
         System.out.println("OrangeHRMLogin screenshot is captured");
 
-        driver.findElement(OrangeHRM_HomePage.link_ReportsandAnalytics).click();
+        driver.findElement(OrangeHRM_HomePage.link_ReportsAndAnalytics).click();
         System.out.println("Reports and analytics link is clicked");
 
-        String actualTitle = driver.getTitle();
-        String expectedTitle = "Reports and Analytics";
-        if (actualTitle.equalsIgnoreCase(expectedTitle)) {
-            System.out.println("Reports and Analytics Title is Matched");
-        } else {
-            System.out.println("Reports and Analytics Title is not Matched");
-        }
+        OrangeHRM_HomePage.verifyTitle(driver);
 
         driver.findElement(OrangeHRM_ReportAnalyticsPage.btn_NewReport).click();
         System.out.println("New Report button is clicked");
@@ -151,9 +134,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
             validate_TravelExpenseSummaryReport();
         }
 
-        //Logout from the Application
-        driver.findElement(OrangeHRM_HomePage.link_Logout).click();
-        System.out.println("Logout is successfully done from the Website");
+        OrangeHRM_HomePage.logout(driver);
 
         driver.quit();
         System.out.println("Testcase Execution is completed and Driver instance is terminated");

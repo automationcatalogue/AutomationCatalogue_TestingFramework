@@ -1,5 +1,6 @@
 package testcases.demoWebShop;
 
+import Utilities.Config;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,7 +10,7 @@ import pages.demoWebShop.DemoWebShop_RegistrationPage;
 public class TC08_DemoWebshop_Registration {
     public static void main(String[] args) {
         WebDriver driver= new ChromeDriver();
-        driver.get("https://demowebshop.tricentis.com");
+        driver.get(Config.demoWebShop_URL);
         System.out.println("DemoWebshop browser is loaded");
 
         driver.manage().window().maximize();
@@ -46,7 +47,7 @@ public class TC08_DemoWebshop_Registration {
         System.out.println("UserName is entered for Login");
 
         driver.findElement(DemoWebShop_LoginPage.txtbx_Password).sendKeys("Automation@123");
-        System.out.println("Passowrd is entered for Login");
+        System.out.println("Password is entered for Login");
 
         driver.findElement(DemoWebShop_LoginPage.btn_Login).click();
         System.out.println("Login button is clicked");

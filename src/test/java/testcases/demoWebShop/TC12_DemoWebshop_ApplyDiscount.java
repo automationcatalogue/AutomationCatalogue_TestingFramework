@@ -2,13 +2,13 @@ package testcases.demoWebShop;
 
 import Utilities.Config;
 import Utilities.ExcelUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.demoWebShop.*;
 import java.time.Duration;
 
 public class TC12_DemoWebshop_ApplyDiscount {
@@ -27,242 +27,237 @@ public class TC12_DemoWebshop_ApplyDiscount {
         wait = new WebDriverWait(driver,Duration.ofSeconds(30));
         driver.manage().window().maximize();
 
-        driver.get("https://demowebshop.tricentis.com/");
+        driver.get(Config.demoWebShopLogin_URL);
         System.out.println("DemoWebshop Application is loaded");
 
-        driver.findElement(By.xpath("//a[@href='/login']")).click();
-        System.out.println("login button is clicked");
-
-        String userName = ExcelUtils.getCellData(sheetName,row,Config.col_UserName);
-        driver.findElement(By.cssSelector("#Email")).sendKeys(userName);
-        System.out.println("username is entered as " + userName);
-
-        String Password = ExcelUtils.getCellData(sheetName,row,Config.col_Password);
-        driver.findElement(By.cssSelector(".password")).sendKeys(Password);
-        System.out.println("password is entered as " + Password);
-
-        driver.findElement(By.xpath("//input[@value='Log in']")).click();
-        System.out.println("login button is clicked");
+        DemoWebShop_LoginPage.login(driver, sheetName, row);
 
         String productCategory = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_ProductCategory);
         String productName = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_ProductName);
         clickCategory(productCategory);
-        driver.findElement(addToCart_Product(productName)).click();
+        driver.findElement(DemoWebShop_ProductListingPage.addToCart_Product(productName)).click();
         System.out.println(productName+" Add to Cart button is clicked");
         enterProductData(productName);
 
-        driver.findElement(By.xpath("//span[text()='Shopping cart']")).click();
+        driver.findElement(DemoWebShop_HomePage.link_ShoppingCart).click();
         System.out.println("Shopping cart button is clicked");
 
         driver.navigate().refresh();
 
         String discountCode  = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_DiscountCode);
-        driver.findElement(By.xpath("//input[@name='discountcouponcode']")).sendKeys(discountCode);
+        driver.findElement(DemoWebShop_ShoppingCartPage.txtbx_DiscountCode).sendKeys(discountCode);
         System.out.println("Discount code is entered");
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='discountcouponcode']"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(DemoWebShop_ShoppingCartPage.txtbx_DiscountCode)).click();
         System.out.println("Discount code check-box is clicked");
 
-        driver.findElement(By.xpath("//input[@name='applydiscountcouponcode']")).click();
+        driver.findElement(DemoWebShop_ShoppingCartPage.btn_ApplyCoupon).click();
         System.out.println("Apply coupon button is clicked");
 
-        WebElement element_Actualvalue = driver.findElement(By.xpath("(//span[@class='product-price'])[1]"));
-        System.out.println("Acual value is selected");
+        WebElement element_ActualValue = driver.findElement(DemoWebShop_ShoppingCartPage.txt_ActualValue);
+        System.out.println("Acual value is text selected");
 
-        WebElement element_Discountvalue=driver.findElement(By.xpath("//span[@class='product-price order-total']/strong"));
-        System.out.println("Discount value is selected");
+        WebElement element_DiscountValue=driver.findElement(DemoWebShop_ShoppingCartPage.txt_DiscountValue);
+        System.out.println("Discount value is text selected");
 
-        String actualvalueText=element_Actualvalue.getText();
-        System.out.println("actual value  is retrived");
+        String actualValueText=element_ActualValue.getText();
+        System.out.println("Actual value  is retrived");
 
-        String discountvalueText=element_Discountvalue.getText();
+        String discountValueText=element_DiscountValue.getText();
         System.out.println("Discount value is retrived");
 
         //string is converted to double
-        double actualvalue = Double.parseDouble(actualvalueText);
-        double Discountvalue = Double.parseDouble(discountvalueText);
+        double actualValue = Double.parseDouble(actualValueText);
+        double discountValue = Double.parseDouble(discountValueText);
 
         //discount value is displayed
-        double Discountedvalue = (actualvalue-Discountvalue);
-        System.out.println("total discount is:" + Discountedvalue);
+        double Discountedvalue = (actualValue-discountValue);
+        System.out.println("Total discount is:" + Discountedvalue);
 
         //discount percentage is displayed
-        double discountPercentage = Discountedvalue/actualvalue*100;
-        System.out.println("discount percentage is:"+discountPercentage);
+        double discountPercentage = Discountedvalue/actualValue*100;
+        System.out.println("Discount percentage is:"+discountPercentage);
 
-        driver.findElement(By.xpath("//input[@id='termsofservice']")).click();
+        driver.findElement(DemoWebShop_ShoppingCartPage.chckbox_termsconditions).click();
         System.out.println("Agree button is clicked");
 
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        driver.findElement(DemoWebShop_ShoppingCartPage.btn_Checkout).click();
         System.out.println("checkout button is clicked");
 
-        driver.findElement(By.xpath("(//input[@title='Continue'])[1]")).click();
-        System.out.println("billing address continue button is clicked");
+        driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueBillingAddress).click();
+        System.out.println("Billing address continue button is clicked");
 
-        driver.findElement(By.xpath("(//input[@title='Continue'])[2]")).click();
-        System.out.println("shipping address continue button is clicked");
+        driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueShippingAddress).click();
+        System.out.println("Shipping address continue button is clicked");
 
-        driver.findElement(By.xpath("//div[@id='shipping-method-buttons-container']/input")).click();
-        System.out.println("shipping method continue button is clicked");
+        driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueShippingMethod).click();
+        System.out.println("Shipping method continue button is clicked");
 
         String paymentInfo = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_PaymentInformation);
-        driver.findElement(By.xpath("//label[text()='Credit Card']")).click();
-        System.out.println("payment information is selected as " + paymentInfo);
+        driver.findElement(DemoWebShop_CheckoutPage.btn_CreditCardPayment).click();
+        System.out.println("Payment information is selected as " + paymentInfo);
 
-        driver.findElement(By.xpath("//div[@id='payment-method-buttons-container']/input")).click();
-        System.out.println("payment method continue button is clicked");
+        driver.findElement(DemoWebShop_CheckoutPage.btn_CreditCardContinueShippingMethod).click();
+        System.out.println("Payment method continue button is clicked");
 
         String cardholderName = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_CardHolderName);
-        driver.findElement(By.cssSelector("#CardholderName")).sendKeys(cardholderName);
-        System.out.println("credit card name is selected as " + cardholderName);
+        driver.findElement(DemoWebShop_CheckoutPage.txtbx_CardholderName).sendKeys(cardholderName);
+        System.out.println("Credit card name is selected as " + cardholderName);
 
         String creditCardNum  = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_CardNumber);
-        driver.findElement(By.cssSelector("#CardNumber")).sendKeys(creditCardNum);
-        System.out.println("credit card number is entered as " + creditCardNum);
+        driver.findElement(DemoWebShop_CheckoutPage.txtbx_CreditCardNumber).sendKeys(creditCardNum);
+        System.out.println("Credit card number is entered as " + creditCardNum);
 
-        Select monthDropdown = new Select(driver.findElement(By.cssSelector("#ExpireMonth")));
+        Select MonthDropdown = new Select(driver.findElement(DemoWebShop_CheckoutPage.drpdwn_CreditCardExpiryMonth));
         System.out.println("Month drop-down is clicked");
 
-        Select yearDropdown = new Select(driver.findElement(By.cssSelector("#ExpireYear")));
+        Select yearDropdown = new Select(driver.findElement(DemoWebShop_CheckoutPage.drpdwn_CreditCardExpiryYear));
         System.out.println("year drop-down is clicked");
 
-        monthDropdown.selectByVisibleText("04");
+        MonthDropdown.selectByVisibleText("04");
         System.out.println("Month is selected as 04");
 
         yearDropdown.selectByVisibleText("2023");
         System.out.println("Year is selected as 2023");
 
         String cardCode = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_CardCode);
-        driver.findElement(By.cssSelector("#CardCode")).sendKeys(cardCode);
+        driver.findElement(DemoWebShop_CheckoutPage.txtbx_CreditCardCode).sendKeys(cardCode);
         System.out.println("Card code is entered as " + cardCode);
 
-        driver.findElement(By.xpath("//div[@id='payment-info-buttons-container']/input")).click();
+        driver.findElement(DemoWebShop_CheckoutPage.btn_ContinuePaymentInformation).click();
         System.out.println("Payment info continue button is clicked");
 
-        driver.findElement(By.xpath("//div[@id='confirm-order-buttons-container']/input")).click();
+        driver.findElement(DemoWebShop_CheckoutPage.btn_ConfirmOrder).click();
         System.out.println("Conform order continue button is clicked");
 
-        driver.findElement(By.xpath("//ul[@class='details']/li[2]/a")).click();
+        driver.findElement(DemoWebShop_CheckoutPage.txt_OrderDetails).click();
         System.out.println("Order details is clicked");
 
         //orderId displayed and printed
-        WebElement element_orderid = driver.findElement(By.xpath("//div[@class='order-number']/strong"));
-        String orderIDvalueText =element_orderid.getText();
-        System.out.println("orderID is : " +orderIDvalueText);
+        WebElement element_OrderId = driver.findElement(DemoWebShop_OrdersPage.txt_OrderID);
+        String orderIDvalueText =element_OrderId.getText();
+        System.out.println("OrderID is : " +orderIDvalueText);
 
         //ordervalue is displayed and printed
-        WebElement element_ordervalue = driver.findElement(By.xpath("//div[@class='order-total']/strong"));
-        String ordervalueText = element_ordervalue.getText();
-        System.out.println("ordervalue is : " +ordervalueText);
+        WebElement element_OrderValue = driver.findElement(DemoWebShop_OrdersPage.txt_OrderValue);
+        String orderValueText = element_OrderValue.getText();
+        System.out.println("Ordervalue is : " +orderValueText);
 
         //converted ordervalue(string) to double
-        double orderTotal=Double.parseDouble(ordervalueText);
+        double orderTotal=Double.parseDouble(orderValueText);
         System.out.println("doubled the order value");
 
         String expectedOrderID = orderIDvalueText;
-        System.out.println("orderID value is retriver");
+        System.out.println("OrderID value is retriver");
 
         double expectedorderTotal = orderTotal;
         System.out.println("Totalorder value is retriver");
 
         if (orderIDvalueText.equals(expectedOrderID) && orderTotal == expectedorderTotal){
-            System.out.println("orderIDvalue and total order is as expected");
+            System.out.println("OrderIDvalue and total order is as expected");
         }else {
-            System.out.println("orderIDvalue and total order is not as expected");
+            System.out.println("OrderIDvalue and total order is not as expected");
         }
-        driver.findElement(By.linkText("Log out")).click();
-        System.out.println("Successfully logout");
+
+        DemoWebShop_HomePage.logout(driver);
 
         driver.quit();
-        System.out.println("Browser is closed");
+        System.out.println("Testcase Execution is completed and Driver instance is terminated");
 
-    }
-    public static By addToCart_Product(String productName){
-        return By.xpath("(//h2//a[text()='"+productName+"'])[1]/../..//input");
     }
 
     public static void enterProductData(String productName){
         if(productName.equalsIgnoreCase("Create Your Own Jewelry")){
-            driver.findElement(By.xpath("//label[contains(text(),'Length in cm')]/..//following-sibling::dd[1]/input")).sendKeys("10");
+            driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_JeweleryLength).sendKeys("10");
             System.out.println("Length in cm is entered for "+productName);
-            driver.findElement(By.xpath("//input[@class='button-1 add-to-cart-button']")).click();
+
+            driver.findElement(DemoWebShop_ProductDisplayPage.link_AddToCart).click();
             System.out.println("Added to cart button for "+productName+" is clicked");
+
         }else if(productName.equalsIgnoreCase("Build your own cheap computer")
                 || productName.equalsIgnoreCase("Blue and green Sneaker")
                 || productName.equalsIgnoreCase("Phone Cover")
                 || productName.equalsIgnoreCase("TCP Coaching day")){
-            driver.findElement(By.xpath("//input[@class='button-1 add-to-cart-button']")).click();
+            driver.findElement(DemoWebShop_ProductDisplayPage.link_AddToCart).click();
             System.out.println("Added to cart button for "+productName+" is clicked");
+
         }else if(productName.equalsIgnoreCase("$5 Virtual Gift Card")
                 || productName.equalsIgnoreCase("$25 Virtual Gift Card")){
             enterVirtualGiftCardDetails();
-            driver.findElement(By.xpath("//input[@class='button-1 add-to-cart-button']")).click();
+            driver.findElement(DemoWebShop_ProductDisplayPage.link_AddToCart).click();
             System.out.println("Added to cart button for "+productName+" is clicked");
+
         }else if(productName.equalsIgnoreCase("$50 Physical Gift Card")
                 || productName.equalsIgnoreCase("$100 Physical Gift Card")){
             enterPhysicalGiftCardDetails();
-            driver.findElement(By.xpath("//input[@class='button-1 add-to-cart-button']")).click();
+            driver.findElement(DemoWebShop_ProductDisplayPage.link_AddToCart).click();
             System.out.println("Added to cart button for "+productName+" is clicked");
         }
     }
 
     public static void enterVirtualGiftCardDetails(){
-        driver.findElement(By.xpath("//input[@class='recipient-name']")).clear();
-        driver.findElement(By.xpath("//input[@class='recipient-name']")).sendKeys("Automation");
-        driver.findElement(By.xpath("//input[@class='recipient-email']")).clear();
-        driver.findElement(By.xpath("//input[@class='recipient-email']")).sendKeys("Automation@test.com");
-        driver.findElement(By.xpath("//input[@class='sender-name']")).clear();
-        driver.findElement(By.xpath("//input[@class='sender-name']")).sendKeys("AutomationCatalogue");
-        driver.findElement(By.xpath("//input[@class='sender-name']")).clear();
-        driver.findElement(By.xpath("//input[@class='sender-name']")).sendKeys("AutomationCatalogue@test.com");
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardName).clear();
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardName).sendKeys("Automation");
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardEmail).clear();
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardEmail).sendKeys("Automation@test.com");
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardSenderName).clear();
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardSenderName).sendKeys("AutomationCatalogue");
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardSenderEmail).clear();
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardSenderEmail).sendKeys("AutomationCatalogue@test.com");
     }
 
     public static void enterPhysicalGiftCardDetails(){
-        driver.findElement(By.xpath("//input[@class='recipient-name']")).clear();
-        driver.findElement(By.xpath("//input[@class='recipient-name']")).sendKeys("Automation");
-        driver.findElement(By.xpath("//input[@class='sender-name']")).clear();
-        driver.findElement(By.xpath("//input[@class='sender-name']")).sendKeys("AutomationCatalogue");
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardName).clear();
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardName).sendKeys("Automation");
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardSenderName).clear();
+        driver.findElement(DemoWebShop_ProductDisplayPage.txtbx_GiftCardSenderName).sendKeys("AutomationCatalogue");
     }
 
     public static void clickCategory(String productCategory){
         if(productCategory.equalsIgnoreCase("Books")){
-            driver.findElement(By.xpath("//div[@class='header-menu']/ul/li/a")).click();
+            driver.findElement(DemoWebShop_HomePage.link_BooksCategory).click();
             System.out.println("Books category is clicked");
+
         }else if(productCategory.contains("Computers")){
-            driver.findElement(By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Computers')]")).click();
+            driver.findElement(DemoWebShop_HomePage.link_ComputersCategory).click();
             System.out.println("Computers category is clicked");
 
             String subCategory = productCategory.split("-")[1];
             if(subCategory.equalsIgnoreCase("Desktop")){
-                driver.findElement(By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Desktops')]")).click();
+                driver.findElement(DemoWebShop_HomePage.link_DesktopSubCategory).click();
+
             }else if(subCategory.equalsIgnoreCase("Notebooks")){
-                driver.findElement(By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Notebooks')]")).click();
+                driver.findElement(DemoWebShop_HomePage.link_NotebooksSubCategory).click();
+
             }else if(subCategory.equalsIgnoreCase("Accessories")){
-                driver.findElement(By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Accessories')]")).click();
+                driver.findElement(DemoWebShop_HomePage.link_AccessoriesSubCategory).click();
             }
             System.out.println(subCategory+" SubCategory is clicked");
 
         }else if(productCategory.contains("Electronics")){
-            driver.findElement(By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Electronics')]")).click();
+            driver.findElement(DemoWebShop_HomePage.link_ElectronicsCategory).click();
             System.out.println("Electronics category is clicked");
 
             String subCategory = productCategory.split("-")[1];
             if(subCategory.equalsIgnoreCase("Cell phones")){
-                driver.findElement(By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Cell phones')]")).click();
+                driver.findElement(DemoWebShop_HomePage.link_CellphonesSubCategory).click();
                 System.out.println("Cell phones subcategory is clicked");
             }
 
         }else if(productCategory.equalsIgnoreCase("Apparel & Shoes")){
-            driver.findElement(By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Apparel & Shoes')]")).click();
+            driver.findElement(DemoWebShop_HomePage.link_ApparelShoesCategory).click();
             System.out.println("Apparel & Shoes category is clicked");
+
         }else if(productCategory.equalsIgnoreCase("Digital downloads")){
-            driver.findElement(By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Digital downloads')]")).click();
+            driver.findElement(DemoWebShop_HomePage.link_DigitalDownloadsCategory).click();
             System.out.println("Digital downloads category is clicked");
+
         }else if(productCategory.equalsIgnoreCase("Jewelry")){
-            driver.findElement(By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Jewelry')]")).click();
+            driver.findElement(DemoWebShop_HomePage.link_JewelaryCategory).click();
             System.out.println("Jewelry category is clicked");
+
         }else if(productCategory.equalsIgnoreCase("Gift Cards")){
-            driver.findElement(By.xpath("//div[@class='block block-category-navigation']//a[contains(text(),'Gift Cards')]")).click();
+            driver.findElement(DemoWebShop_HomePage.link_GiftCardsCategory).click();
             System.out.println("Gift Cards category is clicked");
         }
     }

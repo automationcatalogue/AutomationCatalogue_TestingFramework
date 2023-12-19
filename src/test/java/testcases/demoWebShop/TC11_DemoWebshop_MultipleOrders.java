@@ -30,21 +30,12 @@ public class TC11_DemoWebshop_MultipleOrders {
         JavascriptExecutor js = (JavascriptExecutor)driver;
         System.out.println("Chrome browser is launched");
 
-        driver.get("http://demowebshop.tricentis.com/login");
+        driver.get(Config.demoWebShopLogin_URL);
         System.out.println("website is loaded");
         driver.manage().window().maximize();
         System.out.println("Chrome browser is maximized");
 
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(By.name("Email")).sendKeys(userName);
-        System.out.println("Email is entered");
-
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(By.name("Password")).sendKeys(password);
-        System.out.print("password is entered");
-
-        driver.findElement(By.xpath("//input[@class='button-1 login-button']")).click();
-        System.out.println("login is clicked");
+        DemoWebShop_LoginPage.login(driver, sheetName, row);
 
         String product1Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product1Category);
         String product2Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product2Category);
@@ -103,9 +94,8 @@ public class TC11_DemoWebshop_MultipleOrders {
         String data = driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[4]/div/div/div[2]/div/ul/li[1]")).getText();
         ExcelUtils.setCellData(data, sheetName, row, Config.col_OrderID);
         System.out.println(data+" is written as Order ID in Excel sheet");
-        // Logout
-        driver.findElement(DemoWebShop_HomePage.link_Logout).click();
-        System.out.println("Logout link is clicked");
+
+        DemoWebShop_HomePage.logout(driver);
 
         driver.quit();
 

@@ -2,14 +2,12 @@ package testcases.demoWebShop;
 
 import Utilities.Config;
 import Utilities.ExcelUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.demoWebShop.DemoWebShop_HomePage;
 import pages.demoWebShop.DemoWebShop_LoginPage;
 import pages.demoWebShop.DemoWebShop_OrdersPage;
-
 import java.time.Duration;
 import java.util.List;
 
@@ -30,21 +28,9 @@ public class TC10_DemoWebshop_TotalOrders {
         driver.manage().window().maximize();
         System.out.println("Window is maximized");
 
-        driver.get("http://demowebshop.tricentis.com/login");
+        driver.get(Config.demoWebShopLogin_URL);
         System.out.println("Demowebshop page is loaded");
-
-
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(DemoWebShop_LoginPage.txtbx_UserName).sendKeys(userName);
-        System.out.println("Email id entered");
-
-
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(DemoWebShop_LoginPage.txtbx_Password).sendKeys(password);
-        System.out.println("Password is entered");
-
-        driver.findElement(DemoWebShop_LoginPage.btn_Login).submit();
-        System.out.println("Login button clicked successfully");
+        DemoWebShop_LoginPage.login(driver, sheetName, row);
 
         driver.findElement(DemoWebShop_HomePage.link_Account).click();
         System.out.println("Account clicked");
@@ -73,13 +59,10 @@ public class TC10_DemoWebshop_TotalOrders {
         System.out.println("The value of total number of orders is: $"+totalSum);
 
         Thread.sleep(5000);
+
+        DemoWebShop_HomePage.logout(driver);
+
         driver.quit();
-
-
-
-
-
-
     }
 }
 
