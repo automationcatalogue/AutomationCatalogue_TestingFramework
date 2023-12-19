@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.orangeHRM.*;
 
 import java.time.Duration;
 import java.util.List;
@@ -30,14 +31,14 @@ public class TC06_OrangeHRM_Performance {
         System.out.println("Orange HRM Website loaded successfully");
 
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        driver.findElement(By.xpath("//input[@id='txtUsername']")).sendKeys(userName);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_UserName).sendKeys(userName);
         System.out.println("Username entered");
 
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        driver.findElement(By.cssSelector("#txtPassword")).sendKeys(password);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_Password).sendKeys(password);
         System.out.println("Password entered");
 
-        driver.findElement(By.cssSelector("button[type='submit']")).submit();
+        driver.findElement(OrangeHRM_LoginPage.btn_Login).submit();
         String actualTitle = driver.getTitle();
         if (actualTitle.equalsIgnoreCase("Employee Management")) {
             System.out.println("Title is Verified and Login is successful");
@@ -45,12 +46,12 @@ public class TC06_OrangeHRM_Performance {
             System.out.println("Title is not matched and Login is not successful");
         }
 
-        WebElement element_Performance = driver.findElement(By.xpath("//a[@class=' main-menu-item-1' and @data-tooltip='Performance']/span"));
+        WebElement element_Performance = driver.findElement(OrangeHRM_HomePage.link_Performance);
         js.executeScript("arguments[0].click();", element_Performance);
         System.out.println("Performance link clicked");
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//i[@class='material-icons' and text()='add']")));
-        WebElement element_AddAppraisal = driver.findElement(By.xpath("//i[@class='material-icons' and text()='add']"));
+        wait.until(ExpectedConditions.elementToBeClickable(OrangeHRM_PerformancePage.btn_Addappraisal));
+        WebElement element_AddAppraisal = driver.findElement(OrangeHRM_PerformancePage.btn_Addappraisal);
         js.executeScript("arguments[0].click();", element_AddAppraisal);
         System.out.println("Add Appraisal button is clicked");
 
@@ -58,26 +59,29 @@ public class TC06_OrangeHRM_Performance {
         System.out.println("Switched into iframe");
 
         String empName = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_EmployeeName);
-        driver.findElement(By.cssSelector("input[name='employeeAppraisal[emp_name][empName]']")).sendKeys(empName);
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.txtbx_EmpName).sendKeys(empName);
         System.out.println(empName + "Employee name is entered");
 
-        WebElement name = driver.findElement(By.xpath("//div[@class='autoComplete-title']/strong"));
+        WebElement name = driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.drpdwn_EmpName);
         js.executeScript("arguments[0].click();", name);
         System.out.println("Employee Name is selected from pop-up");
 
         String description = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_Description);
-        driver.findElement(By.cssSelector("#employeeAppraisal_description")).sendKeys(description);
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.txtbx_Description).sendKeys(description);
         System.out.println(description + " is entered as Description");
 
-        driver.findElement(By.xpath("//div[@class='select-wrapper']")).click();
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.drpdwn_AppraisalCycle).click();
         System.out.println("Duration drop-down clicked");
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("(//label[text()='Appraisal Cycle']/..//ul//span[text()])[1]"), "-- Select --"));
 
         String appraisalCycle = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_AppraisalCycle);
-        driver.findElement(By.xpath("//label[text()='Appraisal Cycle']/..//ul//span[text()='" + appraisalCycle + "']")).click();
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.appraisalCycle(appraisalCycle)).click();
         System.out.println(appraisalCycle + " is selected from Appraisal Cycle drop-down");
 
-        driver.findElement(By.cssSelector("#date_from")).click();
+        //driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.txtbx_Template).sendKeys("sales");
+
+
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.from_Date).click();
         System.out.println("Date from calendar is clicked");
 
         String fromDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_FromDate);
@@ -85,10 +89,10 @@ public class TC06_OrangeHRM_Performance {
         String month_FromDate = fromDate.split("-")[1];
         String year_FromDate = fromDate.split("-")[2];
 
-        driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--month']")).click();
-        System.out.println("Month dropdown clicked");
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.drpdwn_FromMonth).click();
+        System.out.println("From Month dropdown clicked");
 
-        List<WebElement> list_months = driver.findElements(By.xpath("//div[@class='select-wrapper picker__select--month']/ul/li/span"));
+        List<WebElement> list_months = driver.findElements(OrangeHRM_AddEmployeeAppraisalPage.fromMonth);
         for (WebElement element_month : list_months) {
             String actualMonth = element_month.getText();
             if (actualMonth.equalsIgnoreCase(month_FromDate)) {
@@ -98,11 +102,11 @@ public class TC06_OrangeHRM_Performance {
             }
         }
 
-        driver.findElement(By.xpath("//div[@class='select-wrapper picker__select--year']")).click();
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.drpdwn_FromYear).click();
         System.out.println("Year drop-down clicked");
 
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='select-wrapper picker__select--year']/ul/li/span")));
-        List<WebElement> list_years = driver.findElements(By.xpath("//div[@class='select-wrapper picker__select--year']/ul/li/span"));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(OrangeHRM_AddEmployeeAppraisalPage.fromyear));
+        List<WebElement> list_years = driver.findElements(OrangeHRM_AddEmployeeAppraisalPage.fromyear);
         for (WebElement element_year : list_years) {
             String actualYear = element_year.getText();
             if (actualYear.equalsIgnoreCase(year_FromDate)) {
@@ -112,7 +116,7 @@ public class TC06_OrangeHRM_Performance {
             }
         }
 
-        List<WebElement> list_Dates = driver.findElements(By.xpath("(//table[@class='picker__table'])[1]/tbody/tr/td/div[contains(@class,'infocus')]"));
+        List<WebElement> list_Dates = driver.findElements(OrangeHRM_AddEmployeeAppraisalPage.fromDate);
         for (WebElement element_Date : list_Dates) {
             String actualDate = element_Date.getText();
             if (actualDate.equalsIgnoreCase(day_FromDate)) {
@@ -122,7 +126,7 @@ public class TC06_OrangeHRM_Performance {
             }
         }
 
-        driver.findElement(By.cssSelector("#date_to")).click();
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.calendar_ToDate).click();
         System.out.println("To Date Calendar clicked");
 
         String toDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_ToDate);
@@ -130,10 +134,10 @@ public class TC06_OrangeHRM_Performance {
         String month_ToDate = toDate.split("-")[1];
         String year_ToDate = toDate.split("-")[2];
 
-        driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--month'])[2]")).click();
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.drpdwn_ToMonth).click();
         System.out.println("Month drop-down clicked");
 
-        List<WebElement> list_Months = driver.findElements(By.xpath("(//div[@class='select-wrapper picker__select--month'])[2]/ul/li/span"));
+        List<WebElement> list_Months = driver.findElements(OrangeHRM_AddEmployeeAppraisalPage.toMonth);
         for (WebElement element_Month : list_Months) {
             String actualMonth = element_Month.getText();
             if (actualMonth.equalsIgnoreCase(month_ToDate)) {
@@ -143,10 +147,10 @@ public class TC06_OrangeHRM_Performance {
             }
         }
 
-        driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--year'])[2]")).click();
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.drpdwn_Toyear).click();
         System.out.println("Year drop-down clicked");
 
-        List<WebElement> list_Years = driver.findElements(By.xpath("(//div[@class='select-wrapper picker__select--year'])[2]/ul/li/span"));
+        List<WebElement> list_Years = driver.findElements(OrangeHRM_AddEmployeeAppraisalPage.toYear);
         for (WebElement element_Year : list_Years) {
             String actualYear = element_Year.getText();
             if (actualYear.equalsIgnoreCase(year_ToDate)) {
@@ -156,7 +160,7 @@ public class TC06_OrangeHRM_Performance {
             }
         }
 
-        List<WebElement> list_ToDates = driver.findElements(By.xpath("(//table[@class='picker__table'])[2]/tbody/tr/td/div[contains(@class,'infocus')]"));
+        List<WebElement> list_ToDates = driver.findElements(OrangeHRM_AddEmployeeAppraisalPage.toDate);
         for (WebElement element_Date : list_ToDates) {
             String actualDate = element_Date.getText();
             if (actualDate.equalsIgnoreCase(day_ToDate)) {
@@ -165,7 +169,7 @@ public class TC06_OrangeHRM_Performance {
                 break;
             }
         }
-        driver.findElement(By.cssSelector("#date_due")).click();
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.drpdwn_DueDate).click();
         System.out.println("Due Date drop-down clicked");
 
         String dueDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_DueDate);
@@ -173,10 +177,10 @@ public class TC06_OrangeHRM_Performance {
         String month_DueDate = dueDate.split("-")[1];
         String year_DueDate = dueDate.split("-")[2];
 
-        driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--month'])[3]")).click();
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.drpdwn_DueMonth).click();
         System.out.println("Month DueDate drop-down clicked");
 
-        List<WebElement> list_DueDateMonths = driver.findElements(By.xpath("(//div[@class='select-wrapper picker__select--month'])[3]/ul/li/span"));
+        List<WebElement> list_DueDateMonths = driver.findElements(OrangeHRM_AddEmployeeAppraisalPage.dueMonth);
         for (WebElement element_Month : list_DueDateMonths) {
             String actualMonth = element_Month.getText();
             if (actualMonth.equalsIgnoreCase(month_DueDate)) {
@@ -186,10 +190,10 @@ public class TC06_OrangeHRM_Performance {
             }
         }
 
-        driver.findElement(By.xpath("(//div[@class='select-wrapper picker__select--year'])[3]")).click();
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.drpdwn_Dueyear).click();
         System.out.println("Year due date dropdown clicked");
 
-        List<WebElement> list_DueDateYears = driver.findElements(By.xpath("(//div[@class='select-wrapper picker__select--year'])[3]/ul/li/span"));
+        List<WebElement> list_DueDateYears = driver.findElements(OrangeHRM_AddEmployeeAppraisalPage.dueYear);
         for (WebElement element_Year : list_DueDateYears) {
             String actualYear = element_Year.getText();
             if (actualYear.equalsIgnoreCase(year_DueDate)) {
@@ -199,7 +203,7 @@ public class TC06_OrangeHRM_Performance {
             }
         }
 
-        List<WebElement> list_DueDateDays = driver.findElements(By.xpath("(//table[@class='picker__table'])[3]/tbody/tr/td/div[contains(@class,'infocus')]"));
+        List<WebElement> list_DueDateDays = driver.findElements(OrangeHRM_AddEmployeeAppraisalPage.dueDate);
         for (WebElement element_Date : list_DueDateDays) {
             String actualDate = element_Date.getText();
             if (actualDate.equalsIgnoreCase(day_DueDate)) {
@@ -209,19 +213,19 @@ public class TC06_OrangeHRM_Performance {
             }
         }
 
-        driver.findElement(By.cssSelector("#saveBtn")).click();
+        driver.findElement(OrangeHRM_AddEmployeeAppraisalPage.btn_Next).click();
         System.out.println("Next Button clicked");
 
-        driver.findElement(By.xpath("//label[@for='appraisalEval_eval_name_grp_self']")).click();
+        driver.findElement(OrangeHRM_Evaluator.chkbx_SelfAppraisal).click();
         System.out.println("Self appraisal check-box checked ");
 
-        driver.findElement(By.cssSelector("#saveBtn")).click();
+        driver.findElement(OrangeHRM_Evaluator.btn_Next).click();
         System.out.println("Next button in Evaluator Page Clicked");
 
-        driver.findElement(By.xpath("//a[@data-activates='dropdown-7']")).click();
+        driver.findElement(OrangeHRM_AppraisalMultipleView.drpdwn_FinalReview).click();
         System.out.println("Final Review dropdown clicked");
 
-        driver.findElement(By.xpath("//a[text()='Submit']")).click();
+        driver.findElement(OrangeHRM_AppraisalMultipleView.drpdwn_Submit).click();
         System.out.println("Submit button is clicked");
 
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@id='dialogSubmitBtn']")));
@@ -229,12 +233,12 @@ public class TC06_OrangeHRM_Performance {
         js.executeScript("arguments[0].click()", element);
         System.out.println("Ok button is clicked in Alert window");
 
-        WebElement element_HRAdministration = driver.findElement(By.xpath("(//span[text()='HR Administration'])[1]"));
+        WebElement element_HRAdministration = driver.findElement(OrangeHRM_HomePage.link_HRAdministration);
         js.executeScript("arguments[0].click()", element_HRAdministration);
         System.out.println("HR Administration link is clicked");
 
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//list/table//tbody/tr/td[4]//span")));
-        List<WebElement> list_EmployeeNames = driver.findElements(By.xpath("//list/table//tbody/tr/td[4]//span"));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(OrangeHRM_HRAdministrationPage.empNames));
+        List<WebElement> list_EmployeeNames = driver.findElements(OrangeHRM_HRAdministrationPage.empNames);
         String userName_Employee = "";
         for (WebElement element_EmployeeName : list_EmployeeNames) {
             String actualEmployeeName = element_EmployeeName.getText();
@@ -249,34 +253,34 @@ public class TC06_OrangeHRM_Performance {
         ExcelUtils.setCellData(userName_Employee, sheetName, row, Config.col_Performance_UserName_Employee);
         System.out.println(userName_Employee + " is written in the Excel file for a UserNameEmployee");
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@for='changepassword']/span")));
-        driver.findElement(By.xpath("//label[@for='changepassword']/span")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(OrangeHRM_HRAdministrationPage.chkbx_ChangePassword));
+        driver.findElement(OrangeHRM_HRAdministrationPage.chkbx_ChangePassword).click();
         System.out.println("Change Password check-box is clicked");
 
         //Password and confirm password
         String newUserPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_Password);
-        driver.findElement(By.id("password")).sendKeys(newUserPassword);
+        driver.findElement(OrangeHRM_HRAdministrationPage.new_Passowrd).sendKeys(newUserPassword);
         System.out.println("New user Password is been entered as " + newUserPassword);
 
         String newUserConfirmPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_ConfirmPassword);
-        driver.findElement(By.cssSelector("#confirmpassword")).sendKeys(newUserConfirmPassword);
+        driver.findElement(OrangeHRM_HRAdministrationPage.confirm_NewPassword).sendKeys(newUserConfirmPassword);
         System.out.println("Confirm New Password is been confirmed as " + newUserConfirmPassword);
 
-        driver.findElement(By.xpath("//button[@id='modal-save-button']")).click();
+        driver.findElement(OrangeHRM_HRAdministrationPage.btn_Save).click();
         System.out.println("Save button is been clicked");
 
         driver.switchTo().defaultContent();
         System.out.println("Exits from the frame!!!");
 
         //Logout from the Application
-        driver.findElement(By.xpath("//span[text()='Log Out']")).click();
+        driver.findElement(OrangeHRM_HomePage.btn_LogOut).click();
         System.out.println("Logout is successfully done from the Website");
 
-        driver.findElement(By.name("txtUsername")).sendKeys(userName_Employee);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_UserName).sendKeys(userName_Employee);
         System.out.println(userName_Employee + " is entered as Username");
 
         String userPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_Password);
-        driver.findElement(By.id("txtPassword")).sendKeys(userPassword);
+        driver.findElement(OrangeHRM_LoginPage.txtbx_Password).sendKeys(userPassword);
         System.out.println("Password entered");
 
         driver.findElement(By.xpath("//button[@type='submit']")).submit();
@@ -289,18 +293,18 @@ public class TC06_OrangeHRM_Performance {
             System.out.println("Page logged in failed");
         }
 
-        WebElement link_Performance = driver.findElement(By.xpath("//a[@class=' main-menu-item-1' and @data-tooltip='Performance']/span"));
+        WebElement link_Performance = driver.findElement(OrangeHRM_HomePage.link_Performance);
         js.executeScript("arguments[0].click();", link_Performance);
         System.out.println("Performance link clicked");
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@data-automation-id='menu_performance_viewMyAppraisals']")));
-        WebElement link_MyAppraisal = driver.findElement(By.xpath("//a[@data-automation-id='menu_performance_viewMyAppraisals']"));
+        wait.until(ExpectedConditions.elementToBeClickable(OrangeHRM_PerformancePage.btn_MyAppraisal));
+        WebElement link_MyAppraisal = driver.findElement(OrangeHRM_PerformancePage.btn_MyAppraisal);
         js.executeScript("arguments[0].click()", link_MyAppraisal);
         System.out.println("My Appraisal link is clicked");
 
         //Validating the Description
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//list/table//tbody/tr[1]/td[6]//span")));
-        String actualDescription = driver.findElement(By.xpath("//list/table//tbody/tr[1]/td[6]//span")).getText();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(OrangeHRM_MyAppraisalPage.emp_Description));
+        String actualDescription = driver.findElement(OrangeHRM_MyAppraisalPage.emp_Description).getText();
         if (actualDescription.equalsIgnoreCase(description)) {
             System.out.println("Description data is matched");
         } else {
@@ -308,14 +312,14 @@ public class TC06_OrangeHRM_Performance {
         }
 
         //Validating the Appraisal Status
-        String actualAppraisalStatus = driver.findElement(By.xpath("//list/table//tbody/tr[1]/td[7]//span")).getText();
+        String actualAppraisalStatus = driver.findElement(OrangeHRM_MyAppraisalPage.appraisal_Status).getText();
         if (actualAppraisalStatus.equalsIgnoreCase("COMPLETED")) {
             System.out.println("Appraisal Status is COMPLETED");
         } else {
             System.out.println("Appraisal Status is not COMPLETED");
         }
 
-        driver.findElement(By.xpath("//span[text()='Log Out']")).click();
+        driver.findElement(OrangeHRM_HomePage.btn_LogOut).click();
         System.out.println("Logout is successfully done from the Website");
 
         driver.quit();
