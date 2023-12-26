@@ -1,6 +1,7 @@
 package pages.orangeHRM;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class OrangeHRM_ReportAnalyticsPage {
     public static By btn_NewReport = By.cssSelector(".oxd-button-label-wrapper");
@@ -13,4 +14,9 @@ public class OrangeHRM_ReportAnalyticsPage {
     public static By btn_ReportsNext = By.xpath("//button[@translate='Next']");
     public static By btn_BackArrow = By.xpath("//i[text()='arrow_back']");
     public static By txtbx_Search = By.xpath("(//input[@placeholder='Search'])[2]");
+
+    public static void clickNewReport(WebDriver driver){
+        driver.findElement(OrangeHRM_ReportAnalyticsPage.btn_NewReport).click();
+        System.out.println("New Report button is clicked");
+    }
 }

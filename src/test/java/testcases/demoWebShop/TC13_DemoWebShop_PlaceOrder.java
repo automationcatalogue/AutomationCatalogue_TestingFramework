@@ -1,5 +1,6 @@
 package testcases.demoWebShop;
 
+import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.By;
@@ -17,10 +18,8 @@ public class TC13_DemoWebShop_PlaceOrder {
         String sheetName = "Demo_PlaceOrder";
         ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_Demo_PlaceOrder,sheetName);
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        WebDriver driver = CommonMethods.openBrowser();
 
         driver.get(Config.demoWebShopLogin_URL);
         System.out.println("DemoWebShop url is launched");

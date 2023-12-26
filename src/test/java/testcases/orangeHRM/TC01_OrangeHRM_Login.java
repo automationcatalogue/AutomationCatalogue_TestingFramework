@@ -1,5 +1,6 @@
 package testcases.orangeHRM;
 
+import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.By;
@@ -16,20 +17,13 @@ public class   TC01_OrangeHRM_Login {
         String sheetName = "HRM_Login";
         ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_HRMLogin,sheetName);
+        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
 
-        WebDriver driver = new ChromeDriver();
-        System.out.println("Chrome Browser is launched");
-
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        //Opening OrangeHRM Application
-        driver.get(Config.orangeHRM_URL);
-        System.out.println("OrangeHRM URL is launched");
-
-        OrangeHRM_LoginPage.orangeHRM_Login(driver, sheetName, row);
-
+        WebDriver driver = CommonMethods.openBrowser();
+        CommonMethods.launchURL(driver, Config.orangeHRM_URL);
+        OrangeHRM_LoginPage.orangeHRM_Login(driver, sheetName, row, userName, password);
         OrangeHRM_HomePage.verifyTitle(driver);
-
         OrangeHRM_HomePage.logout(driver);
 
         driver.quit();

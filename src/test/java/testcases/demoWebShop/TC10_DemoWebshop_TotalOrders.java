@@ -1,5 +1,6 @@
 package testcases.demoWebShop;
 
+import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
@@ -20,13 +21,7 @@ public class TC10_DemoWebshop_TotalOrders {
         ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_Demo_TotalOrders,sheetName);
 
-
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        System.out.println("Chrome browser is launched");
-
-        driver.manage().window().maximize();
-        System.out.println("Window is maximized");
+        WebDriver driver = CommonMethods.openBrowser();
 
         driver.get(Config.demoWebShopLogin_URL);
         System.out.println("Demowebshop page is loaded");

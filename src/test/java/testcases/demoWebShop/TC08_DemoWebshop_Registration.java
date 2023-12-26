@@ -1,5 +1,6 @@
 package testcases.demoWebShop;
 
+import Utilities.CommonMethods;
 import Utilities.Config;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,12 +10,11 @@ import pages.demoWebShop.DemoWebShop_RegistrationPage;
 
 public class TC08_DemoWebshop_Registration {
     public static void main(String[] args) {
-        WebDriver driver= new ChromeDriver();
+
+        WebDriver driver = CommonMethods.openBrowser();
+
         driver.get(Config.demoWebShop_URL);
         System.out.println("DemoWebshop browser is loaded");
-
-        driver.manage().window().maximize();
-        System.out.println("Browser window is maximized");
 
         driver.findElement(DemoWebShop_RegistrationPage.Icn_Register).click();
         System.out.println("Click on Register button");

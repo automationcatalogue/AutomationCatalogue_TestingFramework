@@ -1,5 +1,6 @@
 package testcases.demoWebShop;
 
+import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
@@ -21,11 +22,8 @@ public class TC12_DemoWebshop_ApplyDiscount {
         ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_DEMOApplyDiscount,sheetName);
 
-        driver = new ChromeDriver();
-        System.out.println("Chrome Browser is opened");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver = CommonMethods.openBrowser();
         wait = new WebDriverWait(driver,Duration.ofSeconds(30));
-        driver.manage().window().maximize();
 
         driver.get(Config.demoWebShopLogin_URL);
         System.out.println("DemoWebshop Application is loaded");
