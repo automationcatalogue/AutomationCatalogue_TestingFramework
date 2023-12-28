@@ -1,5 +1,6 @@
 package testcases.orangeHRM;
 
+import Utilities.BaseClass;
 import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
@@ -24,27 +25,26 @@ public class TC02_OrangeHRM_AddUser {
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
         String empName = ExcelUtils.getCellData(sheetName, row, Config.col_EmployeeName);
+        String createUserName = ExcelUtils.getCellData(sheetName, row, Config.col_CreateUserName);
+        String adminRole = ExcelUtils.getCellData(sheetName, row, Config.col_AdminRole);
+        String newUserPassword = ExcelUtils.getCellData(sheetName, row, Config.col_NewUserPassword);
+        String newUserConfirmPassword = ExcelUtils.getCellData(sheetName, row, Config.col_NewUserConfirmPassword);
 
         WebDriver driver = CommonMethods.openBrowser();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        BaseClass ob = new BaseClass(driver);
 
-        CommonMethods.launchURL(driver, Config.orangeHRM_URL);
-        OrangeHRM_LoginPage.orangeHRM_Login(driver, sheetName, row, userName, password);
-        OrangeHRM_HomePage.clickHRAdministration(driver);
-        OrangeHRM_HRAdministrationPage.clickAddUser(driver);
-        String createUserName = ExcelUtils.getCellData(sheetName, row, Config.col_CreateUserName);
-        OrangeHRM_AddUserPage.enterAddUserDetails(driver, sheetName, row, createUserName, empName);
-        OrangeHRM_HomePage.logout(driver);
-
+        CommonMethods.launchURL(Config.orangeHRM_URL);
+        OrangeHRM_LoginPage.login(userName, password);
+        OrangeHRM_HomePage.clickHRAdministration();
+        OrangeHRM_HRAdministrationPage.clickAddUser();
+        OrangeHRM_AddUserPage.enterAddUserDetails(createUserName, empName, adminRole, newUserPassword, newUserConfirmPassword);
+        OrangeHRM_HomePage.logout();
         //Login with New User Credentials
-        OrangeHRM_LoginPage.orangeHRM_Login(driver, sheetName, row, createUserName, password);
-        OrangeHRM_HomePage.verifyTitle(driver);
-
+        OrangeHRM_LoginPage.login(createUserName, password);
+        OrangeHRM_HomePage.verifyTitle();
         //Get the Employee Name
-        OrangeHRM_AddUserPage.validateUserName(driver, empName);
-        OrangeHRM_HomePage.logout(driver);
-
-        driver.quit();
-        System.out.println("Testcase Execution is completed and Driver instance is terminated");
+        OrangeHRM_AddUserPage.validateUserName(empName);
+        OrangeHRM_HomePage.logout();
+        CommonMethods.closeBrowser();
     }
 }

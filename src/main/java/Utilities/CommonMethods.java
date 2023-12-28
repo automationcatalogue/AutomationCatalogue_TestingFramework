@@ -10,26 +10,32 @@ import java.io.File;
 import java.time.Duration;
 
 public class CommonMethods {
+    public static WebDriver driver;
 
     public static WebDriver openBrowser(){
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         System.out.println("Chrome Browser is launched");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         return driver;
     }
 
-    public static void launchURL(WebDriver driver, String url){
+    public static void launchURL(String url){
         driver.get(url);
         System.out.println("OrangeHRM URL is launched");
     }
 
-    public static void takeScreenshot(WebDriver driver, String screenShotName) throws Exception{
+    public static void takeScreenshot(String screenShotName) throws Exception{
         String projectPath = System.getProperty("user.dir");
         TakesScreenshot ts = (TakesScreenshot)driver;
         File src = ts.getScreenshotAs(OutputType.FILE);
         File dest = new File(projectPath + "\\Screenshots\\"+screenShotName+".jpg");
         FileUtils.copyFile(src, dest);
         System.out.println("OrangeHRMLogin screenshot is captured");
+    }
+
+    public static void closeBrowser(){
+        driver.quit();
+        System.out.println("Testcase Execution is completed and Driver instance is terminated");
     }
 }

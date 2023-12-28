@@ -1,5 +1,6 @@
 package testcases.orangeHRM;
 
+import Utilities.BaseClass;
 import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
@@ -21,10 +22,12 @@ public class   TC01_OrangeHRM_Login {
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
 
         WebDriver driver = CommonMethods.openBrowser();
-        CommonMethods.launchURL(driver, Config.orangeHRM_URL);
-        OrangeHRM_LoginPage.orangeHRM_Login(driver, sheetName, row, userName, password);
-        OrangeHRM_HomePage.verifyTitle(driver);
-        OrangeHRM_HomePage.logout(driver);
+        BaseClass ob = new BaseClass(driver);
+
+        CommonMethods.launchURL(Config.orangeHRM_URL);
+        OrangeHRM_LoginPage.login(userName, password);
+        OrangeHRM_HomePage.verifyTitle();
+        OrangeHRM_HomePage.logout();
 
         driver.quit();
         System.out.println("Testcase Execution is completed and Driver instance is terminated");

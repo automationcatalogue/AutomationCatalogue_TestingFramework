@@ -1,5 +1,6 @@
 package pages.orangeHRM;
 
+import Utilities.BaseClass;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.By;
@@ -12,7 +13,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class OrangeHRM_WorkingWeekendPage {
+public class OrangeHRM_WorkingWeekendPage extends BaseClass {
+
+    public OrangeHRM_WorkingWeekendPage(WebDriver driver){
+        super(driver);
+    }
+
     public static By btn_addWorkingWeekend= By.xpath("//a[@id='addItemBtn']/i");
     public static By txtbx_Name=By.xpath("//input[@id='addWorkingWeekend_description']");
     public static By cal_Date=By.xpath("//label[@for='addWorkingWeekend_date']");
@@ -23,8 +29,7 @@ public class OrangeHRM_WorkingWeekendPage {
     public static By drpdwn_Country=By.xpath("//form[@id='addForm']/div/div[2]/div[2]/div/input");
     public static By btn_Save =By.xpath("//a[@id='saveItemBtn']");
 
-    public static void enterName(WebDriver driver, String sheetName, int row, String name){
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+    public static void enterName(String name){
         driver.switchTo().frame("noncoreIframe");
         System.out.println("Switched into iframe");
 
@@ -36,15 +41,11 @@ public class OrangeHRM_WorkingWeekendPage {
         System.out.println(name + " is entered as Name");
     }
 
-    public static void selectDate(WebDriver driver, String sheetName, int row) throws Exception{
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-
+    public static void selectDate(String date) throws Exception{
         WebElement element_date = driver.findElement(OrangeHRM_WorkingWeekendPage.cal_Date);
         js.executeScript("arguments[0].click();", element_date);
         System.out.println("Date calendar is clicked");
 
-        String date = ExcelUtils.getCellData(sheetName, row, Config.col_Date);
         String day = date.split("/")[0];
         String month = date.split("/")[1];
         String year = date.split("/")[2];
@@ -89,11 +90,11 @@ public class OrangeHRM_WorkingWeekendPage {
         }
     }
 
-    public static void enterWorkingHours(WebDriver driver, String sheetName, int row) throws  Exception{
+    public static void enterWorkingHours(String hours) throws  Exception{
         JavascriptExecutor js = (JavascriptExecutor)driver;
         driver.findElement(OrangeHRM_WorkingWeekendPage.link_Hours).click();
         System.out.println("hours drop-down is clicked");
-        String hours = ExcelUtils.getCellData(sheetName, row, Config.col_Workinghours);
+
         Thread.sleep(5000);
         if (hours.equalsIgnoreCase("Full Day")) {
             js.executeScript("arguments[0].click();", driver.findElement(By.xpath("//label[@for='addWorkingWeekend_length']/..//li[1]/span")));
@@ -106,12 +107,10 @@ public class OrangeHRM_WorkingWeekendPage {
         }
     }
 
-    public static void selectCountry(WebDriver driver, String sheetName, int row) throws Exception{
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+    public static void selectCountry(String country) throws Exception{
         driver.findElement(OrangeHRM_WorkingWeekendPage.drpdwn_Country).click();
         System.out.println("Country drop-down is clicked");
 
-        String country = ExcelUtils.getCellData(sheetName, row, Config.col_country);
         wait.until((ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//ul[@class='dropdown-content select-dropdown active']/li/span"))));
         List<WebElement> element_Countries = driver.findElements(By.xpath("//ul[@class='dropdown-content select-dropdown active']/li/span"));
         for (WebElement element_Country : element_Countries) {
@@ -127,7 +126,7 @@ public class OrangeHRM_WorkingWeekendPage {
         System.out.println("Save button is clicked");
     }
 
-    public static void validateName(WebDriver driver, String name){
+    public static void validateName(String name){
         List<WebElement> elements_Names = driver.findElements(By.xpath("//table[@id='resultTable']/tbody/tr/td[2]/a"));
         for (WebElement element_Name : elements_Names) {
             String actualName = element_Name.getText();

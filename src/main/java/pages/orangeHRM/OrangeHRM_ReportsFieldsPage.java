@@ -1,18 +1,21 @@
 package pages.orangeHRM;
 
+import Utilities.BaseClass;
 import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.io.File;
 import java.time.Duration;
 import java.util.List;
 
-public class OrangeHRM_ReportsFieldsPage {
+public class OrangeHRM_ReportsFieldsPage extends BaseClass {
+
+    public OrangeHRM_ReportsFieldsPage(WebDriver driver){
+        super(driver);
+    }
+
     public static By chkbx_TravelRequestID = By.xpath("//label[text()='Travel Request ID']");
     public static By chkbx_JobTitle = By.xpath("//label[@for='selectedFilters_job_title']");
     public static By btn_Next = By.xpath("//button[text()='Next']");
@@ -34,8 +37,7 @@ public class OrangeHRM_ReportsFieldsPage {
     public static By chkbx_ClaimDate = By.xpath("//label[@for='selectedFilters_claimed_date']");
     public static By chkbx_ReiumbersmentCurrency = By.xpath("//label[text()='Total Estimated Expense (Reimbursement Currency)']");
 
-    public static void selectReportType(WebDriver driver, String sheetName, int row, String reportType){
-
+    public static void selectReportType(String reportType){
         driver.findElement(OrangeHRM_ReportAnalyticsPage.drpdwn_ReportType).click();
         System.out.println("Report Type drop-down is clicked");
 
@@ -50,9 +52,7 @@ public class OrangeHRM_ReportsFieldsPage {
         }
     }
 
-    public static void selectFolder(WebDriver driver, String sheetName, int row){
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-        String folderType = ExcelUtils.getCellData(sheetName, row, Config.col_FolderType);
+    public static void selectFolder(String folderType){
         WebElement element_selectFolder = driver.findElement(OrangeHRM_ReportAnalyticsPage.drpdwn_FolderType);
         js.executeScript("arguments[0].click();",element_selectFolder);
         System.out.println("Folder drop-down is clicked");
@@ -71,7 +71,7 @@ public class OrangeHRM_ReportsFieldsPage {
         System.out.println("Next button is clicked");
     }
 
-    public static void enterReportName(WebDriver driver, String sheetName, int row, String reportName){
+    public static void enterReportName(String reportName){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         driver.findElement(OrangeHRM_ReportAnalyticsPage.txtbx_ReportName).sendKeys(reportName);
         System.out.println("Report Name is entered as " + reportName);
@@ -79,7 +79,7 @@ public class OrangeHRM_ReportsFieldsPage {
         System.out.println("Next button is clicked");
     }
 
-    public static void selectFields_TravelExpenseDetailedReport(WebDriver driver, String sheetName, int row) throws Exception{
+    public static void selectFields_TravelExpenseDetailedReport(String displayFields){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         JavascriptExecutor js = (JavascriptExecutor)driver;
 
@@ -97,7 +97,7 @@ public class OrangeHRM_ReportsFieldsPage {
         System.out.println("Next button is clicked");
 
         //Add Display
-        String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
+
         driver.findElement(OrangeHRM_ReportsFieldsPage.btn_AddDisplayFields).click();
         System.out.println("Add display field button is clicked");
 
@@ -123,8 +123,7 @@ public class OrangeHRM_ReportsFieldsPage {
         driver.findElement(OrangeHRM_ReportsFieldsPage.btn_Save).click();
         System.out.println("Save button is clicked");
     }
-    public static void selectFields_EmployeeInformationalReport(WebDriver driver, String sheetName, int row) throws Exception{
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+    public static void selectFields_EmployeeInformationalReport(String displayFields) {
         WebElement element_EmployeeName = driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_EmployeeName);
         js.executeScript("arguments[0].click();", element_EmployeeName);
         System.out.println("Employee Name check-box is clicked");
@@ -141,7 +140,6 @@ public class OrangeHRM_ReportsFieldsPage {
         System.out.println("Next button is clicked");
 
         //Add Display
-        String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
         driver.findElement(OrangeHRM_ReportsFieldsPage.btn_AddDisplayFields).click();
         System.out.println("Add display field button is clicked");
 
@@ -167,8 +165,7 @@ public class OrangeHRM_ReportsFieldsPage {
         System.out.println("Save button is clicked");
     }
 
-    public static void selectFields_TravelExpenseSummaryReport(WebDriver driver, String sheetName, int row) throws Exception{
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+    public static void selectFields_TravelExpenseSummaryReport(String displayFields) {
         driver.findElement(OrangeHRM_ReportsFieldsPage.chkbx_ClaimStatus).click();
         System.out.println("ClaimStatus check-box is clicked");
 
@@ -191,7 +188,6 @@ public class OrangeHRM_ReportsFieldsPage {
         System.out.println("Next button is clicked");
 
         //Add Display
-        String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
         driver.findElement(OrangeHRM_ReportsFieldsPage.btn_AddDisplayFields).click();
         System.out.println("Add display field button is clicked");
 
@@ -213,7 +209,7 @@ public class OrangeHRM_ReportsFieldsPage {
         System.out.println("Save button is clicked");
     }
 
-    public static void validate_TravelExpenseDetailedReport(WebDriver driver, String sheetName, int row) throws Exception{
+    public static void validate_TravelExpenseDetailedReport() throws Exception{
         WebElement element_TravelRequestID = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_TravelRequestID);
         String actualTravelRequestID = element_TravelRequestID.getText();
         String expectedTravelRequestID = "Travel Request ID";
@@ -241,10 +237,10 @@ public class OrangeHRM_ReportsFieldsPage {
             System.out.println("Cash In Advance column is not present in the Report");
         }
 
-        CommonMethods.takeScreenshot(driver, "OrangeHRMTravelExpenseDetailedReport");
+        CommonMethods.takeScreenshot("OrangeHRMTravelExpenseDetailedReport");
     }
 
-    public static void validate_EmployeeInformationalFields(WebDriver driver){
+    public static void validate_EmployeeInformationalFields(){
         WebElement element = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_EmployeeID);
         String actualEmployeeId = element.getText();
         String expectedEmployeeId = "Employee Id";
@@ -273,7 +269,7 @@ public class OrangeHRM_ReportsFieldsPage {
         }
     }
 
-    public static void validate_TravelExpenseSummaryReport(WebDriver driver){
+    public static void validate_TravelExpenseSummaryReport(){
         WebElement element_ReimbursementCurrency = driver.findElement(OrangeHRM_ValidateReportsFieldsPage.txt_ReiumbersmentCurrency);
         String actualReimbursementCurrency = element_ReimbursementCurrency.getText();
         String expectedReimbursementCurrency= "Total Estimated Expense (Reimbursement Currency)";
