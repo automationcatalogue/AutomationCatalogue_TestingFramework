@@ -18,13 +18,15 @@ public class TC13_DemoWebShop_PlaceOrder {
         String sheetName = "Demo_PlaceOrder";
         ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_Demo_PlaceOrder,sheetName);
+        String username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
 
         WebDriver driver = CommonMethods.openBrowser();
 
         driver.get(Config.demoWebShopLogin_URL);
         System.out.println("DemoWebShop url is launched");
 
-        DemoWebShop_LoginPage.login(driver, sheetName, row);
+        DemoWebShop_LoginPage.login(username, password);
 
         WebElement element_Apparels_Shoes =driver.findElement(DemoWebShop_HomePage.link_ApparelShoesCategory);
         element_Apparels_Shoes.click();
@@ -108,7 +110,7 @@ public class TC13_DemoWebShop_PlaceOrder {
             System.out.println("Sub Total is displayed not correctly");
         }
 
-        DemoWebShop_HomePage.logout(driver);
+        DemoWebShop_HomePage.logout();
 
         driver.quit();
     }

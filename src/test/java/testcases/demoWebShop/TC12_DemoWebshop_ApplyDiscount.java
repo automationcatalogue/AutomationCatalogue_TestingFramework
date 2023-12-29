@@ -1,16 +1,15 @@
 package testcases.demoWebShop;
 
+import Utilities.BaseClass;
 import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.demoWebShop.*;
-import java.time.Duration;
 
 public class TC12_DemoWebshop_ApplyDiscount {
     static WebDriver driver;
@@ -21,14 +20,14 @@ public class TC12_DemoWebshop_ApplyDiscount {
         String sheetName = "Demo_ApplyDiscount";
         ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_DEMOApplyDiscount,sheetName);
+        String username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
 
         driver = CommonMethods.openBrowser();
-        wait = new WebDriverWait(driver,Duration.ofSeconds(30));
+        BaseClass ob = new BaseClass(driver);
 
-        driver.get(Config.demoWebShopLogin_URL);
-        System.out.println("DemoWebshop Application is loaded");
-
-        DemoWebShop_LoginPage.login(driver, sheetName, row);
+        CommonMethods.launchURL(Config.demoWebShop_URL);
+        DemoWebShop_LoginPage.login(username, password);
 
         String productCategory = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_ProductCategory);
         String productName = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_ProductName);
@@ -157,7 +156,7 @@ public class TC12_DemoWebshop_ApplyDiscount {
             System.out.println("OrderIDvalue and total order is not as expected");
         }
 
-        DemoWebShop_HomePage.logout(driver);
+        DemoWebShop_HomePage.logout();
 
         driver.quit();
         System.out.println("Testcase Execution is completed and Driver instance is terminated");

@@ -66,6 +66,11 @@ public class OrangeHRM_HomePage extends BaseClass {
         js.executeScript("arguments[0].click();", element_Performance);
         System.out.println("Performance link clicked");
     }
+
+    public static void clickEmployeeManagement(){
+        driver.findElement(OrangeHRM_HomePage.link_EmployeeManagement).click();
+        System.out.println("Employee Management link is selected");
+    }
 }
 
 

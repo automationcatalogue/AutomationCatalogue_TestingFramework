@@ -15,6 +15,7 @@ public class Config {
     public static final String testID_HRMLeave="TC05-05";
     public static final String testID_HRM_Performance="TC06-05";
     public static final String testID_HRM_Nationality="TC07-01";
+    public static final String testID_Demo_Registration="TC08-01";
     public static final String testID_Demo_CreateAddress="TC09-02";
     public static final String testID_Demo_TotalOrders = "TC10-01";
     public static final String testID_DemoMultipleProducts="TC11-05";
@@ -105,5 +106,12 @@ public class Config {
 
     //Nationalities
     public static final int col_Nationality_CountryName = 4;
+
+    //Registration
+    public static final int col_Registration_FirstName = 2;
+    public static final int col_Registration_LastName = 3;
+    public static final int col_Registration_Email = 4;
+    public static final int col_Registration_Password = 5;
+    public static final int col_Registration_ConfirmPassword = 6;
 }
 
