@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import pages.demoWebShop.DemoWebShop_LoginPage;
 import pages.demoWebShop.DemoWebShop_RegistrationPage;
 
-public class TC08_DemoWebShop_Registration {
+public class TC07_DemoWebShop_Registration {
     public static void main(String[] args) throws Exception{
         String projectPath = System.getProperty("user.dir");
         String sheetName = "Demo_Registration";

@@ -6,6 +6,7 @@ import Utilities.ExcelUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class DemoWebShop_CheckoutPage extends BaseClass {
 
@@ -30,7 +31,7 @@ public class DemoWebShop_CheckoutPage extends BaseClass {
     public static By txtbx_CreditCardCode = By.cssSelector("#CardCode");
     public static By txt_OrderDetails = By.xpath("//ul[@class='details']/li[2]/a");
 
-    public static void placeOrder(){
+    public static void placeOrder_MoneyOrder(){
         driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueBillingAddress).click();
         System.out.println("continue billing address");
         WebElement element_ShippingAddress = driver.findElement(DemoWebShop_CheckoutPage.link_ShippingAddress);
@@ -54,6 +55,86 @@ public class DemoWebShop_CheckoutPage extends BaseClass {
         String orderNumber = driver.findElement(By.xpath("/html/body/div[4]/div[1]/div[4]/div/div/div[2]/div/ul/li[1]")).getText();
         ExcelUtils.setCellData(orderNumber, sheetName, row, Config.col_OrderID);
         System.out.println(orderNumber+" is written as Order ID in Excel sheet");
+    }
+
+    public static void placeOrder_CreditCard(String paymentInfo, String cardholderName, String creditCardNum, String cardCode){
+        driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueBillingAddress).click();
+        System.out.println("Billing address continue button is clicked");
+
+        driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueShippingAddress).click();
+        System.out.println("Shipping address continue button is clicked");
+
+        driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueShippingMethod).click();
+        System.out.println("Shipping method continue button is clicked");
+
+        driver.findElement(DemoWebShop_CheckoutPage.btn_CreditCardPayment).click();
+        System.out.println("Payment information is selected as " + paymentInfo);
+
+        driver.findElement(DemoWebShop_CheckoutPage.btn_CreditCardContinueShippingMethod).click();
+        System.out.println("Payment method continue button is clicked");
+
+        driver.findElement(DemoWebShop_CheckoutPage.txtbx_CardholderName).sendKeys(cardholderName);
+        System.out.println("Credit card name is selected as " + cardholderName);
+
+        driver.findElement(DemoWebShop_CheckoutPage.txtbx_CreditCardNumber).sendKeys(creditCardNum);
+        System.out.println("Credit card number is entered as " + creditCardNum);
+
+        Select MonthDropdown = new Select(driver.findElement(DemoWebShop_CheckoutPage.drpdwn_CreditCardExpiryMonth));
+        System.out.println("Month drop-down is clicked");
+
+        Select yearDropdown = new Select(driver.findElement(DemoWebShop_CheckoutPage.drpdwn_CreditCardExpiryYear));
+        System.out.println("year drop-down is clicked");
+
+        MonthDropdown.selectByVisibleText("04");
+        System.out.println("Month is selected as 04");
+
+        yearDropdown.selectByVisibleText("2023");
+        System.out.println("Year is selected as 2023");
+
+        driver.findElement(DemoWebShop_CheckoutPage.txtbx_CreditCardCode).sendKeys(cardCode);
+        System.out.println("Card code is entered as " + cardCode);
+
+        driver.findElement(DemoWebShop_CheckoutPage.btn_ContinuePaymentInformation).click();
+        System.out.println("Payment info continue button is clicked");
+
+        driver.findElement(DemoWebShop_CheckoutPage.btn_ConfirmOrder).click();
+        System.out.println("Conform order continue button is clicked");
+    }
+
+    public static void clickOrderDetails(){
+        driver.findElement(DemoWebShop_CheckoutPage.txt_OrderDetails).click();
+        System.out.println("Order details is clicked");
+    }
+
+    public static void placeOrder(){
+        WebElement element_BillingAddress = driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueBillingAddress);
+        element_BillingAddress.click();
+        System.out.println("Billing address continue button is clicked");
+
+        WebElement element_ShoppingAddress = driver.findElement(DemoWebShop_CheckoutPage.link_ShippingAddress);
+        element_ShoppingAddress.click();
+        System.out.println("Shopping address continue button is clicked");
+
+        WebElement element_ShoppingMethod = driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueShippingAddress);
+        element_ShoppingMethod.click();
+        System.out.println("Shopping method continue button is clicked");
+
+        WebElement element_PaymentMethod = driver.findElement(DemoWebShop_CheckoutPage.btn_ContinueShippingMethod);
+        element_PaymentMethod.click();
+        System.out.println("Payment method continue button is clicked");
+
+        WebElement element_PaymentInformation = driver.findElement(DemoWebShop_CheckoutPage.btn_ContinuePaymentMethod);
+        element_PaymentInformation.click();
+        System.out.println("Payment information continue button is clicked");
+
+        WebElement element_Confirm = driver.findElement(DemoWebShop_CheckoutPage.btn_ConfirmOrder);
+        element_Confirm.click();
+        System.out.println("Confirm button is clicked");
+    }
+
+    public static void printOrderNumber(){
+        String element_orderNumber = driver.findElement(By.xpath("(//div[@class='section order-completed']/ul/li)[1]")).getText();
+        System.out.println("Order number is printed:"+element_orderNumber);
     }
 
 }

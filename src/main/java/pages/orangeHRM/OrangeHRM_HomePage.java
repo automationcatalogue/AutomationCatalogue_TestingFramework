@@ -71,6 +71,8 @@ public class OrangeHRM_HomePage extends BaseClass {
         driver.findElement(OrangeHRM_HomePage.link_EmployeeManagement).click();
         System.out.println("Employee Management link is selected");
     }
+
+
 }
 
 

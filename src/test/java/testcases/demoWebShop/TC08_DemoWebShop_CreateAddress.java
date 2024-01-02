@@ -9,7 +9,7 @@ import pages.demoWebShop.DemoWebShop_AddressesPage;
 import pages.demoWebShop.DemoWebShop_HomePage;
 import pages.demoWebShop.DemoWebShop_LoginPage;
 
-public class TC09_DemoWebShop_CreateAddress {
+public class TC08_DemoWebShop_CreateAddress {
     public static void main(String[] args) throws Exception{
         String projectPath = System.getProperty("user.dir");
         String sheetName = "Demo_CreateAddress";

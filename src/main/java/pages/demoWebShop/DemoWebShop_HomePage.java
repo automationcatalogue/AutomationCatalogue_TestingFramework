@@ -3,6 +3,7 @@ package pages.demoWebShop;
 import Utilities.BaseClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class DemoWebShop_HomePage extends BaseClass {
 
@@ -87,5 +88,11 @@ public class DemoWebShop_HomePage extends BaseClass {
     public static void clickShoppingCart(){
         driver.findElement(DemoWebShop_HomePage.link_ShoppingCart).click();
         System.out.println("shopping cart is clicked");
+    }
+
+    public static void clickApparelsShoes(){
+        WebElement element_Apparels_Shoes =driver.findElement(DemoWebShop_HomePage.link_ApparelShoesCategory);
+        element_Apparels_Shoes.click();
+        System.out.println("Apparels_Shoes is clicked");
     }
 }

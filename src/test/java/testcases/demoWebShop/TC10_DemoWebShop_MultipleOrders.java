@@ -7,7 +7,7 @@ import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
 import pages.demoWebShop.*;
 
-public class TC11_DemoWebshop_MultipleOrders {
+public class TC10_DemoWebShop_MultipleOrders {
 
     static WebDriver driver;
 
@@ -46,7 +46,7 @@ public class TC11_DemoWebshop_MultipleOrders {
         DemoWebShop_ProductDisplayPage.enterProductData(product4Name);
         DemoWebShop_HomePage.clickShoppingCart();
         DemoWebShop_ShoppingCartPage.clickTermsAndCheckout();
-        DemoWebShop_CheckoutPage.placeOrder();
+        DemoWebShop_CheckoutPage.placeOrder_MoneyOrder();
         DemoWebShop_CheckoutPage.updateOrderNumber(sheetName, row);
         DemoWebShop_HomePage.logout();
         CommonMethods.closeBrowser();

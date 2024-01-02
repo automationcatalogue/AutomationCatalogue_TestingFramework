@@ -9,7 +9,7 @@ import pages.orangeHRM.OrangeHRM_EmployeeManagement;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
 
-public class TC07_OrangeHRM_Nationality {
+public class TC06_OrangeHRM_Nationality {
     public static void main(String[] args) throws Exception {
 
         String projectPath = System.getProperty("user.dir");

@@ -42,4 +42,46 @@ public class DemoWebShop_OrdersPage extends BaseClass {
 
         System.out.println("The value of total number of orders is: $"+totalSum);
     }
+
+    public static void validateOrderId_OrderValue(){
+        //orderId displayed and printed
+        WebElement element_OrderId = driver.findElement(DemoWebShop_OrdersPage.txt_OrderID);
+        String orderIDvalueText =element_OrderId.getText();
+        System.out.println("OrderID is : " +orderIDvalueText);
+
+        //ordervalue is displayed and printed
+        WebElement element_OrderValue = driver.findElement(DemoWebShop_OrdersPage.txt_OrderValue);
+        String orderValueText = element_OrderValue.getText();
+        System.out.println("Ordervalue is : " +orderValueText);
+
+        //converted ordervalue(string) to double
+        double orderTotal=Double.parseDouble(orderValueText);
+        System.out.println("doubled the order value");
+
+        String expectedOrderID = orderIDvalueText;
+        System.out.println("OrderID value is retriver");
+
+        double expectedorderTotal = orderTotal;
+        System.out.println("Totalorder value is retriver");
+
+        if (orderIDvalueText.equals(expectedOrderID) && orderTotal == expectedorderTotal){
+            System.out.println("OrderID value and total order is as expected");
+        }else {
+            System.out.println("OrderID value and total order is not as expected");
+        }
+    }
+
+    public static void validateSubTotal(double itemValue){
+        WebElement element_subTotal = driver.findElement(By.xpath("(//table[@class='cart-total']/tbody/tr/td[2]/span)[1]"));
+        String text_SubTotal = element_subTotal.getText();
+        System.out.println("Sub total amount of order:"+text_SubTotal);
+        double subTotal = Double.parseDouble(text_SubTotal);
+
+        if(itemValue == subTotal){
+            System.out.println("Sub Total is displayed correctly");
+        }else {
+            System.out.println("Sub Total is displayed not correctly");
+        }
+    }
+
 }

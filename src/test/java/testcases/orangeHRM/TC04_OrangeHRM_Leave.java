@@ -10,7 +10,7 @@ import pages.orangeHRM.OrangeHRM_LeavePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
 import pages.orangeHRM.OrangeHRM_WorkingWeekendPage;
 
-public class TC05_OrangeHRM_Leave {
+public class TC04_OrangeHRM_Leave {
     public static void main(String[] args) throws Exception {
         String projectPath = System.getProperty("user.dir");
         String sheetName = "HRM_Leave";

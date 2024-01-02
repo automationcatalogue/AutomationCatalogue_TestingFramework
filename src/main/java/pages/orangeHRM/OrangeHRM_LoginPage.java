@@ -1,8 +1,6 @@
 package pages.orangeHRM;
 
 import Utilities.BaseClass;
-import Utilities.Config;
-import Utilities.ExcelUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

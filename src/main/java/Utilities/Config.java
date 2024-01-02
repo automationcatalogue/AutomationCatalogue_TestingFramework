@@ -8,19 +8,18 @@ public class Config {
     public static final String demoWebShop_URL = "https://demowebshop.tricentis.com";
     public static final String demoWebShopLogin_URL = "https://demowebshop.tricentis.com";
 
-    public static final String testID_HRMLogin="TC01-04";
-    public static final String testID_HRMAddUser="TC02-02";
+    public static final String testID_HRMLogin="TC01-01";
+    public static final String testID_HRMAddUser="TC02-01";
     public static final String testID_HRMReports="TC03-01";
-    public static final String testID_HRM_Attendance="TC04-01";
-    public static final String testID_HRMLeave="TC05-05";
-    public static final String testID_HRM_Performance="TC06-05";
-    public static final String testID_HRM_Nationality="TC07-01";
-    public static final String testID_Demo_Registration="TC08-01";
-    public static final String testID_Demo_CreateAddress="TC09-02";
-    public static final String testID_Demo_TotalOrders = "TC10-01";
-    public static final String testID_DemoMultipleProducts="TC11-05";
-    public static final String testID_DEMOApplyDiscount="TC12-05";
-    public static final String testID_Demo_PlaceOrder="TC13-02";
+    public static final String testID_HRMLeave="TC04-01";
+    public static final String testID_HRM_Performance="TC05-01";
+    public static final String testID_HRM_Nationality="TC06-01";
+    public static final String testID_Demo_Registration="TC07-01";
+    public static final String testID_Demo_CreateAddress="TC08-01";
+    public static final String testID_Demo_TotalOrders = "TC09-01";
+    public static final String testID_DemoMultipleProducts="TC10-01";
+    public static final String testID_DEMOApplyDiscount="TC11-01";
+    public static final String testID_Demo_PlaceOrder="TC12-01";
 
     //Common
     public static final int col_TestcaseID=0;
@@ -41,15 +40,6 @@ public class Config {
     public static final int col_FolderType=5;
     public static final int col_ReportName=6;
     public static final int col_DisplayFields=7;
-
-
-    //HRMAttendance
-    public static final int col_InDate =4;
-    public static final int col_InTime=5;
-    public static final int col_InNote=6;
-    public static final int col_OutDate=7;
-    public static final int col_OutTime=8;
-    public static final int col_OutNote=9;
 
     //DemoWebShop-Apply Discount
     public static final int col_ApplyDiscount_ProductCategory=4;
