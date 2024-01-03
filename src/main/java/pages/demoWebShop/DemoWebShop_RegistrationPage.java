@@ -30,13 +30,13 @@ public class DemoWebShop_RegistrationPage extends BaseClass {
         System.out.println("Click on Gender as Male");
 
         driver.findElement(DemoWebShop_RegistrationPage.txtbx_FirstName).sendKeys(firstName);
-        System.out.println("First Name is Entered");
+        System.out.println("First Name is Entered as "+firstName);
 
         driver.findElement(DemoWebShop_RegistrationPage.txtbx_LastName).sendKeys(lastName);
-        System.out.println("Last Name is Entered");
+        System.out.println("Last Name is Entered as "+lastName);
 
         driver.findElement(DemoWebShop_RegistrationPage.txtbx_Email).sendKeys(email);
-        System.out.println("Email ID is Entered");
+        System.out.println("Email ID is Entered as "+email);
 
         driver.findElement(DemoWebShop_RegistrationPage.txtbx_Password).sendKeys(password);
         System.out.println("password is entered");

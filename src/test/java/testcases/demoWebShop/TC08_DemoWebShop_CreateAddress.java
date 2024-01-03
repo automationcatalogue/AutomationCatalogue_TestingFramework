@@ -1,9 +1,6 @@
 package testcases.demoWebShop;
 
-import Utilities.BaseClass;
-import Utilities.CommonMethods;
-import Utilities.Config;
-import Utilities.ExcelUtils;
+import Utilities.*;
 import org.openqa.selenium.WebDriver;
 import pages.demoWebShop.DemoWebShop_AddressesPage;
 import pages.demoWebShop.DemoWebShop_HomePage;
@@ -17,23 +14,23 @@ public class TC08_DemoWebShop_CreateAddress {
         int row = ExcelUtils.getRowNumber(Config.testID_Demo_CreateAddress,sheetName);
         String username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        String firstName = ExcelUtils.getCellData(sheetName, row, Config.col_FirstName);
-        String lastName = ExcelUtils.getCellData(sheetName, row, Config.col_LastName);
-        String email = ExcelUtils.getCellData(sheetName, row, Config.col_EmailAddress);
-        String company = ExcelUtils.getCellData(sheetName, row, Config.col_Company);
-        String country = ExcelUtils.getCellData(sheetName, row, Config.col_Country);
-        String city = ExcelUtils.getCellData(sheetName, row, Config.col_City);
-        String province = ExcelUtils.getCellData(sheetName, row, Config.col_Province);
-        String address1 = ExcelUtils.getCellData(sheetName, row, Config.col_Address1);
-        String address2= ExcelUtils.getCellData(sheetName, row, Config.col_Address2);
-        String postalCode= ExcelUtils.getCellData(sheetName, row, Config.col_PostalCode);
-        String phoneNumber= ExcelUtils.getCellData(sheetName, row, Config.col_PhoneNumber);
-        String faxNumber= ExcelUtils.getCellData(sheetName, row, Config.col_FaxNumber);
+        String firstName = RandomUtils.getRandomData("firstName");
+        String lastName = RandomUtils.getRandomData("lastName");
+        String email = RandomUtils.getRandomEmail(8);
+        String company = RandomUtils.getRandomData("company");
+        String country = RandomUtils.getRandomData("country");
+        String city = RandomUtils.getRandomData("city");
+        String province = ExcelUtils.getCellData(sheetName, row, Config.col_CreateAddress_Province);
+        String address1 = RandomUtils.getRandomData("address1");
+        String address2= RandomUtils.getRandomData("address2");
+        String postalCode= RandomUtils.getRandomData("zipcode");
+        String phoneNumber= RandomUtils.getRandomData("phoneNumber");
+        String faxNumber= ExcelUtils.getCellData(sheetName, row, Config.col_CreateAddress_FaxNumber);
 
         WebDriver driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
 
-        CommonMethods.launchURL(Config.demoWebShop_URL);
+        CommonMethods.launchURL(Config.demoWebShopLogin_URL);
         DemoWebShop_LoginPage.login(username, password);
         DemoWebShop_HomePage.clickUserName();
         DemoWebShop_AddressesPage.clickAddresses();
@@ -43,5 +40,16 @@ public class TC08_DemoWebShop_CreateAddress {
         DemoWebShop_AddressesPage.validateAddress(firstName, lastName);
         DemoWebShop_HomePage.logout();
         CommonMethods.closeBrowser();
+
+        ExcelUtils.setCellData(firstName, sheetName, row, Config.col_CreateAddress_FirstName);
+        ExcelUtils.setCellData(lastName, sheetName, row, Config.col_CreateAddress_LastName);
+        ExcelUtils.setCellData(email, sheetName, row, Config.col_CreateAddress_EmailAddress);
+        ExcelUtils.setCellData(company, sheetName, row, Config.col_CreateAddress_Company);
+        ExcelUtils.setCellData(country, sheetName, row, Config.col_CreateAddress_Country);
+        ExcelUtils.setCellData(city, sheetName, row, Config.col_CreateAddress_City);
+        ExcelUtils.setCellData(address1, sheetName, row, Config.col_CreateAddress_Address1);
+        ExcelUtils.setCellData(address2, sheetName, row, Config.col_CreateAddress_Address2);
+        ExcelUtils.setCellData(postalCode, sheetName, row, Config.col_CreateAddress_PostalCode);
+        ExcelUtils.setCellData(phoneNumber, sheetName, row, Config.col_CreateAddress_PhoneNumber);
     }
 }

@@ -1,10 +1,8 @@
 package testcases.demoWebShop;
 
-import Utilities.BaseClass;
-import Utilities.CommonMethods;
-import Utilities.Config;
-import Utilities.ExcelUtils;
+import Utilities.*;
 import org.openqa.selenium.WebDriver;
+import pages.demoWebShop.DemoWebShop_HomePage;
 import pages.demoWebShop.DemoWebShop_LoginPage;
 import pages.demoWebShop.DemoWebShop_RegistrationPage;
 
@@ -14,9 +12,9 @@ public class TC07_DemoWebShop_Registration {
         String sheetName = "Demo_Registration";
         ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_Demo_Registration,sheetName);
-        String firstName = ExcelUtils.getCellData(sheetName, row, Config.col_Registration_FirstName);
-        String lastName = ExcelUtils.getCellData(sheetName, row, Config.col_Registration_LastName);
-        String email = ExcelUtils.getCellData(sheetName, row, Config.col_Registration_Email);
+        String firstName = RandomUtils.getRandomData("firstName");
+        String lastName = RandomUtils.getRandomData("lastName");
+        String email = RandomUtils.getRandomEmail(8);
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Registration_Password);
         String confirmPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Registration_ConfirmPassword);
 
@@ -26,7 +24,13 @@ public class TC07_DemoWebShop_Registration {
         CommonMethods.launchURL(Config.demoWebShop_URL);
         DemoWebShop_RegistrationPage.clickRegistrationBtn();
         DemoWebShop_RegistrationPage.createNewUser(firstName, lastName, email, password, confirmPassword);
+        DemoWebShop_HomePage.logout();
         DemoWebShop_RegistrationPage.clickLogin();
         DemoWebShop_LoginPage.login(email, password);
+        CommonMethods.closeBrowser();
+
+        ExcelUtils.setCellData(firstName,sheetName, row, Config.col_Registration_FirstName);
+        ExcelUtils.setCellData(lastName,sheetName, row, Config.col_Registration_LastName);
+        ExcelUtils.setCellData(email,sheetName, row, Config.col_Registration_Email);
     }
 }

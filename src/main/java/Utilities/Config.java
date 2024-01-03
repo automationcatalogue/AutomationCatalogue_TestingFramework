@@ -6,7 +6,7 @@ public class Config {
 
     public static final String orangeHRM_URL = "https://testcatalogu-trials711.orangehrmlive.com/";
     public static final String demoWebShop_URL = "https://demowebshop.tricentis.com";
-    public static final String demoWebShopLogin_URL = "https://demowebshop.tricentis.com";
+    public static final String demoWebShopLogin_URL = "https://demowebshop.tricentis.com/login";
 
     public static final String testID_HRMLogin="TC01-01";
     public static final String testID_HRMAddUser="TC02-01";
@@ -52,18 +52,18 @@ public class Config {
 
 
     //Create Address
-    public static final int col_FirstName =4;
-    public static final int col_LastName=5;
-    public static final int col_EmailAddress=6;
-    public static final int col_Company=7;
-    public static final int col_Country=8;
-    public static final int col_Province=9;
-    public static final int col_City=10;
-    public static final int col_Address1=11;
-    public static final int col_Address2=12;
-    public static final int col_PostalCode=13;
-    public static final int col_PhoneNumber=14;
-    public static final int col_FaxNumber=15;
+    public static final int col_CreateAddress_FirstName =4;
+    public static final int col_CreateAddress_LastName=5;
+    public static final int col_CreateAddress_EmailAddress=6;
+    public static final int col_CreateAddress_Company=7;
+    public static final int col_CreateAddress_Country=8;
+    public static final int col_CreateAddress_Province=9;
+    public static final int col_CreateAddress_City=10;
+    public static final int col_CreateAddress_Address1=11;
+    public static final int col_CreateAddress_Address2=12;
+    public static final int col_CreateAddress_PostalCode=13;
+    public static final int col_CreateAddress_PhoneNumber=14;
+    public static final int col_CreateAddress_FaxNumber=15;
 
     //OrangeHRM Performance
     public static final int col_Performance_EmployeeName =4;
