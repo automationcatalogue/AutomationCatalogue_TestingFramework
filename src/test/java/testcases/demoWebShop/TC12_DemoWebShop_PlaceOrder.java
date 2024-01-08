@@ -18,7 +18,7 @@ public class TC12_DemoWebShop_PlaceOrder {
 
         WebDriver driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
-        CommonMethods.launchURL(Config.demoWebShop_URL);
+        CommonMethods.launchURL(Config.demoWebShopLogin_URL);
         DemoWebShop_LoginPage.login(username, password);
         DemoWebShop_HomePage.clickApparelsShoes();
         DemoWebShop_ProductListingPage.clickShoesLink();

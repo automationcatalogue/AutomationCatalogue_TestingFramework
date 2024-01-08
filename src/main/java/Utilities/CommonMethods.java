@@ -22,7 +22,7 @@ public class CommonMethods {
 
     public static void launchURL(String url){
         driver.get(url);
-        System.out.println("OrangeHRM URL is launched");
+        System.out.println(url + " URL is launched");
     }
 
     public static void takeScreenshot(String screenShotName) throws Exception{

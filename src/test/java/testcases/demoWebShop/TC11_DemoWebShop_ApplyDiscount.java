@@ -28,10 +28,10 @@ public class TC11_DemoWebShop_ApplyDiscount {
         driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
 
-        CommonMethods.launchURL(Config.demoWebShop_URL);
+        CommonMethods.launchURL(Config.demoWebShopLogin_URL);
         DemoWebShop_LoginPage.login(username, password);
         DemoWebShop_HomePage.clickCategory(productCategory);
-        DemoWebShop_ProductListingPage.addToCart_Product(productName);
+        DemoWebShop_ProductListingPage.addToCartProduct(productName);
         DemoWebShop_ProductDisplayPage.enterProductData(productName);
         DemoWebShop_HomePage.clickShoppingCart();
         DemoWebShop_ShoppingCartPage.enterDiscountCode(discountCode);

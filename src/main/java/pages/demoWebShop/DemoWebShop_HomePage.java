@@ -47,7 +47,8 @@ public class DemoWebShop_HomePage extends BaseClass {
             driver.findElement(DemoWebShop_HomePage.link_BooksCategory).click();
             System.out.println("Books category is clicked");
         }else if(productCategory.contains("Computers")){
-            driver.findElement(DemoWebShop_HomePage.link_ComputersCategory).click();
+            WebElement element_ComputersCategory =driver.findElement(DemoWebShop_HomePage.link_ComputersCategory);
+            js.executeScript("arguments[0].click();",element_ComputersCategory);
             System.out.println("Computers category is clicked");
 
             String subCategory = productCategory.split("-")[1];

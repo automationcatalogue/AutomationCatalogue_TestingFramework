@@ -23,7 +23,7 @@ public class TC09_DemoWebShop_TotalOrders {
         WebDriver driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
 
-        CommonMethods.launchURL(Config.demoWebShop_URL);
+        CommonMethods.launchURL(Config.demoWebShopLogin_URL);
         DemoWebShop_LoginPage.login(username, password);
         DemoWebShop_HomePage.clickAccountName();
         DemoWebShop_OrdersPage.clickOrders();
