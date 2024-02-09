@@ -17,8 +17,8 @@ public class OrangeHRM_HomePage extends BaseClass {
     public static By link_Leave = By.xpath("(//span[text()='Leave'])[1]");
     public static By link_Performance = By.xpath("//a[@class=' main-menu-item-1' and @data-tooltip='Performance']/span");
     public static By label_EmployeeName = By.xpath("//a[@class='name']");
-    public static By link_ReportsAndAnalytics = By.xpath("");
-    public static By link_EmployeeManagement = By.xpath("");
+    public static By link_ReportsAndAnalytics = By.xpath("(//span[text()='Reports and Analytics'])[1]");
+    public static By link_EmployeeManagement = By.xpath("(//span[text()='Employee Management'])[1]");
 
     public static void verifyTitle(){
         //Title Verification

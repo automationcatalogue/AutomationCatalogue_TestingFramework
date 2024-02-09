@@ -11,7 +11,7 @@ public class OrangeHRM_LeavePage extends BaseClass {
         super(driver);
     }
 
-    public static By link_Configure=By.xpath("//a[@data-automation-id='more_menu_child_menu_leave_Configure']");
+    public static By link_Configure=By.xpath("//a[@data-automation-id='more_menu_child_menu_leave_Configure' or @data-automation-id='menu_leave_Configure']");
     public static By link_Workingweekends = By.xpath("//a[contains(@data-automation-id,'menu_leave_viewWorkingWeekendList')]");
 
     public static void clickConfigureLink(){

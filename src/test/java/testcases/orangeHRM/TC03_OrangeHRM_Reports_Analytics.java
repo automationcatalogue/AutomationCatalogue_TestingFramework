@@ -1,9 +1,6 @@
 package testcases.orangeHRM;
 
-import Utilities.BaseClass;
-import Utilities.CommonMethods;
-import Utilities.Config;
-import Utilities.ExcelUtils;
+import Utilities.*;
 import org.openqa.selenium.*;
 import pages.orangeHRM.*;
 
@@ -22,7 +19,7 @@ public class TC03_OrangeHRM_Reports_Analytics {
         String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
         String reportType = ExcelUtils.getCellData(sheetName, row, Config.col_ReportType);
-        String reportName = ExcelUtils.getCellData(sheetName, row, Config.col_ReportName);
+        String reportName = "Automation Test Report"+ RandomUtils.getRandomNumeric(5);
         String folderType = ExcelUtils.getCellData(sheetName, row, Config.col_FolderType);
         String displayFields = ExcelUtils.getCellData(sheetName, row, Config.col_DisplayFields);
 
@@ -43,6 +40,8 @@ public class TC03_OrangeHRM_Reports_Analytics {
         OrangeHRM_ValidateReportsFieldsPage.enterReportDataAndValidate(reportType, reportName, displayFields);
         OrangeHRM_HomePage.logout();
         CommonMethods.closeBrowser();
+
+        ExcelUtils.setCellData(reportName, sheetName, row, Config.col_ReportName);
     }
 
 

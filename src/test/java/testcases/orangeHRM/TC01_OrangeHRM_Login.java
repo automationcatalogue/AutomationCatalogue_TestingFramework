@@ -4,13 +4,10 @@ import Utilities.BaseClass;
 import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
 
-import java.time.Duration;
 
 public class   TC01_OrangeHRM_Login {
     public static void main(String[] args) throws Exception{

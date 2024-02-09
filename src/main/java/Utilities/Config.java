@@ -19,7 +19,7 @@ public class Config {
     public static final String testID_Demo_TotalOrders = "TC09-01";
     public static final String testID_DemoMultipleProducts="TC10-05";
     public static final String testID_DEMOApplyDiscount="TC11-05";
-    public static final String testID_Demo_PlaceOrder="TC12-01";
+    public static final String testID_Demo_PlaceOrder="TC12-05";
 
     //Common
     public static final int col_TestcaseID=0;
