@@ -6,6 +6,7 @@ import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.demoWebShop.*;
@@ -17,7 +18,7 @@ public class TC12_DemoWebShop_PlaceOrder {
     private static String username, password;
     private  static int row;
 
-    @BeforeMethod
+    @BeforeClass
     public void preRequisites() throws Exception{
         String projectPath = System.getProperty("user.dir");
         sheetName = "Demo_PlaceOrder";
@@ -25,6 +26,10 @@ public class TC12_DemoWebShop_PlaceOrder {
         row = ExcelUtils.getRowNumber(Config.testID_Demo_PlaceOrder,sheetName);
         username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+
+    }
+    @BeforeMethod
+    public void launchURL() throws Exception{
 
         driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
