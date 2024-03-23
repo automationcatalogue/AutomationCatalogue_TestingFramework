@@ -5,6 +5,9 @@ import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.orangeHRM.OrangeHRM_EmployeeManagement;
 import pages.orangeHRM.OrangeHRM_HomePage;
@@ -12,21 +15,29 @@ import pages.orangeHRM.OrangeHRM_LoginPage;
 
 public class TC06_OrangeHRM_Nationality {
 
-    @Test
-    public void orangeHRM_Nationality() throws Exception {
+    private static WebDriver driver;
+    private static String userName, password, countryName;
+    private static String sheetName;
+    private static int row;
 
+    @BeforeMethod
+    public void preRequisite() throws Exception {
         String projectPath = System.getProperty("user.dir");
-        String sheetName = "HRM_Nationality";
+        sheetName = "HRM_Nationality";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
-        int row = ExcelUtils.getRowNumber(Config.testID_HRM_Nationality, sheetName);
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        String countryName = ExcelUtils.getCellData(sheetName, row, Config.col_Nationality_CountryName);
+        row = ExcelUtils.getRowNumber(Config.testID_HRM_Nationality, sheetName);
+        userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+        countryName = ExcelUtils.getCellData(sheetName, row, Config.col_Nationality_CountryName);
 
         WebDriver driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
 
         CommonMethods.launchURL(Config.orangeHRM_URL);
+    }
+
+    @Test
+    public void OrangeHRM_Nationality() throws Exception {
         OrangeHRM_LoginPage.login(userName, password);
         OrangeHRM_HomePage.verifyTitle();
         OrangeHRM_HomePage.clickEmployeeManagement();
@@ -36,6 +47,10 @@ public class TC06_OrangeHRM_Nationality {
         OrangeHRM_EmployeeManagement.clickMyInfo();
         OrangeHRM_EmployeeManagement.clickPersonalDetails();
         OrangeHRM_EmployeeManagement.validateCountryName(countryName);
+    }
+
+    @AfterMethod
+    public void tearDown() throws Exception{
         OrangeHRM_HomePage.logout();
         CommonMethods.closeBrowser();
     }

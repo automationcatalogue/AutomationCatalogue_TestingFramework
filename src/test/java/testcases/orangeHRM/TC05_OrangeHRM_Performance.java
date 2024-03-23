@@ -5,35 +5,46 @@ import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.orangeHRM.*;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
 
 public class TC05_OrangeHRM_Performance {
 
-    @Test
-    public void orangeHRM_Performance() throws Exception {
+    private static WebDriver driver;
+    private static String userName, password, empName, description, appraisalCycle, newUserPassword, userPassword;
+    private static String newUserConfirmPassword, fromDate, toDate, dueDate;
+    private static String sheetName;
+    private static int row;
+
+    @BeforeMethod
+    public void preRequisites() throws Exception {
         String projectPath = System.getProperty("user.dir");
-        String sheetName = "HRM_Performance";
+        sheetName = "HRM_Performance";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
-        int row = ExcelUtils.getRowNumber(Config.testID_HRM_Performance, sheetName);
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        String empName = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_EmployeeName);
-        String description = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_Description);
-        String appraisalCycle = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_AppraisalCycle);
-        String newUserPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_Password);
-        String userPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_Password);
-        String newUserConfirmPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_ConfirmPassword);
-        String fromDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_FromDate);
-        String toDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_ToDate);
-        String dueDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_DueDate);
+        row = ExcelUtils.getRowNumber(Config.testID_HRM_Performance, sheetName);
+        userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+        empName = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_EmployeeName);
+        description = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_Description);
+        appraisalCycle = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_AppraisalCycle);
+        newUserPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_Password);
+        userPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_Password);
+        newUserConfirmPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_UserName_ConfirmPassword);
+        fromDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_FromDate);
+        toDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_ToDate);
+        dueDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_DueDate);
 
         WebDriver driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
 
         CommonMethods.launchURL(Config.orangeHRM_URL);
+
+    }
+
+    @Test
+    public void OrangeHRM_Performance() throws Exception {
         OrangeHRM_LoginPage.login(userName, password);
         OrangeHRM_HomePage.verifyTitle();
         OrangeHRM_HomePage.clickPerformanceLink();
@@ -53,6 +64,11 @@ public class TC05_OrangeHRM_Performance {
         OrangeHRM_HomePage.clickPerformanceLink();
         OrangeHRM_PerformancePage.clickMyAppraisalBtn();
         OrangeHRM_MyAppraisalPage.validateAppraisalData(description);
+
+    }
+
+    @AfterMethod
+    public void tearDown() throws Exception{
         OrangeHRM_HomePage.logout();
         CommonMethods.closeBrowser();
 
