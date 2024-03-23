@@ -5,15 +5,21 @@ import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.demoWebShop.*;
 
 public class TC10_DemoWebShop_MultipleOrders {
 
     static WebDriver driver;
+    private static String username,password,product1Category,product2Category,product1Name,product2Name,product3Category,product3Name,product4Category,product4Name;
+    private static String sheetName;
+    private static int row;
 
-    @Test
-    public void demoWebShop_MultipleOrders() throws Exception {
+
+    @BeforeMethod
+    public void preRequisites() throws Exception {
         String projectPath = System.getProperty("user.dir");
         String sheetName = "Demo_MultipleProducts";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
@@ -22,8 +28,8 @@ public class TC10_DemoWebShop_MultipleOrders {
         String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
         String product1Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product1Category);
         String product2Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product2Category);
-        String product3Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product3Category);
         String product4Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product4Category);
+        String product3Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product3Category);
         String product1Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product1Name);
         String product2Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product2Name);
         String product3Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product3Name);
@@ -33,6 +39,10 @@ public class TC10_DemoWebShop_MultipleOrders {
         BaseClass ob = new BaseClass(driver);
 
         CommonMethods.launchURL(Config.demoWebShopLogin_URL);
+    }
+
+    @Test
+    public void demoWebShop_MultipleOrders() throws Exception{
         DemoWebShop_LoginPage.login(username, password);
         DemoWebShop_HomePage.clickCategory(product1Category);
         DemoWebShop_ProductListingPage.addToCartProduct(product1Name);
@@ -51,6 +61,13 @@ public class TC10_DemoWebShop_MultipleOrders {
         DemoWebShop_CheckoutPage.placeOrder_MoneyOrder();
         DemoWebShop_CheckoutPage.updateOrderNumber(sheetName, row);
         DemoWebShop_HomePage.logout();
-        CommonMethods.closeBrowser();
     }
+
+    @AfterMethod
+    public void tearDown(){
+        driver.quit();
+        System.out.println("Testcase Execution is completed and Driver instance is terminated");
+    }
+
+
 }
