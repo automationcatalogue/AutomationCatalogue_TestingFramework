@@ -18,6 +18,8 @@ public class TC05_OrangeHRM_Performance {
     private static String sheetName;
     private static int row;
 
+
+
     @BeforeMethod
     public void preRequisites() throws Exception {
         String projectPath = System.getProperty("user.dir");
@@ -36,7 +38,7 @@ public class TC05_OrangeHRM_Performance {
         toDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_ToDate);
         dueDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_DueDate);
 
-        WebDriver driver = CommonMethods.openBrowser();
+        driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
 
         CommonMethods.launchURL(Config.orangeHRM_URL);
@@ -68,7 +70,7 @@ public class TC05_OrangeHRM_Performance {
     }
 
     @AfterMethod
-    public void tearDown() throws Exception{
+    public void tearDown(){
         OrangeHRM_HomePage.logout();
         CommonMethods.closeBrowser();
 

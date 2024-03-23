@@ -20,7 +20,7 @@ public class TC08_DemoWebShop_CreateAddress {
     @BeforeMethod
     public void preRequisites() throws Exception {
         String projectPath = System.getProperty("user.dir");
-        String sheetName = "Demo_CreateAddress";
+        sheetName = "Demo_CreateAddress";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
         row = ExcelUtils.getRowNumber(Config.testID_Demo_CreateAddress, sheetName);
         username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
@@ -38,7 +38,7 @@ public class TC08_DemoWebShop_CreateAddress {
         phoneNumber = RandomUtils.getRandomData("phoneNumber");
         faxNumber = ExcelUtils.getCellData(sheetName, row, Config.col_CreateAddress_FaxNumber);
 
-        WebDriver driver = CommonMethods.openBrowser();
+        driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
         CommonMethods.launchURL(Config.demoWebShopLogin_URL);
     }

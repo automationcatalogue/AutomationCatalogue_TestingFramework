@@ -23,10 +23,10 @@ public class TC09_DemoWebShop_TotalOrders {
         String sheetName = "Demo_TotalOrders";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_Demo_TotalOrders, sheetName);
-        String username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+        username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
 
-        WebDriver driver = CommonMethods.openBrowser();
+        driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
 
         CommonMethods.launchURL(Config.demoWebShopLogin_URL);

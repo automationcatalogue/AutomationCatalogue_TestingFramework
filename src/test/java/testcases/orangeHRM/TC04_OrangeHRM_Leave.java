@@ -7,6 +7,7 @@ import Utilities.ExcelUtils;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.orangeHRM.OrangeHRM_HomePage;
@@ -17,23 +18,25 @@ import pages.orangeHRM.OrangeHRM_WorkingWeekendPage;
 public class TC04_OrangeHRM_Leave {
 
     private static String userName, password, name, date, hours,country;
+    private static WebDriver driver;
 
-    @BeforeMethod
-    public void preRequisites() throws Exception {
+    @BeforeClass
+    public void preRequisites() throws Exception{
         String projectPath = System.getProperty("user.dir");
         String sheetName = "HRM_Leave";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_HRMLeave, sheetName);
-        String userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        String name = ExcelUtils.getCellData(sheetName, row, Config.col_Name);
-        String date = ExcelUtils.getCellData(sheetName, row, Config.col_Date);
-        String hours = ExcelUtils.getCellData(sheetName, row, Config.col_Workinghours);
-        String country = ExcelUtils.getCellData(sheetName, row, Config.col_country);
-
-        WebDriver driver = CommonMethods.openBrowser();
+        userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+        name = ExcelUtils.getCellData(sheetName, row, Config.col_Name);
+        date = ExcelUtils.getCellData(sheetName, row, Config.col_Date);
+        hours = ExcelUtils.getCellData(sheetName, row, Config.col_Workinghours);
+        country = ExcelUtils.getCellData(sheetName, row, Config.col_country);
+    }
+    @BeforeMethod
+    public void launchURL() throws Exception {
+        driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
-
         CommonMethods.launchURL(Config.orangeHRM_URL);
     }
 
@@ -51,7 +54,6 @@ public class TC04_OrangeHRM_Leave {
         OrangeHRM_WorkingWeekendPage.validateName(name);
         Thread.sleep(2000);
         OrangeHRM_HomePage.logout();
-
     }
 
     @AfterMethod

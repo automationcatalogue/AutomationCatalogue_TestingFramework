@@ -30,14 +30,14 @@ public class TC06_OrangeHRM_Nationality {
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
         countryName = ExcelUtils.getCellData(sheetName, row, Config.col_Nationality_CountryName);
 
-        WebDriver driver = CommonMethods.openBrowser();
+        driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
 
         CommonMethods.launchURL(Config.orangeHRM_URL);
     }
 
     @Test
-    public void OrangeHRM_Nationality() throws Exception {
+    public void OrangeHRM_Nationality() {
         OrangeHRM_LoginPage.login(userName, password);
         OrangeHRM_HomePage.verifyTitle();
         OrangeHRM_HomePage.clickEmployeeManagement();
@@ -50,7 +50,7 @@ public class TC06_OrangeHRM_Nationality {
     }
 
     @AfterMethod
-    public void tearDown() throws Exception{
+    public void tearDown(){
         OrangeHRM_HomePage.logout();
         CommonMethods.closeBrowser();
     }

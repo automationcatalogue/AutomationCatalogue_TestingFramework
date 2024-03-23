@@ -19,7 +19,7 @@ public class TC07_DemoWebShop_Registration {
 
     public void preRequisites() throws Exception {
         String projectPath = System.getProperty("user.dir");
-        String sheetName = "Demo_Registration";
+        sheetName = "Demo_Registration";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
         row = ExcelUtils.getRowNumber(Config.testID_Demo_Registration, sheetName);
         firstName = RandomUtils.getRandomData("firstName");

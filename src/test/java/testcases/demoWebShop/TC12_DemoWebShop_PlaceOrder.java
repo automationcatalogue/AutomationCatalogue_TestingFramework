@@ -5,23 +5,34 @@ import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.demoWebShop.*;
 
 public class TC12_DemoWebShop_PlaceOrder {
 
-    @Test
-    public void demoWebShop_PlaceOrder() throws Exception{
-        String projectPath = System.getProperty("user.dir");
-        String sheetName = "Demo_PlaceOrder";
-        ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
-        int row = ExcelUtils.getRowNumber(Config.testID_Demo_PlaceOrder,sheetName);
-        String username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+    private static WebDriver driver;
+    private static String sheetName;
+    private static String username, password;
+    private  static int row;
 
-        WebDriver driver = CommonMethods.openBrowser();
+    @BeforeMethod
+    public void preRequisites() throws Exception{
+        String projectPath = System.getProperty("user.dir");
+        sheetName = "Demo_PlaceOrder";
+        ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
+        row = ExcelUtils.getRowNumber(Config.testID_Demo_PlaceOrder,sheetName);
+        username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+
+        driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
         CommonMethods.launchURL(Config.demoWebShopLogin_URL);
+    }
+
+    @Test
+    public void demoWebShop_PlaceOrder() throws Exception{
         DemoWebShop_LoginPage.login(username, password);
         DemoWebShop_HomePage.clickApparelsShoes();
         DemoWebShop_ProductListingPage.clickShoesLink();
@@ -35,6 +46,10 @@ public class TC12_DemoWebShop_PlaceOrder {
         DemoWebShop_CheckoutPage.clickOrderDetails();
         DemoWebShop_OrdersPage.validateSubTotal(itemValue);
         DemoWebShop_HomePage.logout();
+    }
+
+    @AfterMethod
+    public void tearDown(){
         CommonMethods.closeBrowser();
     }
 }

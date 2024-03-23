@@ -3,6 +3,7 @@ package testcases.orangeHRM;
 import Utilities.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.orangeHRM.OrangeHRM_AddUserPage;
@@ -17,7 +18,7 @@ public class TC02_OrangeHRM_AddUser {
     private static String sheetName;
     private static int row;
 
-    @BeforeMethod
+    @BeforeClass
     public void preRequisites() throws Exception{
         String projectPath = System.getProperty("user.dir");
         sheetName = "HRM_AddUser";
@@ -30,10 +31,12 @@ public class TC02_OrangeHRM_AddUser {
         adminRole = ExcelUtils.getCellData(sheetName, row, Config.col_AdminRole);
         newUserPassword = ExcelUtils.getCellData(sheetName, row, Config.col_NewUserPassword);
         newUserConfirmPassword = ExcelUtils.getCellData(sheetName, row, Config.col_NewUserConfirmPassword);
+    }
 
-        WebDriver driver = CommonMethods.openBrowser();
+    @BeforeMethod
+    public void launchURL() throws Exception{
+        driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
-
         CommonMethods.launchURL(Config.orangeHRM_URL);
     }
 

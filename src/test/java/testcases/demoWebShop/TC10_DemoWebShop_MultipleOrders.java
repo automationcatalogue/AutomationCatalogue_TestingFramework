@@ -23,17 +23,17 @@ public class TC10_DemoWebShop_MultipleOrders {
         String projectPath = System.getProperty("user.dir");
         String sheetName = "Demo_MultipleProducts";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
-        int row = ExcelUtils.getRowNumber(Config.testID_DemoMultipleProducts, sheetName);
-        String username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
-        String password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
-        String product1Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product1Category);
-        String product2Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product2Category);
-        String product4Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product4Category);
-        String product3Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product3Category);
-        String product1Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product1Name);
-        String product2Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product2Name);
-        String product3Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product3Name);
-        String product4Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product4Name);
+        row = ExcelUtils.getRowNumber(Config.testID_DemoMultipleProducts, sheetName);
+        username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
+        password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
+        product1Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product1Category);
+        product2Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product2Category);
+        product4Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product4Category);
+        product3Category = ExcelUtils.getCellData(sheetName, row, Config.col_Product3Category);
+        product1Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product1Name);
+        product2Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product2Name);
+        product3Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product3Name);
+        product4Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product4Name);
 
         driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
