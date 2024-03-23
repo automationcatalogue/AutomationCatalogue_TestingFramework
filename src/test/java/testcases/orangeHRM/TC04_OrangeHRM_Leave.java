@@ -4,7 +4,10 @@ import Utilities.BaseClass;
 import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LeavePage;
@@ -13,8 +16,10 @@ import pages.orangeHRM.OrangeHRM_WorkingWeekendPage;
 
 public class TC04_OrangeHRM_Leave {
 
-    @Test
-    public void orangeHRM_Leave() throws Exception {
+    private static String userName, password, name, date, hours,country;
+
+    @BeforeMethod
+    public void preRequisites() throws Exception {
         String projectPath = System.getProperty("user.dir");
         String sheetName = "HRM_Leave";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
@@ -30,6 +35,10 @@ public class TC04_OrangeHRM_Leave {
         BaseClass ob = new BaseClass(driver);
 
         CommonMethods.launchURL(Config.orangeHRM_URL);
+    }
+
+    @Test
+    public void OrangeHRM_Leave() throws Exception {
         OrangeHRM_LoginPage.login(userName, password);
         OrangeHRM_HomePage.verifyTitle();
         OrangeHRM_HomePage.clickLeaveLink();
@@ -42,7 +51,13 @@ public class TC04_OrangeHRM_Leave {
         OrangeHRM_WorkingWeekendPage.validateName(name);
         Thread.sleep(2000);
         OrangeHRM_HomePage.logout();
+
+    }
+
+    @AfterMethod
+    public void afterMethod() throws Exception{
         CommonMethods.closeBrowser();
     }
+
 }
 
