@@ -18,10 +18,8 @@ public class TC05_OrangeHRM_Performance {
     private static String sheetName;
     private static int row;
 
-
-
-    @BeforeMethod
-    public void preRequisites() throws Exception {
+    @BeforeClass
+    public void preRequisites() throws Exception{
         String projectPath = System.getProperty("user.dir");
         sheetName = "HRM_Performance";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
@@ -37,10 +35,12 @@ public class TC05_OrangeHRM_Performance {
         fromDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_FromDate);
         toDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_ToDate);
         dueDate = ExcelUtils.getCellData(sheetName, row, Config.col_Performance_DueDate);
+    }
 
+    @BeforeMethod
+    public void launchURL() throws Exception {
         driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
-
         CommonMethods.launchURL(Config.orangeHRM_URL);
 
     }

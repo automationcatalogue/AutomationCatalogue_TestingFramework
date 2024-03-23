@@ -5,10 +5,7 @@ import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.orangeHRM.OrangeHRM_EmployeeManagement;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
@@ -20,7 +17,7 @@ public class TC06_OrangeHRM_Nationality {
     private static String sheetName;
     private static int row;
 
-    @BeforeMethod
+    @BeforeClass
     public void preRequisite() throws Exception {
         String projectPath = System.getProperty("user.dir");
         sheetName = "HRM_Nationality";
@@ -30,9 +27,12 @@ public class TC06_OrangeHRM_Nationality {
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
         countryName = ExcelUtils.getCellData(sheetName, row, Config.col_Nationality_CountryName);
 
+    }
+
+    @BeforeMethod
+    public void launchURL() throws Exception {
         driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
-
         CommonMethods.launchURL(Config.orangeHRM_URL);
     }
 
