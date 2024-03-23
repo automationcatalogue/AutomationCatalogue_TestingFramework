@@ -2,12 +2,14 @@ package testcases.demoWebShop;
 
 import Utilities.*;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 import pages.demoWebShop.DemoWebShop_HomePage;
 import pages.demoWebShop.DemoWebShop_LoginPage;
 import pages.demoWebShop.DemoWebShop_RegistrationPage;
 
 public class TC07_DemoWebShop_Registration {
-    public static void main(String[] args) throws Exception{
+    @Test
+    public void demoWebShop_Registration() throws Exception{
         String projectPath = System.getProperty("user.dir");
         String sheetName = "Demo_Registration";
         ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");

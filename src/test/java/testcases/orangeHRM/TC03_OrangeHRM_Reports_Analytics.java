@@ -2,6 +2,7 @@ package testcases.orangeHRM;
 
 import Utilities.*;
 import org.openqa.selenium.*;
+import org.testng.annotations.Test;
 import pages.orangeHRM.*;
 
 public class TC03_OrangeHRM_Reports_Analytics {
@@ -11,7 +12,8 @@ public class TC03_OrangeHRM_Reports_Analytics {
     public static int row;
     public static String projectPath;
 
-    public static void main(String[] args) throws Exception {
+    @Test
+    public void orangeHRM_ReportAnalytics() throws Exception {
         projectPath = System.getProperty("user.dir");
         sheetName = "HRM_Reports";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");

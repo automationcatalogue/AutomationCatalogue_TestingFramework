@@ -2,9 +2,9 @@ package Utilities;
 
 public class Config {
 
-    public static int explicitTimeOut = 20;
+    public static int explicitTimeOut = 40;
 
-    public static final String orangeHRM_URL = "https://testcatalogu-trials711.orangehrmlive.com/";
+    public static final String orangeHRM_URL = "https://testautomate0-trials712.orangehrmlive.com";
     public static final String demoWebShop_URL = "https://demowebshop.tricentis.com";
     public static final String demoWebShopLogin_URL = "https://demowebshop.tricentis.com/login";
 

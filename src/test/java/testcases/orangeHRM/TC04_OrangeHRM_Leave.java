@@ -5,13 +5,16 @@ import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LeavePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
 import pages.orangeHRM.OrangeHRM_WorkingWeekendPage;
 
 public class TC04_OrangeHRM_Leave {
-    public static void main(String[] args) throws Exception {
+
+    @Test
+    public void orangeHRM_Leave() throws Exception {
         String projectPath = System.getProperty("user.dir");
         String sheetName = "HRM_Leave";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");

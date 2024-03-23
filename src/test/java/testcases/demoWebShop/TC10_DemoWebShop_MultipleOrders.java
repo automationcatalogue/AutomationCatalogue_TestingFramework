@@ -5,13 +5,15 @@ import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 import pages.demoWebShop.*;
 
 public class TC10_DemoWebShop_MultipleOrders {
 
     static WebDriver driver;
 
-    public static void main(String[] args) throws Exception {
+    @Test
+    public void demoWebShop_MultipleOrders() throws Exception {
         String projectPath = System.getProperty("user.dir");
         String sheetName = "Demo_MultipleProducts";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");

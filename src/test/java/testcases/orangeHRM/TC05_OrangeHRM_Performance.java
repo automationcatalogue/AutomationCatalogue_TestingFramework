@@ -5,12 +5,15 @@ import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 import pages.orangeHRM.*;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
 
 public class TC05_OrangeHRM_Performance {
-    public static void main(String[] args) throws Exception {
+
+    @Test
+    public void orangeHRM_Performance() throws Exception {
         String projectPath = System.getProperty("user.dir");
         String sheetName = "HRM_Performance";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");

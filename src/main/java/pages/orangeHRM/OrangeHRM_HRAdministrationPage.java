@@ -25,7 +25,7 @@ public class OrangeHRM_HRAdministrationPage extends BaseClass {
     public static By btn_AddUser = By.xpath("//i[text()='add']");
 
     public static void clickAddUser(){
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Config.explicitTimeOut));
         wait.until(ExpectedConditions.visibilityOfElementLocated(OrangeHRM_HRAdministrationPage.table_UserData));
         driver.findElement(OrangeHRM_HRAdministrationPage.btn_AddUser).click();
         System.out.println("Add button is been clicked");

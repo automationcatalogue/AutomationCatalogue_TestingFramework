@@ -13,6 +13,8 @@ public class Login {
     static WebDriver driver;
     static FileInputStream fis;
 
+
+
     @BeforeClass
     public void openExcelFile() throws Exception{
         System.out.println("I am in BEFORE CLASS block!!!!");
@@ -110,6 +112,11 @@ public class Login {
     public void closeExcelFile() throws Exception{
         System.out.println("I am in AFTER CLASS block!!!");
         fis.close();
+    }
+
+    @AfterTest
+    public void closeHtmlReport(){
+        System.out.println("I am in AFTER TEST block!!!!");
     }
 
 }

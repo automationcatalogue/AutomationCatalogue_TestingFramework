@@ -5,12 +5,15 @@ import Utilities.CommonMethods;
 import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 import pages.orangeHRM.OrangeHRM_EmployeeManagement;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
 
 public class TC06_OrangeHRM_Nationality {
-    public static void main(String[] args) throws Exception {
+
+    @Test
+    public void orangeHRM_Nationality() throws Exception {
 
         String projectPath = System.getProperty("user.dir");
         String sheetName = "HRM_Nationality";

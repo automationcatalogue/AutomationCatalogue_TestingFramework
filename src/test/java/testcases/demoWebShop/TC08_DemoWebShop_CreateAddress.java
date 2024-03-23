@@ -2,12 +2,15 @@ package testcases.demoWebShop;
 
 import Utilities.*;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 import pages.demoWebShop.DemoWebShop_AddressesPage;
 import pages.demoWebShop.DemoWebShop_HomePage;
 import pages.demoWebShop.DemoWebShop_LoginPage;
 
 public class TC08_DemoWebShop_CreateAddress {
-    public static void main(String[] args) throws Exception{
+
+    @Test
+    public void demoWebShop_CreateAddress() throws Exception{
         String projectPath = System.getProperty("user.dir");
         String sheetName = "Demo_CreateAddress";
         ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
