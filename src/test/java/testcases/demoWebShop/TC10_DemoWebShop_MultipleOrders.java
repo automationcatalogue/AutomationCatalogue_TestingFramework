@@ -6,6 +6,7 @@ import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.demoWebShop.*;
@@ -17,8 +18,7 @@ public class TC10_DemoWebShop_MultipleOrders {
     private static String sheetName;
     private static int row;
 
-
-    @BeforeMethod
+    @BeforeClass
     public void preRequisites() throws Exception {
         String projectPath = System.getProperty("user.dir");
         String sheetName = "Demo_MultipleProducts";
@@ -34,7 +34,12 @@ public class TC10_DemoWebShop_MultipleOrders {
         product2Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product2Name);
         product3Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product3Name);
         product4Name = ExcelUtils.getCellData(sheetName, row, Config.col_Product4Name);
+    }
 
+
+
+    @BeforeMethod
+    public void launchURL() throws Exception{
         driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
 

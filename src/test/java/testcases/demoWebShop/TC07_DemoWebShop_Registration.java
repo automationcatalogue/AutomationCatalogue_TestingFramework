@@ -3,6 +3,7 @@ package testcases.demoWebShop;
 import Utilities.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.demoWebShop.DemoWebShop_HomePage;
@@ -14,10 +15,8 @@ public class TC07_DemoWebShop_Registration {
     private static String firstName,lastName,email,password,confirmPassword;
     private static int row;
     private static String sheetName;
-
-    @BeforeMethod
-
-    public void preRequisites() throws Exception {
+    @BeforeClass
+    public void preRequisites() throws Exception{
         String projectPath = System.getProperty("user.dir");
         sheetName = "Demo_Registration";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
@@ -27,10 +26,13 @@ public class TC07_DemoWebShop_Registration {
         email = RandomUtils.getRandomEmail(8);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Registration_Password);
         confirmPassword = ExcelUtils.getCellData(sheetName, row, Config.col_Registration_ConfirmPassword);
+    }
 
+
+    @BeforeMethod
+    public void launchURL() throws Exception {
         WebDriver driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
-
         CommonMethods.launchURL(Config.demoWebShop_URL);
     }
 

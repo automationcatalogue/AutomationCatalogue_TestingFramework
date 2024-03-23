@@ -3,6 +3,7 @@ package testcases.demoWebShop;
 import Utilities.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.demoWebShop.DemoWebShop_AddressesPage;
@@ -17,8 +18,8 @@ public class TC08_DemoWebShop_CreateAddress {
     private static String sheetName;
     private static WebDriver driver;
 
-    @BeforeMethod
-    public void preRequisites() throws Exception {
+    @BeforeClass
+    public void preRequisites() throws Exception{
         String projectPath = System.getProperty("user.dir");
         sheetName = "Demo_CreateAddress";
         ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
@@ -38,6 +39,10 @@ public class TC08_DemoWebShop_CreateAddress {
         phoneNumber = RandomUtils.getRandomData("phoneNumber");
         faxNumber = ExcelUtils.getCellData(sheetName, row, Config.col_CreateAddress_FaxNumber);
 
+    }
+
+    @BeforeMethod
+    public void launchURL() throws Exception {
         driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
         CommonMethods.launchURL(Config.demoWebShopLogin_URL);
@@ -59,7 +64,6 @@ public class TC08_DemoWebShop_CreateAddress {
     @AfterMethod
     public void tearDown() throws Exception{
         CommonMethods.closeBrowser();
-
         ExcelUtils.setCellData(firstName, sheetName, row, Config.col_CreateAddress_FirstName);
         ExcelUtils.setCellData(lastName, sheetName, row, Config.col_CreateAddress_LastName);
         ExcelUtils.setCellData(email, sheetName, row, Config.col_CreateAddress_EmailAddress);
