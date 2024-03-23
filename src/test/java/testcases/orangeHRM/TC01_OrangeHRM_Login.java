@@ -11,18 +11,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
+import testcases.runner.Runner;
 
 
-public class  TC01_OrangeHRM_Login {
+public class  TC01_OrangeHRM_Login extends Runner {
 
     private static String userName, password;
     private static WebDriver driver;
 
     @BeforeClass
     public void preRequisites() throws Exception{
-        String projectPath = System.getProperty("user.dir");
         String sheetName = "HRM_Login";
-        ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_HRMLogin,sheetName);
         userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);

@@ -10,8 +10,9 @@ import pages.orangeHRM.OrangeHRM_AddUserPage;
 import pages.orangeHRM.OrangeHRM_HRAdministrationPage;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
+import testcases.runner.Runner;
 
-public class TC02_OrangeHRM_AddUser {
+public class TC02_OrangeHRM_AddUser extends Runner {
 
     private static WebDriver driver;
     private static String userName, password, empName, createUserName, adminRole, newUserPassword, newUserConfirmPassword;
@@ -20,9 +21,7 @@ public class TC02_OrangeHRM_AddUser {
 
     @BeforeClass
     public void preRequisites() throws Exception{
-        String projectPath = System.getProperty("user.dir");
         sheetName = "HRM_AddUser";
-        ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         row = ExcelUtils.getRowNumber(Config.testID_HRMAddUser,sheetName);
         userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);

@@ -9,17 +9,16 @@ import org.testng.annotations.Test;
 import pages.demoWebShop.DemoWebShop_HomePage;
 import pages.demoWebShop.DemoWebShop_LoginPage;
 import pages.demoWebShop.DemoWebShop_RegistrationPage;
+import testcases.runner.Runner;
 
-public class TC07_DemoWebShop_Registration {
+public class TC07_DemoWebShop_Registration extends Runner {
 
     private static String firstName,lastName,email,password,confirmPassword;
     private static int row;
     private static String sheetName;
     @BeforeClass
     public void preRequisites() throws Exception{
-        String projectPath = System.getProperty("user.dir");
         sheetName = "Demo_Registration";
-        ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
         row = ExcelUtils.getRowNumber(Config.testID_Demo_Registration, sheetName);
         firstName = RandomUtils.getRandomData("firstName");
         lastName = RandomUtils.getRandomData("lastName");

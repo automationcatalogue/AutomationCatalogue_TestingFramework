@@ -10,8 +10,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.demoWebShop.*;
+import testcases.runner.Runner;
 
-public class TC11_DemoWebShop_ApplyDiscount {
+public class TC11_DemoWebShop_ApplyDiscount extends Runner {
     private static WebDriver driver;
     private static String sheetName;
     private static String username, password, productCategory, discountCode, paymentInfo, cardholderName;
@@ -19,9 +20,7 @@ public class TC11_DemoWebShop_ApplyDiscount {
 
     @BeforeClass
     public void preRequisites() throws Exception{
-        String projectPath = System.getProperty("user.dir");
         sheetName = "Demo_ApplyDiscount";
-        ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         int row = ExcelUtils.getRowNumber(Config.testID_DEMOApplyDiscount,sheetName);
         username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);

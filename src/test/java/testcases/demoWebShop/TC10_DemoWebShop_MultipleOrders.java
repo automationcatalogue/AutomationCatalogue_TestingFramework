@@ -10,8 +10,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.demoWebShop.*;
+import testcases.runner.Runner;
 
-public class TC10_DemoWebShop_MultipleOrders {
+public class TC10_DemoWebShop_MultipleOrders extends Runner {
 
     static WebDriver driver;
     private static String username,password,product1Category,product2Category,product1Name,product2Name,product3Category,product3Name,product4Category,product4Name;
@@ -20,9 +21,7 @@ public class TC10_DemoWebShop_MultipleOrders {
 
     @BeforeClass
     public void preRequisites() throws Exception {
-        String projectPath = System.getProperty("user.dir");
         String sheetName = "Demo_MultipleProducts";
-        ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
         row = ExcelUtils.getRowNumber(Config.testID_DemoMultipleProducts, sheetName);
         username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);

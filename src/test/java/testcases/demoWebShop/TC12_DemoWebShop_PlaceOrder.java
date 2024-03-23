@@ -10,8 +10,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.demoWebShop.*;
+import testcases.runner.Runner;
 
-public class TC12_DemoWebShop_PlaceOrder {
+public class TC12_DemoWebShop_PlaceOrder extends Runner {
 
     private static WebDriver driver;
     private static String sheetName;
@@ -20,9 +21,7 @@ public class TC12_DemoWebShop_PlaceOrder {
 
     @BeforeClass
     public void preRequisites() throws Exception{
-        String projectPath = System.getProperty("user.dir");
         sheetName = "Demo_PlaceOrder";
-        ExcelUtils.setExcelFilePath(projectPath+"//TestData//Automation_TestData.xlsx");
         row = ExcelUtils.getRowNumber(Config.testID_Demo_PlaceOrder,sheetName);
         username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
@@ -30,7 +29,6 @@ public class TC12_DemoWebShop_PlaceOrder {
     }
     @BeforeMethod
     public void launchURL() throws Exception{
-
         driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
         CommonMethods.launchURL(Config.demoWebShopLogin_URL);

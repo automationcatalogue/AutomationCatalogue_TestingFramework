@@ -12,17 +12,16 @@ import org.testng.annotations.Test;
 import pages.demoWebShop.DemoWebShop_HomePage;
 import pages.demoWebShop.DemoWebShop_LoginPage;
 import pages.demoWebShop.DemoWebShop_OrdersPage;
+import testcases.runner.Runner;
 
-public class TC09_DemoWebShop_TotalOrders {
+public class TC09_DemoWebShop_TotalOrders extends Runner {
 
     private static WebDriver driver;
     private static String username, password, sheetName;
     private static int row;
     @BeforeClass
     public void preRequisites() throws Exception {
-        String projectPath = System.getProperty("user.dir");
         sheetName = "Demo_TotalOrders";
-        ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
         row = ExcelUtils.getRowNumber(Config.testID_Demo_TotalOrders, sheetName);
         username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);

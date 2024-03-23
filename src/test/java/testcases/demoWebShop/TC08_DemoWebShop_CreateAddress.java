@@ -9,8 +9,9 @@ import org.testng.annotations.Test;
 import pages.demoWebShop.DemoWebShop_AddressesPage;
 import pages.demoWebShop.DemoWebShop_HomePage;
 import pages.demoWebShop.DemoWebShop_LoginPage;
+import testcases.runner.Runner;
 
-public class TC08_DemoWebShop_CreateAddress {
+public class TC08_DemoWebShop_CreateAddress extends Runner {
 
     private static String username,password,firstName,lastName,email,company,country,city,province;
     private static String address1,address2,postalCode,phoneNumber,faxNumber;
@@ -20,9 +21,7 @@ public class TC08_DemoWebShop_CreateAddress {
 
     @BeforeClass
     public void preRequisites() throws Exception{
-        String projectPath = System.getProperty("user.dir");
         sheetName = "Demo_CreateAddress";
-        ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
         row = ExcelUtils.getRowNumber(Config.testID_Demo_CreateAddress, sheetName);
         username = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);

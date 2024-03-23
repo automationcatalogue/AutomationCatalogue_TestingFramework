@@ -9,8 +9,9 @@ import org.testng.annotations.*;
 import pages.orangeHRM.*;
 import pages.orangeHRM.OrangeHRM_HomePage;
 import pages.orangeHRM.OrangeHRM_LoginPage;
+import testcases.runner.Runner;
 
-public class TC05_OrangeHRM_Performance {
+public class TC05_OrangeHRM_Performance extends Runner {
 
     private static WebDriver driver;
     private static String userName, password, empName, description, appraisalCycle, newUserPassword, userPassword;
@@ -20,9 +21,7 @@ public class TC05_OrangeHRM_Performance {
 
     @BeforeClass
     public void preRequisites() throws Exception{
-        String projectPath = System.getProperty("user.dir");
         sheetName = "HRM_Performance";
-        ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
         row = ExcelUtils.getRowNumber(Config.testID_HRM_Performance, sheetName);
         userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);

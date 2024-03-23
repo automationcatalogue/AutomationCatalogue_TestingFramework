@@ -8,20 +8,18 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.orangeHRM.*;
+import testcases.runner.Runner;
 
-public class TC03_OrangeHRM_Reports_Analytics {
+public class TC03_OrangeHRM_Reports_Analytics extends Runner {
 
     public static WebDriver driver;
     public static String sheetName;
     public static String userName,password,reportType,folderType,reportName,displayFields;
     public static int row;
-    public static String projectPath;
 
     @BeforeClass
     public void preRequisites() throws Exception{
-        projectPath = System.getProperty("user.dir");
         sheetName = "HRM_Reports";
-        ExcelUtils.setExcelFilePath(projectPath + "//TestData//Automation_TestData.xlsx");
         row = ExcelUtils.getRowNumber(Config.testID_HRMReports, sheetName);
         userName = ExcelUtils.getCellData(sheetName, row, Config.col_UserName);
         password = ExcelUtils.getCellData(sheetName, row, Config.col_Password);
