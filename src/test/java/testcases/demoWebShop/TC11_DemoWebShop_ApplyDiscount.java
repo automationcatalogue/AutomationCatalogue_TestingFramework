@@ -6,6 +6,7 @@ import Utilities.Config;
 import Utilities.ExcelUtils;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.demoWebShop.*;
@@ -16,7 +17,7 @@ public class TC11_DemoWebShop_ApplyDiscount {
     private static String username, password, productCategory, discountCode, paymentInfo, cardholderName;
     private static String cardCode, creditCardNum, productName;
 
-    @BeforeMethod
+    @BeforeClass
     public void preRequisites() throws Exception{
         String projectPath = System.getProperty("user.dir");
         sheetName = "Demo_ApplyDiscount";
@@ -31,6 +32,10 @@ public class TC11_DemoWebShop_ApplyDiscount {
         cardholderName = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_CardHolderName);
         cardCode = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_CardCode);
         creditCardNum  = ExcelUtils.getCellData(sheetName, row, Config.col_ApplyDiscount_CardNumber);
+
+    }
+    @BeforeMethod
+    public void lauchURL() throws Exception{
 
         driver = CommonMethods.openBrowser();
         BaseClass ob = new BaseClass(driver);
